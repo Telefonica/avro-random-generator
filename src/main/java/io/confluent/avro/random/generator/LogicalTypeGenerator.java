@@ -6,11 +6,13 @@ import com.google.i18n.phonenumbers.Phonemetadata;
 import com.google.i18n.phonenumbers.Phonenumber;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.commons.text.RandomStringGenerator;
+import com.googlecode.ipv6.IPv6Address;
 import scala.collection.JavaConverters;
 import com.telefonica.baikal.utils.Validations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -233,6 +235,26 @@ public class LogicalTypeGenerator {
         List<String> mccs = JavaConverters.seqAsJavaList(Validations.mccList());
         String mcc = mccs.get(random.nextInt(mccs.size()));
         return mcc + digitsGenerator.generate(LogicalTypeGenerator.IMSI_LENGTH);
+      case "ipv4":
+        Random r = new Random();
+        return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
+      case "ipv6":
+        Random r2 = new Random();
+        return IPv6Address.fromBigInteger(BigInteger.valueOf(r2.nextInt(99999))).toString();
+      case "time-zone":
+        List<String> timezones = JavaConverters.seqAsJavaList(Validations.availableTimeZones());
+        return timezones.get(random.nextInt(timezones.size()));
+      default:
+        throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
+    }
+  }
+
+  public Double randomDouble(String logicalType, Map propertiesProp) {
+    switch (logicalType) {
+      case "latitude":
+        return -90 + random.nextInt(180)  + random.nextDouble();
+      case "longitude":
+        return -180 + random.nextInt(360) + random.nextDouble();
       default:
         throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
     }

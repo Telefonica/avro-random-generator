@@ -221,4 +221,59 @@ public class LogicalTypeGeneratorTest {
     assertTrue("Invalid decimal-string: " + value, Validations.tryParseDecimal(value).nonEmpty());
   }
 
+  @Test
+  public void shouldCreateValidTimezone() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/timezone.json");
+
+    String field = "timezone";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid timezone: " + value, Validations.isValidTimeZone(value));
+  }
+
+  @Test
+  public void shouldCreateValidIPv4() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/ipv4.json");
+
+    String field = "ip_address";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid ip_address v4: " + value, Validations.isValidIPv4(value));
+  }
+
+  @Test
+  public void shouldCreateValidIPv6() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/ipv6.json");
+
+    String field = "ip_address";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid ip_address v6: " + value, Validations.isValidIPv6(value));
+  }
+
+  @Test
+  public void shouldCreateValidLatitude() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/latitude.json");
+
+    String field = "latitude";
+    assertNotNull(record.get(field));
+    Double value = Double.valueOf(record.get(field).toString());
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid latitude: " + value, Validations.isValidLatitude(value));
+  }
+
+  @Test
+  public void shouldCreateValidLongitude() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/longitude.json");
+
+    String field = "longitude";
+    assertNotNull(record.get(field));
+    Double value = Double.valueOf(record.get(field).toString());
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid latitude: " + value, Validations.isValidLongitude(value));
+  }
+
 }
