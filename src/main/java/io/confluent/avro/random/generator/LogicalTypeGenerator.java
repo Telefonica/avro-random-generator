@@ -252,9 +252,9 @@ public class LogicalTypeGenerator {
   public Double randomDouble(String logicalType, Map propertiesProp) {
     switch (logicalType) {
       case "latitude":
-        return (-90 + random.nextInt(90) + random.nextDouble());
+        return -90 + random.nextInt(180)  + random.nextDouble();
       case "longitude":
-        return (-180 + random.nextInt(180) + random.nextDouble());
+        return -180 + random.nextInt(360) + random.nextDouble();
       default:
         throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
     }

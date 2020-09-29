@@ -1207,7 +1207,7 @@ public class Generator {
     LogicalType logicalType = schema.getLogicalType();
     if (logicalType != null) {
       result = logicalTypeGenerator.randomDouble(logicalType.getName(), propertiesProp);
-    }
+    } else result = random.nextDouble();
 
     Object rangeProp = propertiesProp.get(RANGE_PROP);
     if (rangeProp != null) {
@@ -1233,7 +1233,7 @@ public class Generator {
         ));
       }
     }
-    return random.nextDouble();
+    return result;
   }
 
   private GenericEnumSymbol generateEnumSymbol(Schema schema) {
