@@ -2,22 +2,14 @@
 
 version: '3.6'
 
-x-environment: &environment
-  - DATASET_ID
-  - DATASET_VERSION
-  - RECORDS
-  - DATASETS_IN
-  - DATASETS_EXTENSIONS_IN
-  - START_DATE
-  - END_DATE
-
 services:
   build-jar:
     build:
       context: .
       dockerfile: ./delivery/docker/Dockerfile
     command: bash -c "cd /opt/random-avro-generator && ./gradlew build && ./gradlew standalone"
-    environment: *environment
+    env_file:
+      - docker-compose.env
     volumes:
       - .:/opt/random-avro-generator:delegated
   avro-generator:
@@ -28,7 +20,8 @@ services:
         - baikaldev.azurecr.io/buildkite/baikal-services:master
 
     command: ./scripts/build-data.sh
-    environment: *environment
+    env_file:
+      - docker-compose.env
     volumes:
       - .:/opt/random-avro-generator:delegated
       - ./samples/out:/datasets-out
