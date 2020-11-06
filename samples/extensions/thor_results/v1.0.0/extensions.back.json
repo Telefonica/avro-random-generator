@@ -1,0 +1,98 @@
+{
+    "namespace": "com.telefonica",
+    "x-fp-version": "2.0.0",
+    "x-fp-avro4p-version": "1.0",
+    "type": "record",
+    "name": "thor_results",
+    "doc": "A basic schema for representing Thor results",
+    "fields": [
+        {
+            "name": "TIMESTAMP",
+            "type": {
+                "type": "string",
+                "logicalType": "datetime",
+                "arg.properties": {
+                    "options": [
+                        "2020-10-01T00:00:00Z"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "DATASET_ID",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "Dynamic_Results"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "DATASET_VERSION",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "1.0.0"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "FIELDS",
+            "type": [
+                "null",
+                {
+                    "type": "array",
+                    "items": "string",
+                    "arg.properties": {
+                        "options": [
+                            [
+                                "PREV_SUBSCRIBER_ID"
+                            ]
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "FILTER_DATE",
+            "type": [
+                "null",
+                {
+                    "type": "string",
+                    "logicalType": "datetime",
+                    "arg.properties": {
+                        "options": [
+                            "2020-09-01T00:00:00Z"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "METRIC_NAME",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "dynamic_PREV_SUBSCRIBER_ID-null_distribution_by_MOVEMENT_TYPE_distribution"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "METRIC_VALUE",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "[{\"name\":\"ID_LOCAL_GBL=1\",\"result\":5473},{\"name\":\"ID_LOCAL_GBL=2\",\"result\":35},{\"name\":\"ID_LOCAL_GBL=3\",\"result\":69}]"
+                    ]
+                }
+            }
+        }
+    ]
+}

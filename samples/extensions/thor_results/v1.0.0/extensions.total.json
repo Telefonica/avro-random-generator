@@ -1,0 +1,104 @@
+{
+    "namespace": "com.telefonica",
+    "x-fp-version": "2.0.0",
+    "x-fp-avro4p-version": "1.0",
+    "type": "record",
+    "name": "thor_results",
+    "doc": "A basic schema for representing Thor results",
+    "fields": [
+        {
+            "name": "TIMESTAMP",
+            "type": {
+                "type": "string",
+                "logicalType": "datetime",
+                "arg.properties": {
+                    "options": [
+                        "2020-10-01T00:00:00Z"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "DATASET_ID",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "Dynamic_Results"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "DATASET_VERSION",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "1.0.0"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "FIELDS",
+            "type": [
+                "null",
+                {
+                    "type": "array",
+                    "items": "string",
+                    "arg.properties": {
+                        "options": [
+                            [
+                                "PREV_SUBSCRIBER_ID"
+                            ]
+                        ]
+                    }
+                }
+            ],
+            "arg.properties": {
+                "position": 0
+            }
+        },
+        {
+            "name": "FILTER_DATE",
+            "type": [
+                "null",
+                {
+                    "type": "string",
+                    "logicalType": "datetime",
+                    "arg.properties": {
+                        "options": [
+                            "2020-09-01T00:00:00Z"
+                        ]
+                    }
+                }
+            ],
+            "arg.properties": {
+                "position": 1
+            }
+        },
+        {
+            "name": "METRIC_NAME",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "total_count"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "METRIC_VALUE",
+            "type": {
+                "type": "string",
+                "arg.properties": {
+                    "options": [
+                        "20000"
+                    ]
+                }
+            }
+        }
+    ]
+}

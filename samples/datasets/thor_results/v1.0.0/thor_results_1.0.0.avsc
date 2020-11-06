@@ -1,0 +1,53 @@
+{
+    "namespace": "com.telefonica",
+    "x-fp-version": "2.0.0",
+    "x-fp-avro4p-version": "1.0",
+    "type": "record",
+    "name": "thor_results",
+    "doc": "A basic schema for representing Thor results",
+    "fields": [
+        {
+            "name": "TIMESTAMP",
+            "type": {
+                "type": "string",
+                "logicalType": "datetime"
+            }
+        },
+        {
+            "name": "DATASET_ID",
+            "type": "string"
+        },
+        {
+            "name": "DATASET_VERSION",
+            "type": "string"
+        },
+        {
+            "name": "FIELDS",
+            "type": [
+                "null",
+                {
+                    "type": "array",
+                    "items": "string"
+                }
+            ]
+        },
+        {
+            "name": "FILTER_DATE",
+            "type": [
+                "null",
+                {
+                    "type": "string",
+                    "logicalType": "datetime"
+                }
+            ]
+        },
+        {
+            "name": "METRIC_NAME",
+            "type": "string"
+        },
+        {
+            "name": "METRIC_VALUE",
+            "type": "string"
+        }
+    ]
+}

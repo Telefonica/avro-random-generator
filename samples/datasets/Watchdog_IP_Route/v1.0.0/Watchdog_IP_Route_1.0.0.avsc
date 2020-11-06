@@ -1,0 +1,76 @@
+{
+  "namespace": "com.telefonica",
+  "x-fp-version": "1.0.0",
+  "x-fp-avro4p-version": "1.0",
+  "type": "record",
+  "name": "Watchdog_IP_Route",
+  "doc": "A basic schema for representing Thor results",
+  "fields": [
+    {
+      "name": "OPERATOR_ID",
+      "type": "string"
+    },
+    {
+      "name": "DAY_DT",
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date"
+      }
+    },
+    {
+      "name": "DEVICE_ID",
+      "type": "string"
+    },
+    {
+      "name": "TIMESTAMP_TM",
+      "type": {
+        "type": "string",
+        "logicalType": "datetime"
+      }
+    },
+    {
+      "name": "DESTINATION_DES",
+      "type": "string"
+    },
+    {
+      "name": "GATEWAY_DES",
+      "type": "string"
+    },
+    {
+      "name": "GEN_MASK_DES",
+      "type": "string"
+    },
+    {
+      "name": "FLAGS_DES",
+      "type": "string"
+    },
+    {
+      "name": "METRIC_NUM",
+      "type": "int"
+    },
+    {
+      "name": "REFERENCES_NUM",
+      "type": "int"
+    },
+    {
+      "name": "USE_COUNT_NUM",
+      "type": "int"
+    },
+    {
+      "name": "INTERFACE_DES",
+      "type": "string"
+    },
+    {
+      "name": "USER_4P_ID",
+      "type": "string"
+    },
+    {
+      "name": "PHONE_WITH_PREFIX_ID",
+      "type": {
+        "type": "string",
+        "logicalType": "phone-number",
+        "x-fp-identifier": "phone-number"
+      }
+    }
+  ]
+}
