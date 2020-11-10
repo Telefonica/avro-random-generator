@@ -50,8 +50,7 @@ docker build -t telefonica/avro-random-generator:0.1.0 -f delivery/docker/Docker
 
 ### Docker Compose
 
-Before running the scripts, you must create a `.env` file and setup there some
-configurations. First of all, copy the `.env.template` file to `.env`:
+Before running the scripts, you must fill the required environment vars at the `docker-compose.env`:
 
 ```
 docker-compose run build-jar
