@@ -57,6 +57,8 @@ docker-compose run build-jar
 docker-compose run avro-generator
 ```
 
+> EXTENSION_FLAVOUR environment var can be used in order switch between different datasets' extensions 
+
 ## CLI Usage
 
 <pre>
