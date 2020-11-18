@@ -1522,10 +1522,9 @@ public class Generator {
 
       if (Math.abs(1.0 - wholeProb) > Double.MIN_NORMAL) {
         throw new RuntimeException(String.format(
-            "all probabilities of %s property must sum 1 at %s: %f",
+            "all probabilities of %s property must sum 1 at %s: " + Math.abs(1.0 - wholeProb),
             DISTRIBUTION_PROP,
-            schema.getName(),
-            wholeProb
+            schema.getName()
         ));
       }
 
