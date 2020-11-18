@@ -1522,8 +1522,10 @@ public class Generator {
 
       if (wholeProb != 1.) {
         throw new RuntimeException(String.format(
-            "all probabilities of %s property must sum 1",
-            DISTRIBUTION_PROP
+            "all probabilities of %s property must sum 1 at %s: %f",
+            DISTRIBUTION_PROP,
+            schema.getName(),
+            wholeProb
         ));
       }
 
