@@ -19,6 +19,19 @@ public class CustomExtensionsGeneratorTest {
   @Rule
   public ExpectedException exceptionRule = ExpectedException.none();
 
+
+  private static boolean isInt(String number) {
+    if (number == null) {
+      return false;
+    }
+    try {
+      Integer.parseInt(number);
+    } catch (NumberFormatException nfe) {
+      return false;
+    }
+    return true;
+  }
+
   @Test
   public void shouldCreateUnionWithPosition0() {
     GenericRecord record = generateRecordWithSchema("test-schemas/extensions/unions-position-0.json");
@@ -59,6 +72,25 @@ public class CustomExtensionsGeneratorTest {
     exceptionRule.expect(RuntimeException.class);
     exceptionRule.expectMessage("all probabilities of distribution property must sum 1");
     generateRecordWithSchema("test-schemas/extensions/unions-distribution-error.json");
+  }
+
+  @Test
+  public void shouldNotFailWith3ValuesInUnion() {
+
+    Generator generator = builderWithSchema("test-schemas/extensions/3-unions-distribution.json");
+
+    GenericRecord record;
+    List<Object> results = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      Object col = record.get("nullable_col");
+      if (col != null && isInt(col.toString())) {
+        results.add(col);
+      }
+    }
+
+    assertEquals("Wrong union distribution", 0.8, ((double) results.size()) / 100, 0.1);
+
   }
 
   @Test
