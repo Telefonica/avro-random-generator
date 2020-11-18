@@ -1520,7 +1520,7 @@ public class Generator {
         wholeProb += typeProb;
       }
 
-      if (Math.abs(1.0 - wholeProb) > Double.MIN_NORMAL) {
+      if (Math.abs(1.0 - wholeProb) > 0.01) {
         throw new RuntimeException(String.format(
             "all probabilities of %s property must sum 1 at %s: " + Math.abs(1.0 - wholeProb),
             DISTRIBUTION_PROP,
