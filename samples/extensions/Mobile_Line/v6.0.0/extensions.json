@@ -1,0 +1,75 @@
+{
+	"namespace": "com.telefonica.urm.Customer.Mobile",
+	"name": "Mobile_Line",
+	"type": "record",
+	"doc": "All Contract and Prepaid lines (including additional lines of customers with multisim) per month indicated on MONTH_DT: Active park and non active on the last day of the month, plus cancellations during the month. Every extension (in the case of multiSIM) must be considered as a line. Official business and consolidation criteria are expected to be applied (such as 'official active base' flag).",
+	"x-fp-version": "5.9.0",
+	"x-fp-avro4p-version": "1.1",
+	"fields": [
+    {
+      "name": "MONTH_DT",
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date",
+        "arg.properties": {
+          "range": {
+            "start": "2020-09-01",
+            "end": "2020-09-02"
+          }
+        }
+      }
+    },
+    {
+      "name": "MSISDN_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})"
+        }
+      }
+    },
+    {
+      "name": "LINE_STATUS_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": {
+            "file": "/home/4p-datasets/utils/4p-dataset-generator/extensions/line-status-ids.json",
+            "encoding": "json"
+          }
+        }
+      }
+    },
+    {
+      "name": "USER_4P_ID",
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "arg.properties": {
+          "iteration": {
+            "start": "${ITERATION_STEP}"
+          }
+        }
+      }
+    },
+    {
+      "name": "MSISDN_WITH_PREFIX_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-identifier": "phone-number",
+          "arg.properties": {
+            "unique": true,
+            "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+            "prefix": "+34"
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    }
+  ]
+}
