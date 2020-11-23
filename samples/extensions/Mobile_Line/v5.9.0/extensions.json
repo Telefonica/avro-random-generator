@@ -29,18 +29,6 @@
       }
     },
     {
-      "name": "LINE_STATUS_ID",
-      "type": {
-        "type": "string",
-        "arg.properties": {
-          "options": {
-            "file": "/home/4p-datasets/utils/4p-dataset-generator/extensions/line-status-ids.json",
-            "encoding": "json"
-          }
-        }
-      }
-    },
-    {
       "name": "USER_4P_ID",
       "type": {
         "type": "string",
