@@ -1,0 +1,164 @@
+{
+  "type": "record",
+  "name": "qa_not_informed_malformed_pseudo_pi",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Schema with personal information and NotInformed, malformed, pseudonimized fields",
+  "fields": [
+    {
+      "name": "user",
+      "type": [
+        {
+          "type": "string",
+          "x-fp-user-id": true
+        },
+        {
+          "type": "enum",
+          "name": "NOT_INFORMED",
+          "namespace": "com.telefonica",
+          "doc": "Field not informed",
+          "symbols": [
+            "NotInformed"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NAME",
+      "type": [
+        {
+          "type": "map",
+          "values": {
+            "name": "Data",
+            "type": "record",
+            "fields": [
+              {
+                "name": "STRING_FIELD_INSIDE",
+                "type":[
+                  "string",
+                  "com.telefonica.NOT_INFORMED"
+                ]
+              },
+              {
+                "name": "value",
+                "type": [
+                  "int",
+                  "com.telefonica.NOT_INFORMED"
+                ]
+              }
+            ]
+          }
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Map field"
+    },
+    {
+      "name": "GENRE",
+      "type": [
+        {
+          "type": "enum",
+          "name": "GENRE",
+          "symbols": [
+            "Male",
+            "Female"
+          ]
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Two enum"
+    },
+    {
+      "name": "LAST_BILL",
+      "type": [
+        {
+          "type": "double"
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "double field"
+    },
+    {
+      "name": "NEXT_BILLS",
+      "aliases": [
+        "next_bills"
+      ],
+      "type":  [
+        {
+          "type": "array",
+          "items": {
+            "name": "NEXT_BILL",
+            "type": "record",
+            "fields": [
+              {
+                "name": "id",
+                "type": [
+                  {
+                    "type": "string"
+                  },
+                  "com.telefonica.NOT_INFORMED"
+                ]
+              },
+              {
+                "name": "value",
+                "type": [
+                  {
+                    "type": "double"
+                  },
+                  "com.telefonica.NOT_INFORMED"
+                ]
+              }
+            ]
+          }
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Array field with alias"
+    },
+    {
+      "name": "PREFIX",
+      "aliases": [
+        "prefix"
+      ],
+      "type": [
+        "bytes",
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Bytes fields"
+    },
+    {
+      "name": "PHONE_NUMBER",
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-identifier": "phone-number"
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Logical type field"
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "country-code-alpha-2"
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Logical type"
+    },
+    {
+      "name": "DATE",
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "iso-date"
+        },
+        "com.telefonica.NOT_INFORMED"
+      ],
+      "doc": "Logical type"
+    }
+  ],
+  "x-fp-version": "1.0.0"
+}

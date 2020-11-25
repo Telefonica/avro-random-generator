@@ -1,0 +1,91 @@
+{
+  "type": "record",
+  "name": "qa_d_null_partitioned_date_time",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Description of sales channels (online channel, call center, etc.): The specific mechanism that Customers, Providers and Organizations use to interact, conduct business or obtain information about a product or service. \n A Channel identifies each possible link where interaction with the Communications Service Provider",
+  "fields": [
+    {
+      "name": "DATE",
+      "aliases": [
+        "date"
+      ],
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "iso-date"
+        },
+        "null"
+      ],
+      "doc": "An ISO date string, by example 2019-10-24"
+    },
+    {
+      "name": "TIME",
+      "aliases": [
+        "time"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "time"
+      },
+      "doc": "An ISO time string, by example 16:18:05"
+    },
+    {
+      "name": "OPERATOR_ID",
+      "type": [
+        "string",
+        "null"
+      ],
+      "doc": "Global Operator Identifier"
+    },
+    {
+      "name": "CHANNEL_ID",
+      "type": "string",
+      "doc": "Identifier of the sales channel"
+    },
+    {
+      "name": "CHANNEL_NAME",
+      "type": "string",
+      "doc": "Description / Name of the sales channel (online channel, call center, etc.)"
+    },
+    {
+      "name": "GBL_CHANNEL_CD",
+      "type": [
+        {
+          "name": "GBL_CHANNEL_CD_ENUM",
+          "type": "enum",
+          "symbols": [
+            "Unknown",
+            "NonPresential",
+            "Presential",
+            "Other"
+          ]
+        },
+        "null"
+      ],
+      "doc": "Global identifier of the sales channel"
+    },
+    {
+      "name": "IPV6",
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "ipv6"
+        },
+        "null"
+      ],
+      "doc": "Logical type"
+    },
+    {
+      "name": "LATITUDE",
+      "type": [
+        {
+          "type": "double",
+          "logicalType": "latitude"
+        },
+        "null"
+      ],
+      "doc": "Logical type"
+    }
+  ],
+  "x-fp-version": "1.0.0"
+}
