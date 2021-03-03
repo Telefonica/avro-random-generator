@@ -121,7 +121,7 @@ public class LogicalTypeGenerator {
 
         java.sql.Timestamp isoDateTimeStart = Validations.tryParseDatetime((Optional.ofNullable(dateRangeProps.get(DATE_RANGE_PROP_START))
             .map(Object::toString)
-            .orElse(DEFAULT_START_DATE_TIME)))
+            .orElse(DEFAULT_START_DATE_TIME)), false)
             .getOrElse(() -> {
               throw new IllegalArgumentException(String.format(
                   "Invalid iso date at field '%s' in %s property",
@@ -131,7 +131,7 @@ public class LogicalTypeGenerator {
             });
         java.sql.Timestamp isoDateTimeEnd = Validations.tryParseDatetime((Optional.ofNullable(dateRangeProps.get(DATE_RANGE_PROP_END))
             .map(Object::toString)
-            .orElse(DEFAULT_END_DATE_TIME)))
+            .orElse(DEFAULT_END_DATE_TIME)), false)
             .getOrElse(() -> {
               throw new IllegalArgumentException(String.format(
                   "Invalid iso date at field '%s' in %s property",

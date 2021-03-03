@@ -163,7 +163,7 @@ dependencies {
 
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
-    compile group: 'com.telefonica.baikal', name: 'spark-commons_2.12', version: '0.6.0-BETA1'
+    compile group: 'com.telefonica.baikal', name: 'spark-commons_2.12', version: '0.6.0-RC0'
 
     compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.11.5'
 

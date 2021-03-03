@@ -1,9 +1,7 @@
 package io.confluent.avro.random.generator;
 
 import com.telefonica.baikal.utils.Validations;
-import io.confluent.avro.random.generator.util.ResourceUtil;
 import org.apache.avro.generic.GenericRecord;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static io.confluent.avro.random.generator.util.ResourceUtil.builderWithSchema;
