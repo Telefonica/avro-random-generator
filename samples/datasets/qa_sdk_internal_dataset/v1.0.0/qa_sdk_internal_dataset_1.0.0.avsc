@@ -1,0 +1,43 @@
+{
+  "namespace": "com.telefonica.baikal.qa",
+  "type": "record",
+  "x-fp-version": "1.0.0",
+  "name": "qa_sdk_internal_dataset",
+  "doc": "Schema for QA SDK Internal",
+  "fields": [
+    {
+      "name": "USER_ID",
+      "type": "string"
+    },
+    {
+      "name": "SUB",
+      "type": "int"
+    },
+    {
+      "name": "PHONE_NUMBER",
+      "type": {
+        "type": "string",
+        "logicalType": "phone-number"
+      }
+    },
+    {
+      "name": "COUNTRY",
+      "type": {
+        "type": "string",
+        "logicalType": "country-code-alpha-2"
+      }
+    },
+    {
+      "name": "AGE",
+      "type": "int"
+    },
+    {
+      "name": "INVOICE_TOTAL_AMOUNT",
+      "type": "double"
+    },
+    {
+      "name": "DESCRIPTION",
+      "type": "string"
+    }
+  ]
+}
