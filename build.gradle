@@ -165,7 +165,8 @@ dependencies {
 
     compile group: 'com.telefonica.baikal', name: 'spark-commons_2.12', version: '0.6.2'
 
-    compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.11.5'
+    // XXX: custom lib with performance improvements: https://github.com/Telefonica/libphonenumber-1
+    compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.25-4p'
 
     compile group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 
