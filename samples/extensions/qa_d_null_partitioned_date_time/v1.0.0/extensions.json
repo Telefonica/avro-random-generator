@@ -1,0 +1,105 @@
+{
+  "type": "record",
+  "name": "qa_d_null_partitioned_date_time",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Description of sales channels (online channel, call center, etc.): The specific mechanism that Customers, Providers and Organizations use to interact, conduct business or obtain information about a product or service. \n A Channel identifies each possible link where interaction with the Communications Service Provider",
+  "fields": [
+    {
+      "name": "DATE",
+      "type": [
+        {
+          "type": "string",
+          "logicalType": "iso-date",
+          "arg.properties": {
+            "range": {
+                "start": "2020-11-01",
+                "end": "2020-11-04"
+            }                     
+          }          
+        },
+        "null"
+      ],
+      "arg.properties": {
+        "distribution": {
+            "0": 0.9,
+            "1": 0.1
+        }
+      },      
+      "doc": "An ISO date string, by example 2019-10-24"
+    },
+    {
+      "name": "TIME",
+
+      "type": {
+        "type": "string",
+        "logicalType": "time",
+        "arg.properties": {
+          "options": [
+            "11:11:11Z",
+            "16:18:05Z"
+          ],
+          "distribution": {
+            "0": 0.6,
+            "1": 0.4
+          }                     
+        }          
+      },     
+      "doc": "An ISO time string, by example 16:18:05"
+    },
+    {
+      "name": "OPERATOR_ID",
+      "type": [
+        "string",
+        "null"
+      ],
+      "arg.properties": {
+        "distribution": {
+            "0": 0.9,
+            "1": 0.1
+        }
+      },       
+      "doc": "Global Operator Identifier"
+    },
+    {
+      "name": "GBL_CHANNEL_CD",
+      "type": [
+        {
+          "name": "GBL_CHANNEL_CD_ENUM",
+          "type": "enum",
+          "symbols": [
+            "Unknown",
+            "NonPresential",
+            "Presential",
+            "Other"
+          ]
+        },
+        "null"
+      ],
+      "arg.properties": {
+        "distribution": {
+            "0": 0.8,
+            "1": 0.2
+        }
+      },       
+      "doc": "Global identifier of the sales channel"
+    },
+    {
+      "name": "LATITUDE",
+      "type": [
+        {
+          "type": "double",
+          "logicalType": "latitude"
+        },
+        "null"
+      ],
+      "arg.properties": {
+        "distribution": {
+            "0": 0.9,
+            "1": 0.1
+        }
+      },       
+      "doc": "Logical type"
+    }
+  ],
+  "x-fp-version": "1.0.0"
+}

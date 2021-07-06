@@ -1,0 +1,303 @@
+{
+    "namespace": "com.telefonica.baikal.qa",
+    "x-fp-version": "1.0.0",
+    "type": "record",
+    "name": "qa_null_data",
+    "doc": "Schema with personal information and NotInformed, malformed, pseudonimized, null fields",
+    "fields": [
+        {
+            "name": "user",
+            "type": [
+                {
+                    "type": "string",
+                    "x-fp-user-id": true,
+                    "arg.properties": {
+                        "iteration": {
+                            "start": "${ITERATION_STEP}"
+                        }
+                    }
+                },
+                {
+                    "type": "enum",
+                    "name": "NOT_INFORMED",
+                    "namespace": "com.telefonica",
+                    "doc": "Field not informed",
+                    "symbols": [
+                        "NotInformed"
+                    ]
+                }                
+            ],
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            }
+        },        
+        {
+            "name": "NAME",
+            "type": [
+                {
+                    "type": "map",
+                    "arg.properties": {
+                        "length": 5,
+                        "keys": {
+                            "options": [
+                                "first"
+                            ]
+                        }
+                    },
+                    "values": {
+                        "name": "Data",
+                        "type": "record",
+                        "fields": [
+                            {
+                                "name": "STRING_FIELD_INSIDE",
+                                "type": [
+                                    {
+                                        "type": "string",
+                                        "arg.properties": {
+                                            "regex": "[a-zA-Z]{0,15}",
+                                            "length": {
+                                                "min": 5
+                                            },                                            
+                                            "kind": "name"
+                                        }
+                                    },
+                                    "com.telefonica.NOT_INFORMED"
+                                ],
+                                "arg.properties": {
+                                    "distribution": {
+                                        "0": 0.9,
+                                        "1": 0.1
+                                    }
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": [
+                                    "int",
+                                    "null",
+                                    "com.telefonica.NOT_INFORMED"
+                                ],
+                                "arg.properties": {
+                                    "distribution": {
+                                        "0": 0.7,
+                                        "1": 0.2,
+                                        "2": 0.1
+                                    },
+                                    "range" : {
+                                        "min": 0,
+                                        "max": 100
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "com.telefonica.NOT_INFORMED"
+            ],
+            "arg.properties": {
+                "position": 0
+            }
+        },
+        {
+            "name": "GENRE",
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.7,
+                    "1": 0.1,
+                    "2": 0.2
+                }
+            }
+        },
+        {
+            "name": "LAST_BILL",
+            "arg.properties": {
+                "position": 0,
+                "range": {
+                    "min": 0,
+                    "max": 100
+                },
+                "distribution": {
+                    "0": 0.7,
+                    "1": 0.2,
+                    "2": 0.1
+                }                
+            }
+        },
+        {
+            "name": "PREFIX",
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.7,
+                    "1": 0.2,
+                    "2": 0.1
+                }
+            },            
+            "doc": "Bytes field"
+        },        
+        {
+            "name": "NEXT_BILLS",
+            "type": [
+                {
+                    "type": "array",
+                    "arg.properties": {
+                        "length": 1
+                    },
+                    "items": {
+                        "name": "NEXT_BILL",
+                        "type": "record",
+                        "fields": [
+                            {
+                                "name": "id",
+                                "type": [
+                                    {
+                                        "type": "string",
+                                        "arg.properties": {
+                                            "kind": "uuid"
+                                        }
+                                    },
+                                    "com.telefonica.NOT_INFORMED"
+                                ],
+                                "arg.properties": {
+                                    "distribution": {
+                                        "0": 0.9,
+                                        "1": 0.1
+                                    }
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": [
+                                    {
+                                        "type": "double"
+                                    },
+                                    "com.telefonica.NOT_INFORMED"
+                                ],
+                                "arg.properties": {
+                                    "distribution": {
+                                        "0": 0.9,
+                                        "1": 0.1
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "null",
+                "com.telefonica.NOT_INFORMED"
+            ],
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.7,
+                    "1": 0.2,
+                    "2": 0.1
+                }
+            }
+        },
+        {
+            "name": "PHONE_NUMBER",
+            "type": [
+                {
+                    "type": "string",
+                    "logicalType": "phone-number",
+                    "x-fp-identifier": "phone-number",
+                    "arg.properties": {
+                        "malformed-rate": 0.1                    
+                    }                                       
+                },
+                "com.telefonica.NOT_INFORMED"
+            ],            
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            }
+        },
+        {
+            "name": "COUNTRY_CODE",
+            "type": [
+                {
+                    "type": "string",
+                    "logicalType": "country-code-alpha-2",
+                    "arg.properties": {
+                        "malformed-rate": 0.1                    
+                    }                     
+                },
+                "com.telefonica.NOT_INFORMED"
+            ],            
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            }
+        },
+        {
+            "name": "DATE",
+            "type": [
+                {
+                    "type": "string",
+                    "logicalType": "iso-date",
+                    "arg.properties": {
+                        "malformed-rate": 0.1,
+                        "range": {
+                            "start": "2020-11-01",
+                            "end": "2020-11-04"
+                        }                     
+                    }
+                },
+                "com.telefonica.NOT_INFORMED"
+            ],            
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            }
+        },
+        {
+            "name": "IPV6",
+            "type": [
+                {
+                    "type": "string",
+                    "logicalType": "ipv6",
+                    "arg.properties": {
+                        "malformed-rate": 0.1                    
+                    }                     
+                },
+                "com.telefonica.NOT_INFORMED"
+            ],            
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            }
+        },
+        {
+            "name": "LATITUDE",
+            "type": [
+                {
+                    "type": "double",
+                    "logicalType": "latitude",
+                    "arg.properties": {
+                        "malformed-rate": 0.1                    
+                    }                        
+                },
+                "null",
+                "com.telefonica.NOT_INFORMED"
+            ],            
+            "arg.properties": {
+                "distribution": {
+                    "0": 0.8,
+                    "1": 0.1,
+                    "2": 0.1
+
+                }
+            }
+        }
+    ]
+}
