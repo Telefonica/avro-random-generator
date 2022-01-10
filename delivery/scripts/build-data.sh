@@ -17,6 +17,7 @@ ARG_DEFS=(
   "--records=(.*)"
   "--datasets-in=(.*)"
   "--datasets-extensions-in=(.*)"
+  "[--file-prefix=(.*)]"
   "[--num-files=(.*)]"
   "[--show=(true|false)]"
   "[--max-threads=(.*)]"
@@ -36,6 +37,7 @@ function init() {
   export END_DATE=${END_DATE:-$(date -I -d "${START_DATE} + 1 day")}
   export END_DATE=$(date -I -d "$END_DATE") || (echo "worng end date format"; exit -1)
   export EXTENSION_FLAVOUR=${EXTENSION_FLAVOUR:-""}
+  export FILE_PREFIX=${FILE_PREFIX:-"1"}
 }
 
 function run() {
@@ -64,7 +66,7 @@ function run() {
       if [ "${SHOW}" = "true" ]; then
         ARGS="-j -p"
       else
-        out="${out_dir}/${DATASET_ID}.${counter}_${DATE_RANGE_START}.avro"
+        out="${out_dir}/${DATASET_ID}.${FILE_PREFIX}.${counter}_${DATE_RANGE_START}.avro"
         touch $out
         ARGS="-b -o ${out}"
       fi
