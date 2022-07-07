@@ -50,7 +50,7 @@ function run() {
   mkdir -p ${out_schemas_dir}
 
   local schema_orig=$(cat ${DATASETS_IN}/${DATASET_ID}/v${DATASET_VERSION}/${DATASET_ID}_${DATASET_VERSION}.avsc)
-  local schema_extension=$(cat ${DATASETS_EXTENSIONS_IN}/${DATASET_ID}/v${DATASET_VERSION}/extensions/${EXTENSION_FLAVOUR}.json || (true ; echo "{}"))
+  local schema_extension=$(cat ${DATASETS_EXTENSIONS_IN}/${DATASET_ID}/v${DATASET_VERSION}/extensions${EXTENSION_FLAVOUR}.json || (true ; echo "{}"))
   local merged_schema_path="${out_schemas_dir}/merged_schema.json"
   python3 lib/merge-schemas.py -s "$schema_orig" -e "$schema_extension" --out "${merged_schema_path}"
 
