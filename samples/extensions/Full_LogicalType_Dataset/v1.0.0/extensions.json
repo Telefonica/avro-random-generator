@@ -1,0 +1,62 @@
+{
+  "namespace": "com.telefonica.baikal.qa",
+  "name": "Full_LogicalType_Dataset",
+  "type": "record",
+  "doc": "MOCK",
+  "x-fp-version": "1.0.0",
+  "fields": [
+      {
+          "name": "USER_ID",
+          "type": {
+            "type": "string",
+            "x-fp-user-id": true,
+            "x-fp-data-protection": "pseudonymize",
+            "arg.properties": {
+              "iteration": {
+                "start": "${ITERATION_STEP}"
+              }
+            }
+          }
+        },
+        {
+          "name": "PHONE_NUMBER",
+          "type": {
+            "type": "string",
+            "logicalType": "phone-number",
+            "x-fp-data-protection": "pseudonymize",
+            "arg.properties": {
+                "unique": true,
+                "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+                "prefix": "+34"
+            }
+          }
+      },
+      {
+          "name": "DATE",
+          "type": {
+              "type": "string",
+              "logicalType": "iso-date",
+              "arg.properties": {
+                  "range": {
+                      "start": "${DATE_RANGE_START}",
+                      "end": "${DATE_RANGE_END}"
+                  }
+              }
+          }
+      },
+      {
+          "name": "DATETIME",
+          "type": {
+              "type": "string",
+              "logicalType": "datetime",
+              "arg.properties": {
+                  "range": {
+                      "start": "${DATE_RANGE_START}T00:00:00Z",
+                      "end": "${DATE_RANGE_END}T00:00:00Z"
+                  }
+              }
+          },
+          "doc": "Timestamp of the data."
+      }
+  ]
+}
