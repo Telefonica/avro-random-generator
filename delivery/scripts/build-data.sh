@@ -44,7 +44,7 @@ function run() {
   local out_dir="/datasets-out/${DATASET_ID}/${DATASET_VERSION}"
   rm -rf $out_dir || true
   mkdir -p $out_dir
-  
+
   local out_schemas_dir="$out_dir/schemas"
   rm -rf ${out_schemas_dir} || true
   mkdir -p ${out_schemas_dir}
@@ -56,7 +56,7 @@ function run() {
 
 
   export DATE_RANGE_START="${START_DATE}"
-  while [ "${DATE_RANGE_START}" != "${END_DATE}" ]; do 
+  while [ "${DATE_RANGE_START}" != "${END_DATE}" ]; do
     export DATE_RANGE_END=$(date -I -d "${DATE_RANGE_START} + 1 day")
 
     local counter=0

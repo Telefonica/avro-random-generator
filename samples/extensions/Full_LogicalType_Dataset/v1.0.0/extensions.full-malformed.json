@@ -1,0 +1,170 @@
+{
+	"namespace": "com.telefonica.baikal.qa",
+	"name": "Full_LogicalType_Dataset",
+	"type": "record",
+	"doc": "MOCK",
+	"x-fp-version": "1.0.0",
+	"fields": [{
+			"name": "USER_ID",
+			"type": {
+				"type": "string",
+				"x-fp-user-id": true,
+				"x-fp-data-protection": "pseudonymize",
+				"arg.properties": {
+					"iteration": {
+						"start": "${ITERATION_STEP}"
+					}
+				}
+			}
+		},
+		{
+			"name": "PHONE_NUMBER",
+			"type": {
+				"type": "string",
+				"logicalType": "phone-number",
+				"x-fp-data-protection": "pseudonymize",
+				"arg.properties": {
+					"unique": true,
+					"regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+					"prefix": "+34",
+					"malformed-rate": 0.6
+				}
+			}
+		},
+		{
+			"name": "DATE",
+			"type": {
+				"type": "string",
+				"logicalType": "iso-date",
+				"arg.properties": {
+					"range": {
+						"start": "${DATE_RANGE_START}",
+						"end": "${DATE_RANGE_END}"
+					},
+					"malformed-rate": 0.25
+				}
+			}
+		},
+		{
+			"name": "IMSI",
+			"type": {
+				"type": "string",
+				"logicalType": "imsi",
+				"arg.properties": {
+					"malformed-rate": 0.3
+				}
+			}
+		}, {
+			"name": "IMEI",
+			"type": {
+				"type": "string",
+				"logicalType": "imei",
+				"arg.properties": {
+					"malformed-rate": 0.1
+				}
+			}
+		},
+		{
+			"name": "DATETIME",
+			"type": {
+				"type": "string",
+				"logicalType": "datetime",
+				"arg.properties": {
+					"range": {
+						"start": "${DATE_RANGE_START}T00:00:00Z",
+						"end": "${DATE_RANGE_END}T00:00:00Z"
+					},
+					"malformed-rate": 0.1
+				}
+			}
+		}, {
+			"name": "CURRENCY_CODE",
+			"type": {
+				"type": "string",
+				"logicalType": "currency-code-alpha",
+				"arg.properties": {
+					"malformed-rate": 0.01
+				}
+			}
+		}, {
+			"name": "GENRE",
+			"type": {
+				"type": "enum",
+				"name": "GENRE",
+				"symbols": ["Male", "Female"]
+			}
+		}, {
+			"name": "COUNTRY_CODE_2",
+			"type": {
+				"type": "string",
+				"logicalType": "country-code-alpha-2",
+				"arg.properties": {
+					"malformed-rate": 0.432
+				}
+			}
+		}, {
+			"name": "COUNTRY_CODE_3",
+			"type": {
+				"type": "string",
+				"logicalType": "country-code-alpha-3",
+				"arg.properties": {
+					"malformed-rate": 0.2
+				}
+			}
+		}, {
+			"name": "CURRENCY_CODE_NUMERIC",
+			"type": {
+				"type": "string",
+				"logicalType": "currency-code-numeric",
+				"arg.properties": {
+					"malformed-rate": 0.99
+				}
+			}
+		}, {
+			"name": "DURATION",
+			"type": {
+				"type": "string",
+				"logicalType": "duration",
+				"arg.properties": {
+					"malformed-rate": 0.75
+				}
+			}
+		}, {
+			"name": "IPV4",
+			"type": {
+				"type": "string",
+				"logicalType": "ipv4",
+				"arg.properties": {
+					"malformed-rate": 0.001
+				}
+			}
+		}, {
+			"name": "IPV6",
+			"type": {
+				"type": "string",
+				"logicalType": "ipv6",
+				"arg.properties": {
+					"malformed-rate": 0.88
+				}
+			}
+		}, {
+			"name": "LATITUDE",
+			"type": {
+				"type": "double",
+				"logicalType": "latitude",
+				"arg.properties": {
+					"malformed-rate": 0.33
+				}
+			}
+		}, {
+			"name": "LONGITUDE",
+			"type": {
+				"type": "double",
+				"logicalType": "longitude",
+				"arg.properties": {
+					"malformed-rate": 0.2
+				}
+			}
+		}
+	]
+}
