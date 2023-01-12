@@ -1,0 +1,419 @@
+{
+	"type": "record",
+	"name": "qa_station_hourly",
+	"fields": [
+		{
+			"name": "PARTITION_TM",
+			"type": [
+				{
+					"type": "string",
+					"logicalType": "datetime",
+					"x-fp-time-dimension": "logicalType",
+					"arg.properties": {
+						"options": [
+							"2022-12-06T00:00:00Z"
+						]
+					}
+				},
+				{
+					"type": "enum",
+					"name": "NOT_INFORMED",
+					"namespace": "com.telefonica",
+					"doc": "Field not informed",
+					"symbols": [
+						"NotInformed"
+					]
+				}
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 1.0,
+                    "1": 0.0
+                }
+            },
+			"doc": "Date-time of the block reported, informed by hour, so minutes and seconds should be marked as zero (YYYYMMDDhh0000)\n\n### Example\n\n20211224120000",
+			"aliases": [
+				"partition_tm"
+			]
+		},
+		{
+			"name": "DEVICE_ID",
+			"type": [
+				"string",
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            },
+			"doc": "Unique Device (CPE) Indentifier",
+			"aliases": [
+				"device_id"
+			]
+		},
+		{
+			"name": "BRAND_ID",
+			"type": [
+				"string",
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            },
+			"doc": "Commercial brand identifier. In order to differentiate among different brands in the same OB (e.g. Movistar, O2, Tuenti...)",
+			"aliases": [
+				"brand_id"
+			]
+		},
+		{
+			"name": "USER_4P_ID",
+			"type": [
+				{
+					"type": "string",
+					"x-fp-user-id": true,
+					"x-fp-data-prbotection": "pseudonymize",
+					"arg.properties": {
+                        "iteration": {
+                          "start": "${ITERATION_STEP}"
+                        }
+                    }
+				},
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.9,
+                    "1": 0.1
+                }
+            },
+			"doc": "Identifier of the user in 4th Platform (as returned by the OB in the 4th Platform APIs)",
+			"aliases": [
+				"user_4p_id"
+			]
+		},
+		{
+			"name": "PHONE_WITH_PREFIX_ID",
+			"type": [
+				"null",
+				{
+					"type": "string",
+					"logicalType": "phone-number",
+					"x-fp-identifier": "phone-number",
+					"x-fp-data-protection": "pseudonymize",
+					"arg.properties": {
+                        "unique": true,
+                        "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+                        "prefix": "+34",
+                        "malformed-rate": 0.2
+                    }
+				},
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.1,
+                    "1": 0.8,
+                    "2": 0.1
+                }
+            },
+			"doc": "Phone number associated to the VoIP Line (WITH INTERNATIONAL PREFIX)\n\n### Example\n\n\"+34600100200\"\n\n### Additional Information\n\nInternational prefix starting with +, observing the ITU E.164 format",
+			"aliases": [
+				"phone_with_prefix_id"
+			]
+		},
+		{
+			"name": "STATIONS_REC",
+			"type": [
+				"null",
+				{
+					"type": "record",
+					"name": "STATIONS_REC_RECORD",
+					"fields": [
+						{
+							"name": "INACTIVITY_STATIONS_NUM",
+							"type": [
+								"null",
+								{
+									"type": "long",
+									"arg.properties": {
+                                        "range" : {
+                                            "min": 0,
+                                            "max": 100000
+                                        }
+                                    }
+								},
+								"com.telefonica.NOT_INFORMED"
+							],
+							"arg.properties": {
+                                "distribution": {
+                                    "0": 0.1,
+                                    "1": 0.8,
+                                    "2": 0.1
+                                }
+                            },
+							"doc": "Number of partitions with no device information received",
+							"aliases": [
+								"inactivity_stations_num"
+							]
+						},
+						{
+							"name": "ASSOC_MAC_MAP",
+							"type": [
+								"null",
+								{
+									"type": "map",
+									"values": {
+										"type": "map",
+										"values": {
+											"type": "record",
+											"name": "ASSOC_MAC_MAP_VALUE_VALUE",
+											"namespace": "com.telefonica.STATIONS_REC",
+											"fields": [
+												{
+													"name": "ASSOC_TIME_NUM_REC",
+													"type": [
+														"null",
+														{
+															"type": "record",
+															"name": "ASSOC_TIME_NUM_REC_RECORD",
+															"namespace": "com.telefonica.STATIONS_REC.ASSOC_MAC_MAP",
+															"fields": [
+																{
+																	"name": "LAST_NUM",
+																	"type": [
+																		"null",
+																		"long",
+																		"com.telefonica.NOT_INFORMED"
+																	],
+																	"arg.properties": {
+                                                                        "distribution": {
+                                                                            "0": 0.1,
+                                                                            "1": 0.8,
+                                                                            "2": 0.1
+                                                                        }
+                                                                    },
+																	"doc": "Minutes that the station has been connected in the interval in the last period",
+																	"aliases": [
+																		"last_num"
+																	]
+																},
+																{
+																	"name": "ACC_NUM",
+																	"type": [
+																		"null",
+																		"long",
+																		"com.telefonica.NOT_INFORMED"
+																	],
+																	"arg.properties": {
+                                                                        "distribution": {
+                                                                            "0": 0.1,
+                                                                            "1": 0.8,
+                                                                            "2": 0.1
+                                                                        }
+                                                                    },
+																	"doc": "Accumulated minutes that the station has been connected in the interval",
+																	"aliases": [
+																		"acc_num"
+																	]
+																}
+															]
+														},
+														"com.telefonica.NOT_INFORMED"
+													],
+													"arg.properties": {
+                                                        "distribution": {
+                                                            "0": 0.1,
+                                                            "1": 0.8,
+                                                            "2": 0.1
+                                                        }
+                                                    },
+													"doc": "The time in seconds the station has been associated to the BSSID.",
+													"aliases": [
+														"assoc_time_num_rec"
+													]
+												},
+												{
+													"name": "TX_BYTES_NUM_REC",
+													"type": [
+														"null",
+														{
+															"type": "record",
+															"name": "TX_BYTES_NUM_REC_RECORD",
+															"namespace": "com.telefonica.STATIONS_REC.ASSOC_MAC_MAP",
+															"fields": [
+																{
+																	"name": "LAST_NUM",
+																	"type": [
+																		"null",
+																		"long",
+																		"com.telefonica.NOT_INFORMED"
+																	],
+																	"arg.properties": {
+                                                                        "distribution": {
+                                                                            "0": 0.1,
+                                                                            "1": 0.8,
+                                                                            "2": 0.1
+                                                                        }
+                                                                    },
+																	"doc": "Number of unicast bytes transmitted to the station in the last period",
+																	"aliases": [
+																		"last_num"
+																	]
+																},
+																{
+																	"name": "ACC_NUM",
+																	"type": [
+																		"null",
+																		"long",
+																		"com.telefonica.NOT_INFORMED"
+																	],
+																	"arg.properties": {
+                                                                        "distribution": {
+                                                                            "0": 0.1,
+                                                                            "1": 0.8,
+                                                                            "2": 0.1
+                                                                        }
+                                                                    },
+																	"doc": "Accumulated number of unicast bytes transmitted to the station in the interval",
+																	"aliases": [
+																		"acc_num"
+																	]
+																}
+															]
+														},
+														"com.telefonica.NOT_INFORMED"
+													],
+													"arg.properties": {
+                                                        "distribution": {
+                                                            "0": 0.1,
+                                                            "1": 0.8,
+                                                            "2": 0.1
+                                                        }
+                                                    },
+													"doc": "The total number of unicast bytes transmitted to the station.",
+													"aliases": [
+														"tx_bytes_num_rec"
+													]
+												}
+											]
+										}
+									}
+								},
+								"com.telefonica.NOT_INFORMED"
+							],
+							"arg.properties": {
+                                "distribution": {
+                                    "0": 0.1,
+                                    "1": 0.8,
+                                    "2": 0.1
+                                }
+                            },
+							"doc": "Associated MAC to the station",
+							"aliases": [
+								"assoc_mac_map"
+							]
+						}
+					]
+				},
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.1,
+                    "1": 0.8,
+                    "2": 0.1
+                }
+            },
+			"doc": "Structure that contains Stations Info",
+			"aliases": [
+				"stations_rec"
+			]
+		},
+		{
+			"name": "RSSI",
+			"type": [
+				"null",
+				{
+					"type": "array",
+					"items": {
+						"type": "record",
+						"name": "RSSI",
+						"fields": [
+							{
+								"name": "RSSI_AVG_QT",
+								"type": [
+									"null",
+									"float",
+									"com.telefonica.NOT_INFORMED"
+								],
+								"arg.properties": {
+                                    "distribution": {
+                                        "0": 0.1,
+                                        "1": 0.8,
+                                        "2": 0.1
+                                    }
+                                },
+								"doc": "Average RSSI of measurements in the interval",
+								"aliases": [
+									"rssi_avg_qt"
+								]
+							},
+							{
+								"name": "TX_RATE_AVG_QT",
+								"type": [
+									"null",
+									"float",
+									"com.telefonica.NOT_INFORMED"
+								],
+								"arg.properties": {
+                                    "distribution": {
+                                        "0": 0.1,
+                                        "1": 0.8,
+                                        "2": 0.1
+                                    }
+                                },
+								"doc": "Average RSSI of the measurements in the interval based on the last packet transmitted",
+								"aliases": [
+									"tx_rate_avg_qt"
+								]
+							},
+							{
+								"name": "RX_RATE_AVG_QT",
+								"type": [
+									"null",
+									"float",
+									"com.telefonica.NOT_INFORMED"
+								],
+								"arg.properties": {
+                                    "distribution": {
+                                        "0": 0.1,
+                                        "1": 0.8,
+                                        "2": 0.1
+                                    }
+                                },
+								"doc": "Average RSSI of measurements over the interval based on the last packet received",
+								"aliases": [
+									"rx_rate_avg_qt"
+								]
+							}
+						]
+					}
+				},
+				"com.telefonica.NOT_INFORMED"
+			],
+			"arg.properties": {
+                "distribution": {
+                    "0": 0.1,
+                    "1": 0.8,
+                    "2": 0.1
+                }
+            }
+		}
+	],
+	"x-fp-version": "1.0.0"
+}
