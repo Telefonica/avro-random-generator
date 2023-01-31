@@ -20,17 +20,6 @@
       "doc": "Row identifier"
     },
     {
-      "name": "USER_ID",
-      "x-fp-data-protection": "pseudonymize",
-      "type": {
-        "type": "string",
-        "arg.properties": {
-          "kind": "uuid"
-        }
-      },
-      "doc": "Row identifier"
-    },
-    {
       "name": "STRINGS_ARRAY",
       "type": [
         "null",
