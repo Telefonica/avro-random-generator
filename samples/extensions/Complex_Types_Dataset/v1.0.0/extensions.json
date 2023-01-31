@@ -1,0 +1,204 @@
+{
+  "type": "record",
+  "name": "Complex_Types_Dataset",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Schema for complex types supported by spark sdk",
+  "x-fp-version": "1.4.0",
+  "fields": [
+    {
+      "name": "USER_ID",
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "x-fp-data-protection": "pseudonymize",
+        "arg.properties": {
+          "iteration": {
+            "start": "${ITERATION_STEP}"
+          }
+        }
+      },
+      "doc": "Row identifier"
+    },
+    {
+      "name": "USER_ID",
+      "x-fp-data-protection": "pseudonymize",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "kind": "uuid"
+        }
+      },
+      "doc": "Row identifier"
+    },
+    {
+      "name": "STRINGS_ARRAY",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "logicalType": "phone-number",
+            "x-fp-data-protection": "pseudonymize",
+            "arg.properties": {
+              "unique": true,
+              "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+              "prefix": "+34"
+            }
+          },
+          "arg.properties": {
+            "length": 2
+          }
+        }
+      ],
+      "doc": "Array of strings",
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "RECORDS_ARRAY",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "name": "RECORDS_ARRAY_ITEMS",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_ARRAY_ITEMS", "fields": [
+              {
+                "name":"PHONE_NUMBER", 
+                "type": { 
+                  "type": "string", 
+                  "logicalType": "phone-number", 
+                  "x-fp-data-protection": "pseudonymize",
+                  "arg.properties": {
+                    "unique": true,
+                    "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+                    "prefix": "+34"
+                  }
+                }
+              },
+              {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+              {
+                "name":"DATETIME", 
+                "type": { 
+                  "type":"string", 
+                  "logicalType":"datetime",
+                  "arg.properties": {
+                    "range": {
+                      "start": "${DATE_RANGE_START}T00:00:00Z",
+                      "end": "${DATE_RANGE_END}T00:00:00Z"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "arg.properties": {
+            "length": 2
+          }
+        }
+      ],
+      "doc": "Array of records",
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    { 
+      "name": "STRINGS_MAP", 
+      "type": [
+        "null",
+        { 
+          "type": "map", 
+          "x-fp-data-protection": "pseudonymize", 
+          "values": {
+            "type": "string",
+            "logicalType": "phone-number",
+            "x-fp-data-protection": "pseudonymize",
+            "arg.properties": {
+              "unique": true,
+              "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+              "prefix": "+34"
+            }
+          },
+          "arg.properties": {
+            "length": 1,
+            "keys": {
+              "options": [
+                "key-1"
+              ]
+            }
+          }
+        }
+      ],
+      "doc": "Map field with string as value",
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    { 
+      "name": "RECORDS_MAP", 
+      "type": [
+        "null", 
+        { 
+          "type": "map", 
+          "x-fp-data-protection": "pseudonymize", 
+          "values": {
+            "name": "RECORDS_MAP_VALUE",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_MAP_VALUE", "fields": [
+              {
+                "name": "PHONE_NUMBER",
+                "type": {
+                  "type": "string",
+                  "logicalType": "phone-number",
+                  "x-fp-data-protection": "pseudonymize",
+                  "arg.properties": {
+                    "unique": true,
+                    "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+                    "prefix": "+34"
+                  }
+                }
+              },
+              {
+                "name": "IMSI",
+                "type": {
+                  "type": "string",
+                  "logicalType": "imsi",
+                  "x-fp-data-protection": "pseudonymize"
+                }
+              },
+              {
+                "name": "DATETIME",
+                "type": {
+                  "type": "string",
+                  "logicalType": "datetime",
+                  "arg.properties": {
+                    "range": {
+                      "start": "${DATE_RANGE_START}T00:00:00Z",
+                      "end": "${DATE_RANGE_END}T00:00:00Z"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "arg.properties": {
+            "length": 1,
+            "unique": true,
+            "keys": {
+              "options": [
+                "key-1"
+              ]
+            }
+          }
+        }
+      ], 
+      "doc": "Map field with record as value",
+      "arg.properties": {
+        "position": 1
+      }
+    }
+  ]
+}

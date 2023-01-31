@@ -1,0 +1,88 @@
+{
+  "type": "record",
+  "name": "Complex_Types_Dataset",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Schema for complex types supported by spark sdk",
+  "x-fp-version": "1.4.0",
+  "fields": [
+    {
+      "name": "USER_ID",
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "x-fp-data-protection": "pseudonymize"
+      },
+      "doc": "Row identifier"
+    },
+    {
+      "name": "STRINGS_ARRAY",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "logicalType": "phone-number",
+            "x-fp-data-protection": "pseudonymize"
+          }
+        }
+      ],
+      "doc": "Array of strings"
+    },
+    {
+      "name": "RECORDS_ARRAY",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "name": "RECORDS_ARRAY_ITEMS",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_ARRAY_ITEMS", "fields": [
+              {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
+            ]
+          }
+        }
+      ],
+      "doc": "Array of records"
+    },
+    { 
+      "name": "STRINGS_MAP", 
+      "type": [
+        "null",
+        { 
+          "type": "map", 
+          "x-fp-data-protection": "pseudonymize", 
+          "values": {
+            "type": "string",
+            "logicalType": "phone-number",
+            "x-fp-data-protection": "pseudonymize"
+          }
+        }
+      ],
+      "doc": "Map field with string as value"
+    },
+    { 
+      "name": "RECORDS_MAP", 
+      "type": [
+        "null", 
+        { 
+          "type": "map", 
+          "x-fp-data-protection": "pseudonymize", 
+          "values": {
+            "name": "RECORDS_MAP_VALUE",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_MAP_VALUE", "fields": [
+              {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
+            ]
+          }
+        }
+      ], 
+      "doc": "Map field with record as value"
+    }
+  ]
+}
