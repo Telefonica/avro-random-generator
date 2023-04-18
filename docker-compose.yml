@@ -1,28 +1,20 @@
-## This docker-compose file is used to launch several environments for testing
-
 version: '3.6'
 
 services:
-  build-jar:
+  app:
     build:
       context: .
-      dockerfile: ./delivery/docker/Dockerfile
-    command: bash -c "cd /opt/random-avro-generator && ./gradlew build && ./gradlew standalone"
+      dockerfile: ./Dockerfile
+      args:
+        - VERSION
+        - SERVICE
+    image: ${REGISTRY:-local}/baikal/${SERVICE}:${VERSION:-snapshot}
+    environment:
+        # TODO: Review WHY the dependencies are not downloaded during docker build time in CI
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
     env_file:
       - docker-compose.env
     volumes:
-      - .:/opt/random-avro-generator:delegated
-  avro-generator:
-    build:
-      context: .
-      dockerfile: ./delivery/docker/Dockerfile
-      cache_from:
-        - baikaldev.azurecr.io/buildkite/baikal-services:master
-
-    command: ./scripts/build-data.sh
-    env_file:
-      - docker-compose.env
-    volumes:
-      - .:/opt/random-avro-generator:delegated
+      - .:/opt/app:delegated
       - ./samples/out:/datasets-out
-
