@@ -36,54 +36,27 @@ cause any issues if present when the schema is used with other programs.
 
 ## Building
 
-### Gradle
+### Local
 
 ```
-$ ./gradlew standalone
+$ ./gradlew build
 ```
 
 ### Docker
 
 ```
-docker build -t telefonica/avro-random-generator:0.1.0 -f delivery/docker/Dockerfile .
-```
-
-### Docker Compose
-
-Before running the scripts, you must fill the required environment vars at the `docker-compose.env`:
-
-```
-docker-compose run build-jar
-docker-compose run avro-generator
+./lanuza/pipelines/build
 ```
 
 > EXTENSION_FLAVOUR environment var can be used in order switch between different datasets' extensions 
 
 ## CLI Usage
 
-<pre>
-$ ./arg -?
-arg: Generate random Avro data
-Usage: arg [-f &lt;file&gt; | -s &lt;schema&gt;] [-j | -b] [-p | -c] [-i &lt;i&gt;] [-o &lt;file&gt;]
+```
+lanuza/pipelines/run.sh lanuza/scripts/build-data.sh --dataset-id=Full_LogicalType_Dataset --dataset-version=1.0.0 --records=20 --datasets-in=samples/datasets --datasets-extensions-in=samples/extensions --out=output
+```
 
-Flags:
-    -?, -h, --help:	Print a brief usage summary and exit with status 0
-    -b, --binary:	Encode outputted data in binary format
-    -c, --compact:	Output each record on a single line of its own (has no effect if encoding is not JSON)
-    -f &lt;file&gt;, --schema-file &lt;file&gt;:	Read the schema to spoof from &lt;file&gt;, or stdin if &lt;file&gt; is '-' (default is '-')
-    -i &lt;i&gt;, --iterations &lt;i&gt;:	Output &lt;i&gt; iterations of spoofed data (default is 1)
-    -j, --json:	Encode outputted data in JSON format (default)
-    -o &lt;file&gt;, --output &lt;file&gt;:	Write data to the file &lt;file&gt;, or stdout if &lt;file&gt; is '-' (default is '-')
-    -p, --pretty:	Output each record in prettified format (has no effect if encoding is not JSON) (default)
-    -s &lt;schema&gt;, --schema &lt;schema&gt;:	Spoof the schema &lt;schema&gt;
-    --start-date &lt;i&gt;:	Output &lt;i&gt; start date of spoofed data (default is today)
-    --end-date &lt;i&gt;:	Output &lt;i&gt; start date of spoofed data (default is tomorrow)
-
-
-Source repository:
-https://github.com/confluentinc/avro-random-generator
-</pre>
-
+In order to introduce your own schemas please check samples folder and replicate datasets and extensions scaffolding.
 
 ## Schema annotations
 
