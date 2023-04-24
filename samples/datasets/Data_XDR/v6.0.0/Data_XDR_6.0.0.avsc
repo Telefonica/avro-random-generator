@@ -1,0 +1,252 @@
+{
+  "namespace": "com.plainAVRO",
+  "name": "Data_XDR",
+  "type": "record",
+  "doc": "MOCK PRADO",
+  "x-fp-version": "6.0.0",
+  "fields": [
+    {
+      "name": "OPERATOR_ID",
+      "aliases": [
+        "operator_id"
+      ],
+      "type": "string",
+      "doc": "Global Operator Identifier"
+    },
+    {
+      "name": "PHONE_ID",
+      "aliases": [
+        "phone_id"
+      ],
+      "type": "string",
+      "doc": "Phone number of the line (w/o international prefix)"
+    },
+    {
+      "name": "USER_ID",
+      "type": "string",
+      "doc": "-"
+    },
+    {
+      "name": "CELL_ID",
+      "type": "string",
+      "doc": "-"
+    },
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "x-fp-time-dimension": "logicalType",
+        "type": "string",
+        "logicalType": "datetime"
+      },
+      "doc": "Datetime of the event."
+    },
+    {
+      "name": "TOTAL_DATA_KB_QT",
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string"
+      },
+      "doc": "-"
+    },
+    {
+      "name": "KB_UP_QT",
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string"
+      },
+      "doc": "-"
+    },
+    {
+      "name": "KB_DOWN_QT",
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string"
+      },
+      "doc": "-"
+    },
+    {
+      "name": "SESSION_DURATION_QT",
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string"
+      },
+      "doc": "-"
+    },
+    {
+      "name": "IMEI_ID",
+      "aliases": [
+        "imei_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "imei"
+        }
+      ],
+      "doc": "If the user interaction is a call from a mobile phone, the IMEI of the device used to make the call.\nInternational Mobile Equipment Identity\nIMPORTANT: IMEI must be normalized, which means:\n* Invalid imeis must be removed (ie. Imeis including letters)\n* Text format\n* Complete to 15 digits by adding zeros at the left\n* Remove control digit (position #15)"
+    },
+    {
+      "name": "OPERATOR_PHONE_ID",
+      "type": "string",
+      "doc": "-"
+    },
+    {
+      "name": "ROAMING_IND",
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "doc": "-"
+    },
+    {
+      "name": "TERMINATION_CODE_CD",
+      "type": "string",
+      "doc": "-"
+    },
+    {
+      "name": "SESSION_COST_AMT",
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string"
+      },
+      "doc": "-"
+    },
+    {
+      "name": "TECHNOLOGY_CELL_CD",
+      "aliases": [
+        "technology_cell_cd"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Technology of the cell the phone running the app is connected to"
+    },
+    {
+      "name": "COUNTRY_ROAMING_CD",
+      "type": "string",
+      "doc": "-"
+    },
+    {
+      "name": "PHONE_WITH_PREFIX_ID",
+      "aliases": [
+        "phone_with_prefix_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-identifier": "phone-number",
+          "x-fp-data-protection": "pseudonymize"
+        }
+      ],
+      "doc": "Phone number of the line (WITH INTERNATIONAL PREFIX)"
+    },
+    {
+      "name": "DAY_DT",
+      "aliases": [
+        "day_dt"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date"
+      },
+      "doc": "Year, month and day of the data (snapshot of the Fixed_Line data)"
+    },
+    {
+      "name": "USER_4P_ID",
+      "aliases": [
+        "user_4p_id"
+      ],
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "x-fp-data-protection": "pseudonymize"
+      },
+      "doc": "Identifier of the user in 4th Platform (as returned by the OB in the 4th Platform APIs)"
+    },
+    {
+      "name": "RECORDS_ARRAY",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "name": "RECORDS_ARRAY_ITEMS",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_ARRAY_ITEMS",
+            "fields": [
+              {
+                "name": "PHONE_NUMBER",
+                "type": {
+                  "type": "string",
+                  "logicalType": "phone-number",
+                  "x-fp-data-protection": "pseudonymize"
+                }
+              },
+              {
+                "name": "IMSI",
+                "type": {
+                  "type": "string",
+                  "logicalType": "imsi",
+                  "x-fp-data-protection": "pseudonymize"
+                }
+              },
+              {
+                "name": "DATETIME",
+                "type": {
+                  "type": "string",
+                  "logicalType": "datetime"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "doc": "Array of records"
+    },
+    {
+      "name": "RECORDS_MAP",
+      "type": [
+        "null",
+        {
+          "type": "map",
+          "x-fp-data-protection": "pseudonymize",
+          "values": {
+            "name": "RECORDS_MAP_VALUE",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_MAP_VALUE",
+            "fields": [
+              {
+                "name": "PHONE_NUMBER",
+                "type": {
+                  "type": "string",
+                  "logicalType": "phone-number",
+                  "x-fp-data-protection": "pseudonymize"
+                }
+              },
+              {
+                "name": "IMSI",
+                "type": {
+                  "type": "string",
+                  "logicalType": "imsi",
+                  "x-fp-data-protection": "pseudonymize"
+                }
+              },
+              {
+                "name": "DATETIME",
+                "type": {
+                  "type": "string",
+                  "logicalType": "datetime"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "doc": "Map field with record as value"
+    }
+  ]
+}
