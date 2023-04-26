@@ -56,3 +56,9 @@ application {
     // Define the main class for the application.
     mainClass = 'io.confluent.avro.random.generator.Main'
 }
+
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}

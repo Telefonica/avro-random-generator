@@ -1,0 +1,69 @@
+{
+  "type": "record",
+  "name": "Full_LogicalType_Dataset_With_Complex_Types",
+  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Schema for logical types supported by spark sdk with some invalid values",
+  "x-fp-version": "1.0.0",
+  "fields": [
+    {"name":"USER_ID", "type":{"type":"string", "x-fp-user-id":true, "x-fp-data-protection":"pseudonymize"}, "doc":"International number value according to ITU E.164"},
+    {"name":"PHONE_NUMBER", "type":{"x-fp-data-protection":"pseudonymize", "type":"string", "logicalType":"phone-number"}, "doc":"International number value according to ITU E.164"},
+    {"name":"IMSI", "type":{"type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize"}, "doc":"A valid International Mobile Subscriber Identity"},
+    {"name":"IMEI", "type":{"type":"string", "logicalType":"imei", "x-fp-data-protection": "pseudonymize"}, "doc":"International Mobile Equipment Identity"},
+    {"name":"DATE", "type":{"type":"string", "logicalType":"iso-date"}, "doc":"A valid ISO-8601 value that contains a complete date representation, with no time specification"},
+    {"name":"DATETIME", "type":{"type":"string", "logicalType":"datetime"}, "doc":"A valid ISO-8601 value that contains a complete date and time representation"},
+    {"name":"CURRENCY_CODE", "type":{"type":"string", "logicalType":"currency-code-alpha"}, "doc":"A valid ISO-4217 alpha currency code"},
+    {"name":"GENRE", "type":{"type":"enum", "name":"GENRE", "symbols":["Male", "Female"]}, "doc":"Two enum"},
+    {"name":"COUNTRY_CODE_2", "type":{"type":"string", "logicalType":"country-code-alpha-2"}, "doc":"A valid ISO-4217 alpha country code 2"},
+    {"name":"COUNTRY_CODE_3", "type":{"type":"string", "logicalType":"country-code-alpha-3"}, "doc":"A valid ISO-4217 alpha country code 3"},
+    {"name":"CURRENCY_CODE_NUMERIC", "type":{"type":"string", "logicalType":"currency-code-numeric"}, "doc":"A valid ISO-4217 alpha currency code numeric"},
+    {"name":"DURATION", "type":{"type":"string", "logicalType":"duration"}, "doc":"A valid duration"},
+    {"name":"IPV4", "type":{"type":"string", "logicalType":"ipv4", "x-fp-data-protection": "pseudonymize"}, "doc":"Internet Protocol Address v4"},
+    {"name":"IPV6", "type":{"type":"string", "logicalType":"ipv6", "x-fp-data-protection": "pseudonymize"}, "doc":"Internet Protocol Address v6"},
+    {"name":"LATITUDE", "type":{"type":"double", "logicalType":"latitude"}, "doc":"Latitude"},
+    {"name":"LONGITUDE", "type":{"type":"double", "logicalType":"longitude"}, "doc":"Longitude"},
+    {"name": "SUB_RECORD", "type":{"name":"SUB_RECORD", "type": "record", "fields": [
+          {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
+          {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+          {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
+        ], "doc": "Sub record"
+      }
+    },
+    {"name":"STRINGS_ARRAY","type":{"type": "array", "items": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }}, "doc": "Array of strings"},
+    {"name":"RECORDS_ARRAY","type":{"type": "array", "items": {
+            "name": "RECORDS_ARRAY_ITEMS",
+            "type": "record",
+            "namespace": "com.telefonica.baikal.qa.RECORDS_ARRAY_ITEMS", "fields": [
+              {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+              {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
+            ]
+          }}, "doc": "Array of records"
+    },
+    {"name":"STRINGS_MAP","type":{
+        "type": "map",
+        "x-fp-data-protection": "pseudonymize",
+        "values": {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-data-protection": "pseudonymize"
+        }
+      }, "doc": "Map field with string as value"
+    },
+    { 
+      "name": "RECORDS_MAP", 
+      "type": { 
+        "type": "map", 
+        "x-fp-data-protection": "pseudonymize", 
+        "values": {
+          "name": "RECORDS_MAP_VALUE",
+          "type": "record",
+          "namespace": "com.telefonica.baikal.qa.RECORDS_MAP_VALUE", "fields": [
+            {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
+            {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
+            {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
+          ]
+        }
+      }, "doc": "Map field with record as value"
+    }
+  ]
+}

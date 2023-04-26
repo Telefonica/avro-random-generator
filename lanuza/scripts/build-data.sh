@@ -76,7 +76,7 @@ function run() {
 
       export ITERATION_STEP="$(( ${RECORDS} * ${counter} + ${INIT_ITERATION} ))"
       envsubst < ${merged_schema_path} > ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json
-      java -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} &
+      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} &
       pids[$counter]=$!
       echo "Generating ${out} in background, current thread [${pids[current_threads]}]"
 

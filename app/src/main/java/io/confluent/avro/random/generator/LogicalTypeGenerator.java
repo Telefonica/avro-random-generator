@@ -13,10 +13,7 @@ import scala.collection.JavaConverters;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -69,6 +66,12 @@ public class LogicalTypeGenerator {
   private static final String DEFAULT_START_DATE_TIME = DEFAULT_START_DATE + "T00:00:00Z";
   private static final String DEFAULT_END_DATE_TIME = DEFAULT_END_DATE + "T00:00:00Z";
 
+  /**
+   * Return unified logical-tpye format or not
+   * given as an object.
+   */
+  public static final String UNIFIED_LOGICAL_TYPE = "unified";
+
   private static Date dateBetween(Date startInclusive, Date endExclusive) {
     long startMillis = startInclusive.getTime();
     long endMillis = endExclusive.getTime();
@@ -77,6 +80,13 @@ public class LogicalTypeGenerator {
         .nextLong(startMillis, endMillis);
 
     return new Date(randomMillisSinceEpoch);
+  }
+
+  private static Boolean shouldReturnUnifiedType(Map propertiesProp) {
+    return Optional.ofNullable(propertiesProp.get(UNIFIED_LOGICAL_TYPE))
+            .map(Object::toString)
+            .map(Boolean::parseBoolean)
+            .orElse(true);
   }
 
   private final Random random;
@@ -152,13 +162,25 @@ public class LogicalTypeGenerator {
               DATE_RANGE_PROP
           ));
         }
-        return ISO_LOCAL_DATE_TIME.format(dateBetween(isoDateTimeStart, isoDateTimeEnd)
-            .toInstant()
-            .atOffset(ZoneOffset.UTC));
+        OffsetDateTime datetime = dateBetween(isoDateTimeStart, isoDateTimeEnd)
+                .toInstant()
+                .atOffset(ZoneOffset.UTC);
+
+        if (shouldReturnUnifiedType(propertiesProp)) {
+          return Validations.getUnifyStringForDatetime(java.sql.Timestamp.from(datetime.toInstant()));
+        } else {
+          return ISO_LOCAL_DATE_TIME.format(datetime);
+        }
       case "duration":
         Date durationStart = new Date();
         Date durationEnd = new Date(durationStart.getTime() + TimeUnit.DAYS.toMillis(MAX_DURATION_DAYS));
-        return DurationFormatUtils.formatPeriodISO(durationStart.getTime(), dateBetween(durationStart, durationEnd).getTime());
+        String formattedDuration = DurationFormatUtils.formatPeriodISO(durationStart.getTime(), dateBetween(durationStart, durationEnd).getTime());
+
+        if (shouldReturnUnifiedType(propertiesProp)) {
+          return Validations.normalizeDurationFormat(formattedDuration);
+        } else {
+          return formattedDuration;
+        }
       case "time":
         LocalDateTime time = LocalDateTime.of(LocalDate.now(),
             LocalTime.of(
@@ -166,7 +188,13 @@ public class LogicalTypeGenerator {
                 random.nextInt(60), random.nextInt(999999999 + 1)
             )
         );
-        return DateTimeFormatter.ISO_TIME.format(time);
+        String formattedTime = DateTimeFormatter.ISO_TIME.format(time);
+
+        if (shouldReturnUnifiedType(propertiesProp)) {
+          return Validations.getUnifyStringForTime(formattedTime);
+        } else {
+          return formattedTime;
+        }
       case "decimal-string":
         return String.format(Locale.US, "%.8f", random.nextDouble());
       case "phone-number":
@@ -211,9 +239,16 @@ public class LogicalTypeGenerator {
               DATE_RANGE_PROP
           ));
         }
-        return ISO_LOCAL_DATE.format(dateBetween(isoDateStart, isoDateEnd)
-            .toInstant()
-            .atOffset(ZoneOffset.UTC));
+
+        OffsetDateTime date = dateBetween(isoDateStart, isoDateEnd)
+                .toInstant()
+                .atOffset(ZoneOffset.UTC);
+
+        if (shouldReturnUnifiedType(propertiesProp)) {
+          return Validations.getUnifyStringForDate(java.sql.Date.valueOf(date.toLocalDate()));
+        } else {
+          return ISO_LOCAL_DATE.format(date);
+        }
       case "country-code-numeric":
         List<String> numericCodes = JavaConverters.seqAsJavaList(Validations.countryCodeNumeric());
         return numericCodes.get(random.nextInt(numericCodes.size()));
