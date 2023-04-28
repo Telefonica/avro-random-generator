@@ -68,6 +68,49 @@ public class CustomExtensionsGeneratorTest {
   }
 
   @Test
+  public void shouldCreateNotInformedUnionWithoutDistributionProv() {
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", true);
+
+    GenericRecord record;
+    List<Object> results = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      Object col = record.get("col");
+      if (col instanceof String) {
+        results.add(col);
+      }
+    }
+
+    assertEquals("Wrong union distribution", 0.9, ((double) results.size()) / 100, 0.1);
+  }
+
+  @Test
+  public void shouldCreateNotInformedUnionMultipleTypesWithoutDistributionProv() {
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", true);
+
+    GenericRecord record;
+    List<Object> stringResults = new ArrayList<>();
+    List<Object> intResults = new ArrayList<>();
+    List<Object> notInformedResults = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      Object col = record.get("col");
+      if (col instanceof String) {
+        stringResults.add(col);
+      } else if (col instanceof Integer) {
+        intResults.add(col);
+      } else {
+        notInformedResults.add(col);
+      }
+    }
+
+    assertEquals("Wrong string distribution", 0.45, ((double) stringResults.size()) / 100, 0.1);
+    assertEquals("Wrong int distribution", 0.45, ((double) intResults.size()) / 100, 0.1);
+    assertEquals("Wrong not informed distribution", 0.1, ((double) notInformedResults.size()) / 100, 0.1);
+    assertNotEquals("Empty not informed values", notInformedResults.size(), 0);
+  }
+
+  @Test
   public void shouldFailIfTheDistributionIfMalformed() {
     exceptionRule.expect(RuntimeException.class);
     exceptionRule.expectMessage("all probabilities of distribution property must sum 1");

@@ -1,6 +1,6 @@
 {
   "namespace": "com.telefonica.baikal.qa",
-  "name": "Full_LogicalType_Dataset",
+  "name": "Full_LogicalType_Dataset_With_Complex_Types",
   "type": "record",
   "doc": "MOCK",
   "x-fp-version": "1.0.0",

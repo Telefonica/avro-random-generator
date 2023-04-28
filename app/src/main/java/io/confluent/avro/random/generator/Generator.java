@@ -18,6 +18,8 @@ package io.confluent.avro.random.generator;
 
 import com.mifmif.common.regex.Generex;
 import com.telefonica.baikal.avro.types.CustomLogicalTypes;
+import com.telefonica.baikal.utils.avro.BaikalAvroUtils;
+import com.telefonica.baikal.utils.avro.NotInformedUtilsJavaBridge;
 import org.apache.avro.LogicalType;
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.Schema;
@@ -34,6 +36,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -196,6 +199,8 @@ public class Generator {
 
   public static final String DECIMAL_LOGICAL_TYPE_NAME = "decimal";
 
+  public static final Double DEFAULT_NOT_INFORMED_RATE = 0.1;
+
   private static final String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       + "0123456789"
       + "abcdefghijklmnopqrstuvxyz"
@@ -286,7 +291,18 @@ public class Generator {
     }
 
     public Builder schemaFile(File schemaFile) throws IOException {
-      topLevelSchema = parser.parse(schemaFile);
+      return schemaFile(schemaFile, false);
+    }
+
+    public Builder schemaFile(File schemaFile, Boolean useNotInformedSchema) throws IOException {
+      if (useNotInformedSchema) {
+        String rawSchema = Files.readString(schemaFile.toPath());
+        String notInformedSchema = NotInformedUtilsJavaBridge.createNotInformedSchema(rawSchema).toString();
+        System.out.println(notInformedSchema);
+        topLevelSchema = parser.parse(notInformedSchema);
+      } else {
+        topLevelSchema = parser.parse(schemaFile);
+      }
       return this;
     }
 
@@ -296,7 +312,17 @@ public class Generator {
     }
 
     public Builder schemaString(String schemaString) {
-      topLevelSchema = parser.parse(schemaString);
+      return schemaString(schemaString, false);
+    }
+
+    public Builder schemaString(String schemaString, Boolean useNotInformedSchema) {
+      if (useNotInformedSchema) {
+        String notInformedSchema = NotInformedUtilsJavaBridge.createNotInformedSchema(schemaString).toString();
+        System.out.println(notInformedSchema);
+        topLevelSchema = parser.parse(notInformedSchema);
+      } else {
+        topLevelSchema = parser.parse(schemaString);
+      }
       return this;
     }
 
@@ -1483,11 +1509,18 @@ public class Generator {
 
   private EnumeratedDistribution<String> getDistribution(Schema schema, Map<String, Object> args) {
     EnumeratedDistribution<String> enumeratedDistribution = enumeratedDistributions.get(schema);
-    if (enumeratedDistribution == null && args != null && args.get(DISTRIBUTION_PROP) != null) {
-      Map<String, Double> distributionProp = (Map<String, Double>) args.get(DISTRIBUTION_PROP);
+
+    Map<String, Double> distributionProp = null;
+    List<Schema> unionTypes = schema.getTypes();
+    if (args.get(DISTRIBUTION_PROP) == null && unionTypes.get(unionTypes.size() - 1).getName().equals("NOT_INFORMED")) {
+      distributionProp = generateNotInformedDistribution(unionTypes);
+    }
+
+    if (enumeratedDistribution == null && args != null && (args.get(DISTRIBUTION_PROP) != null || distributionProp != null)) {
+      distributionProp = distributionProp == null ? (Map<String, Double>) args.get(DISTRIBUTION_PROP) : distributionProp;
       Set<String> keys = distributionProp.keySet();
 
-      if (keys.size() != schema.getTypes().size()) {
+      if (keys.size() != unionTypes.size()) {
         throw new RuntimeException(String.format(
             "%s property must contain all possible union type distributions (%s)",
             DISTRIBUTION_PROP,
@@ -1516,6 +1549,17 @@ public class Generator {
       enumeratedDistributions.put(schema, enumeratedDistribution);
     }
     return enumeratedDistribution;
+  }
+
+  private Map<String, Double> generateNotInformedDistribution(List<Schema> unionTypes) {
+    int informedTypes = unionTypes.size() - 1;
+    return new HashMap<>(){{
+      Double distributionByType = (1.0 - DEFAULT_NOT_INFORMED_RATE) / informedTypes;
+      for (int i = 0; i < informedTypes; i++) {
+        put(String.valueOf(i), distributionByType);
+      }
+      put(String.valueOf(unionTypes.size() - 1), DEFAULT_NOT_INFORMED_RATE);
+    }};
   }
 
   private Object generateUnion(String fieldName, Schema schema, Map<String, Object> args) {
@@ -1649,8 +1693,8 @@ public class Generator {
   }
 
   private class LengthBounds {
-    public static final int DEFAULT_MIN = 8;
-    public static final int DEFAULT_MAX = 16;
+    public static final int DEFAULT_MIN = 1;
+    public static final int DEFAULT_MAX = 5;
 
     private final int min;
     private final int max;

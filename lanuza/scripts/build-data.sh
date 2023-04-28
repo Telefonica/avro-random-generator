@@ -26,6 +26,7 @@ ARG_DEFS=(
   "[--start-date=(.*)]"
   "[--end-date=(.*)]"
   "[--extension-flavour=(.*)]"
+  "[--not-informed=(true|false)]"
 )
 
 function init() {
@@ -39,6 +40,7 @@ function init() {
   export END_DATE=$(date -I -d "$END_DATE") || (echo "worng end date format"; exit -1)
   export EXTENSION_FLAVOUR=${EXTENSION_FLAVOUR:-""}
   export FILE_PREFIX=${FILE_PREFIX:-"1"}
+  export NOT_INFORMED=${NOT_INFORMED:-"false"}
   export OUT=${OUT:-"datasets-out"}
 }
 
@@ -76,7 +78,7 @@ function run() {
 
       export ITERATION_STEP="$(( ${RECORDS} * ${counter} + ${INIT_ITERATION} ))"
       envsubst < ${merged_schema_path} > ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json
-      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} &
+      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} --not-informed ${NOT_INFORMED} &
       pids[$counter]=$!
       echo "Generating ${out} in background, current thread [${pids[current_threads]}]"
 

@@ -36,13 +36,21 @@ public final class ResourceUtil {
   }
 
   public static GenericRecord generateRecordWithSchema(String path) {
-    Generator generator = builderWithSchema(path);
+    return generateRecordWithSchema(path, false);
+  }
+
+  public static GenericRecord generateRecordWithSchema(String path, Boolean useNotInformedSchema) {
+    Generator generator = builderWithSchema(path, useNotInformedSchema);
     return (GenericRecord) generator.generate();
   }
 
   public static Generator builderWithSchema(String path) {
+    return builderWithSchema(path, false);
+  }
+
+  public static Generator builderWithSchema(String path, Boolean useNotInformedSchema) {
     String schema = ResourceUtil.loadContent(path);
-    return new Generator.Builder().schemaString(schema).build();
+    return new Generator.Builder().schemaString(schema, useNotInformedSchema).build();
   }
 
 }
