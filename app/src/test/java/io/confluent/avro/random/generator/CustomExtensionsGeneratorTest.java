@@ -8,9 +8,9 @@ import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static io.confluent.avro.random.generator.util.ResourceUtil.builderWithSchema;
-import static io.confluent.avro.random.generator.util.ResourceUtil.generateRecordWithSchema;
+import static io.confluent.avro.random.generator.util.ResourceUtil.*;
 import static org.junit.Assert.*;
 
 
@@ -69,7 +69,7 @@ public class CustomExtensionsGeneratorTest {
 
   @Test
   public void shouldCreateNotInformedUnionWithoutDistributionProv() {
-    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", true);
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", true, Optional.empty());
 
     GenericRecord record;
     List<Object> results = new ArrayList<>();
@@ -86,7 +86,7 @@ public class CustomExtensionsGeneratorTest {
 
   @Test
   public void shouldCreateNotInformedUnionMultipleTypesWithoutDistributionProv() {
-    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", true);
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", true, Optional.empty());
 
     GenericRecord record;
     List<Object> stringResults = new ArrayList<>();
@@ -228,5 +228,22 @@ public class CustomExtensionsGeneratorTest {
     }
 
     assertEquals("Wrong malformed distribution", 0.7, ((double) results.size()) / 100, 0.1);
+  }
+
+  @Test
+  public void shouldCreateFieldWithGlobalMalformedRate() {
+    Generator generator = builderWithSchemaAndMalformedRate("test-schemas/extensions/malformed-without-distribution.json", 0.2);
+
+    GenericRecord record;
+    List<Object> results = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      String col = (String) record.get("day_dt");
+      if (Validations.isValidDate(col)) {
+        results.add(col);
+      }
+    }
+
+    assertEquals("Wrong malformed distribution", 0.8, ((double) results.size()) / 100, 0.1);
   }
 }

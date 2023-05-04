@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -40,17 +41,21 @@ public final class ResourceUtil {
   }
 
   public static GenericRecord generateRecordWithSchema(String path, Boolean useNotInformedSchema) {
-    Generator generator = builderWithSchema(path, useNotInformedSchema);
+    Generator generator = builderWithSchema(path, useNotInformedSchema, Optional.empty());
     return (GenericRecord) generator.generate();
   }
 
   public static Generator builderWithSchema(String path) {
-    return builderWithSchema(path, false);
+    return builderWithSchema(path, false, Optional.empty());
   }
 
-  public static Generator builderWithSchema(String path, Boolean useNotInformedSchema) {
+  public static Generator builderWithSchemaAndMalformedRate(String path, Double malformedColumnRate) {
+    return builderWithSchema(path, false, Optional.of(malformedColumnRate));
+  }
+
+  public static Generator builderWithSchema(String path, Boolean useNotInformedSchema, Optional<Double> malformedColumnRate) {
     String schema = ResourceUtil.loadContent(path);
-    return new Generator.Builder().schemaString(schema, useNotInformedSchema).build();
+    return new Generator.Builder().schemaString(schema, useNotInformedSchema).malformedColumnRate(malformedColumnRate).build();
   }
 
 }

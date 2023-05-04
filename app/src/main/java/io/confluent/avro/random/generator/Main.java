@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Optional;
 
 /* TODO:  Find a good argument parser that doesn't strip double quotes off of arguments and allows
           for mutually exclusive options to cancel each other out without error */
@@ -69,6 +70,7 @@ public class Main {
     private static final boolean BINARY_ENCODING = false;
 
     public static final String NOT_INFORMED_SCHEMA = "--not-informed";
+    public static final String MALFORMED_RATE = "--malformed-column-rate";
 
     /**
      * Parses options passed in via the args argument to main() and then leverages a new
@@ -87,6 +89,7 @@ public class Main {
         String outputFile = null;
 
         Boolean useNotInformedSchema = false;
+        Optional<Double> malformedColumnRate = Optional.empty();
 
         Iterator<String> argv = Arrays.asList(args).iterator();
         while (argv.hasNext()) {
@@ -134,6 +137,9 @@ public class Main {
                 case NOT_INFORMED_SCHEMA:
                     useNotInformedSchema = Boolean.parseBoolean(nextArg(argv, flag));
                     break;
+                case MALFORMED_RATE:
+                    malformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
+                    break;
                 default:
                     System.err.printf("%s: %s: unrecognized option%n%n", PROGRAM_NAME, flag);
                     usage(1);
@@ -142,7 +148,7 @@ public class Main {
 
         Generator generator = null;
         try {
-            generator = getGenerator(schema, schemaFile, useNotInformedSchema);
+            generator = getGenerator(schema, schemaFile, useNotInformedSchema, malformedColumnRate);
         } catch (IOException ioe) {
             System.err.println("Error occurred while trying to read schema file");
             System.exit(1);
@@ -308,10 +314,10 @@ public class Main {
     }
 
     private static Generator getGenerator(String schema, String schemaFile) throws IOException {
-        return getGenerator(schema, schemaFile, false);
+        return getGenerator(schema, schemaFile, false, Optional.empty());
     }
 
-    private static Generator getGenerator(String schema, String schemaFile, Boolean useNotInformedSchema) throws IOException {
+    private static Generator getGenerator(String schema, String schemaFile, Boolean useNotInformedSchema, Optional<Double> malformedColumnRate) throws IOException {
         if (schema != null) {
             return new Generator.Builder().schemaString(schema).build();
         } else if (!schemaFile.equals("-")) {

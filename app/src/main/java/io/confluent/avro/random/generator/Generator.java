@@ -212,6 +212,8 @@ public class Generator {
   private final RandomStringGenerator randomStringGenerator;
   private final KindGenerator kindGenerator;
   private final LogicalTypeGenerator logicalTypeGenerator;
+
+  private final Optional<Double> malformedColumnRate;
   private final Map<String, Map<Object, Boolean>> uniques = new HashMap<>();
 
   /**
@@ -221,10 +223,10 @@ public class Generator {
    */
   @Deprecated
   public Generator(Schema topLevelSchema, Random random) {
-    this(topLevelSchema, random, 0L);
+    this(topLevelSchema, random, 0L, Optional.empty());
   }
 
-  protected Generator(Schema topLevelSchema, Random random, long generation) {
+  protected Generator(Schema topLevelSchema, Random random, long generation, Optional<Double> malformedColumnRate) {
     this.topLevelSchema = topLevelSchema;
     this.random = random;
     this.generation = generation;
@@ -234,6 +236,7 @@ public class Generator {
         .build();
     this.kindGenerator = new KindGenerator(random);
     this.logicalTypeGenerator = new LogicalTypeGenerator(random);
+    this.malformedColumnRate = malformedColumnRate;
   }
 
   /**
@@ -279,10 +282,13 @@ public class Generator {
     private long generation;
     private Schema.Parser parser;
 
+    private Optional<Double> malformedColumnRate;
+
     public Builder() {
       parser = new Schema.Parser();
       random = new Random();
       generation = 0L;
+      malformedColumnRate = Optional.empty();
     }
 
     public Builder schema(Schema schema) {
@@ -336,8 +342,13 @@ public class Generator {
       return this;
     }
 
+    public Builder malformedColumnRate(Optional<Double> malformedColumnRate) {
+      this.malformedColumnRate = malformedColumnRate;
+      return this;
+    }
+
     public Generator build() {
-      return new Generator(topLevelSchema, random, generation);
+      return new Generator(topLevelSchema, random, generation, malformedColumnRate);
     }
   }
 
@@ -1459,7 +1470,7 @@ public class Generator {
     }
 
     Object malformedProp = propertiesProp.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP);
-    if (malformedProp != null) {
+    if (malformedProp != null || malformedColumnRate.isPresent()) {
       result = getMalformedDistribution(schema, result, propertiesProp);
     }
 
@@ -1484,9 +1495,11 @@ public class Generator {
 
   private String getMalformedDistribution(Schema schema, String value, Map args) {
     EnumeratedDistribution<String> malformedDistribution = malformedDistributions.get(schema);
-    if (malformedDistribution == null && args != null && args.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP) != null) {
+    if (malformedDistribution == null && (malformedColumnRate.isPresent() || (args != null && args.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP) != null))) {
       List<Pair<String, Double>> distributions = new ArrayList<>();
-      Double md = (Double) args.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP);
+      Double md = args != null && args.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP) != null ?
+              (Double) args.get(LogicalTypeGenerator.MALFORMED_DISTRIBUTION_PROP) :
+              malformedColumnRate.get();
       distributions.add(new Pair<>("malformed", md));
       distributions.add(new Pair<>("real-value", 1.0 - md));
       malformedDistribution = new EnumeratedDistribution<>(distributions);
