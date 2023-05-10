@@ -814,6 +814,7 @@ bash lanuza/pipelines/run.sh lanuza/scripts/build-data.sh --dataset-id=Full_Logi
 ## Working with not informed data
 
 Not informed data can be generated using the `--not-informed` build script option. With this mode the not-informed schema will be generated on the fly and every column will have a 0.1 rate of not-informed data.
+Additionally, the not-informed column rate can be configured using `--not-informed-column-rate=0.05`.
 
 Example:
 ```
