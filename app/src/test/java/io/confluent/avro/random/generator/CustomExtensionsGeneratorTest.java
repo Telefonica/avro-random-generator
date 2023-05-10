@@ -69,7 +69,7 @@ public class CustomExtensionsGeneratorTest {
 
   @Test
   public void shouldCreateNotInformedUnionWithoutDistributionProv() {
-    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", true, Optional.empty());
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", Optional.of(Generator.DEFAULT_NOT_INFORMED_RATE), Optional.empty());
 
     GenericRecord record;
     List<Object> results = new ArrayList<>();
@@ -86,7 +86,7 @@ public class CustomExtensionsGeneratorTest {
 
   @Test
   public void shouldCreateNotInformedUnionMultipleTypesWithoutDistributionProv() {
-    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", true, Optional.empty());
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", Optional.of(Generator.DEFAULT_NOT_INFORMED_RATE), Optional.empty());
 
     GenericRecord record;
     List<Object> stringResults = new ArrayList<>();

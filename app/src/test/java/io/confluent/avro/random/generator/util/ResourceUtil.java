@@ -37,25 +37,28 @@ public final class ResourceUtil {
   }
 
   public static GenericRecord generateRecordWithSchema(String path) {
-    return generateRecordWithSchema(path, false);
+    return generateRecordWithSchema(path, Optional.empty());
   }
 
-  public static GenericRecord generateRecordWithSchema(String path, Boolean useNotInformedSchema) {
-    Generator generator = builderWithSchema(path, useNotInformedSchema, Optional.empty());
+  public static GenericRecord generateRecordWithSchema(String path, Optional<Double> notInformedColumnRate) {
+    Generator generator = builderWithSchema(path, notInformedColumnRate, Optional.empty());
     return (GenericRecord) generator.generate();
   }
 
   public static Generator builderWithSchema(String path) {
-    return builderWithSchema(path, false, Optional.empty());
+    return builderWithSchema(path, Optional.empty(), Optional.empty());
   }
 
   public static Generator builderWithSchemaAndMalformedRate(String path, Double malformedColumnRate) {
-    return builderWithSchema(path, false, Optional.of(malformedColumnRate));
+    return builderWithSchema(path, Optional.empty(), Optional.of(malformedColumnRate));
   }
 
-  public static Generator builderWithSchema(String path, Boolean useNotInformedSchema, Optional<Double> malformedColumnRate) {
+  public static Generator builderWithSchema(String path, Optional<Double> notInformedColumnRate, Optional<Double> malformedColumnRate) {
     String schema = ResourceUtil.loadContent(path);
-    return new Generator.Builder().schemaString(schema, useNotInformedSchema).malformedColumnRate(malformedColumnRate).build();
+    return new Generator.Builder().schemaString(schema, notInformedColumnRate.isPresent())
+            .malformedColumnRate(malformedColumnRate)
+            .notInformedColumnRate(notInformedColumnRate)
+            .build();
   }
 
 }

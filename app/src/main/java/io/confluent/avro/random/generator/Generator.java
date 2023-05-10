@@ -214,6 +214,8 @@ public class Generator {
   private final LogicalTypeGenerator logicalTypeGenerator;
 
   private final Optional<Double> malformedColumnRate;
+
+  private final Optional<Double> notInformedColumnRate;
   private final Map<String, Map<Object, Boolean>> uniques = new HashMap<>();
 
   /**
@@ -223,10 +225,10 @@ public class Generator {
    */
   @Deprecated
   public Generator(Schema topLevelSchema, Random random) {
-    this(topLevelSchema, random, 0L, Optional.empty());
+    this(topLevelSchema, random, 0L, Optional.empty(), Optional.empty());
   }
 
-  protected Generator(Schema topLevelSchema, Random random, long generation, Optional<Double> malformedColumnRate) {
+  protected Generator(Schema topLevelSchema, Random random, long generation, Optional<Double> malformedColumnRate, Optional<Double> notInformedColumnRate) {
     this.topLevelSchema = topLevelSchema;
     this.random = random;
     this.generation = generation;
@@ -237,6 +239,7 @@ public class Generator {
     this.kindGenerator = new KindGenerator(random);
     this.logicalTypeGenerator = new LogicalTypeGenerator(random);
     this.malformedColumnRate = malformedColumnRate;
+    this.notInformedColumnRate = notInformedColumnRate;
   }
 
   /**
@@ -283,6 +286,7 @@ public class Generator {
     private Schema.Parser parser;
 
     private Optional<Double> malformedColumnRate;
+    private Optional<Double> notInformedColumnRate;
 
     public Builder() {
       parser = new Schema.Parser();
@@ -347,8 +351,13 @@ public class Generator {
       return this;
     }
 
+    public Builder notInformedColumnRate(Optional<Double> notInformedColumnRate) {
+      this.notInformedColumnRate = notInformedColumnRate;
+      return this;
+    }
+
     public Generator build() {
-      return new Generator(topLevelSchema, random, generation, malformedColumnRate);
+      return new Generator(topLevelSchema, random, generation, malformedColumnRate, notInformedColumnRate);
     }
   }
 
@@ -1567,11 +1576,12 @@ public class Generator {
   private Map<String, Double> generateNotInformedDistribution(List<Schema> unionTypes) {
     int informedTypes = unionTypes.size() - 1;
     return new HashMap<>(){{
-      Double distributionByType = (1.0 - DEFAULT_NOT_INFORMED_RATE) / informedTypes;
+      Double notInformedRate = notInformedColumnRate.orElse(DEFAULT_NOT_INFORMED_RATE);
+      Double distributionByType = (1.0 - notInformedRate) / informedTypes;
       for (int i = 0; i < informedTypes; i++) {
         put(String.valueOf(i), distributionByType);
       }
-      put(String.valueOf(unionTypes.size() - 1), DEFAULT_NOT_INFORMED_RATE);
+      put(String.valueOf(unionTypes.size() - 1), notInformedRate);
     }};
   }
 

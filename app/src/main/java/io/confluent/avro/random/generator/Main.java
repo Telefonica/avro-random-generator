@@ -71,6 +71,7 @@ public class Main {
 
     public static final String NOT_INFORMED_SCHEMA = "--not-informed";
     public static final String MALFORMED_RATE = "--malformed-column-rate";
+    public static final String NOT_INFORMED_RATE = "--not-informed-column-rate";
 
     /**
      * Parses options passed in via the args argument to main() and then leverages a new
@@ -88,8 +89,8 @@ public class Main {
         long iterations = 1;
         String outputFile = null;
 
-        Boolean useNotInformedSchema = false;
         Optional<Double> malformedColumnRate = Optional.empty();
+        Optional<Double> notInformedColumnRate = Optional.empty();
 
         Iterator<String> argv = Arrays.asList(args).iterator();
         while (argv.hasNext()) {
@@ -134,11 +135,14 @@ public class Main {
                 case HELP_LONG_FLAG:
                     usage();
                     break;
-                case NOT_INFORMED_SCHEMA:
-                    useNotInformedSchema = Boolean.parseBoolean(nextArg(argv, flag));
-                    break;
                 case MALFORMED_RATE:
                     malformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
+                    break;
+                case NOT_INFORMED_SCHEMA:
+                    notInformedColumnRate = Optional.of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
+                    break;
+                case NOT_INFORMED_RATE:
+                    notInformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
                     break;
                 default:
                     System.err.printf("%s: %s: unrecognized option%n%n", PROGRAM_NAME, flag);
@@ -148,7 +152,7 @@ public class Main {
 
         Generator generator = null;
         try {
-            generator = getGenerator(schema, schemaFile, useNotInformedSchema, malformedColumnRate);
+            generator = getGenerator(schema, schemaFile, notInformedColumnRate, malformedColumnRate);
         } catch (IOException ioe) {
             System.err.println("Error occurred while trying to read schema file");
             System.exit(1);
@@ -314,17 +318,22 @@ public class Main {
     }
 
     private static Generator getGenerator(String schema, String schemaFile) throws IOException {
-        return getGenerator(schema, schemaFile, false, Optional.empty());
+        return getGenerator(schema, schemaFile, Optional.empty(), Optional.empty());
     }
 
-    private static Generator getGenerator(String schema, String schemaFile, Boolean useNotInformedSchema, Optional<Double> malformedColumnRate) throws IOException {
+    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> malformedNotInformedRate, Optional<Double> malformedColumnRate) throws IOException {
         if (schema != null) {
-            return new Generator.Builder().schemaString(schema).build();
+            return new Generator.Builder().schemaString(schema)
+                    .malformedColumnRate(malformedColumnRate)
+                    .build();
         } else if (!schemaFile.equals("-")) {
-            return new Generator.Builder().schemaFile(new File(schemaFile), useNotInformedSchema).build();
+            return new Generator.Builder()
+                    .schemaFile(new File(schemaFile), malformedNotInformedRate.isPresent())
+                    .malformedColumnRate(malformedColumnRate)
+                    .build();
         } else {
             System.err.println("Reading schema from stdin...");
-            return new Generator.Builder().schemaStream(System.in).build();
+            return new Generator.Builder().schemaStream(System.in).malformedColumnRate(malformedColumnRate).build();
         }
     }
 
