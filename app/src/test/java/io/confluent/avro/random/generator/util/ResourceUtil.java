@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -36,13 +37,28 @@ public final class ResourceUtil {
   }
 
   public static GenericRecord generateRecordWithSchema(String path) {
-    Generator generator = builderWithSchema(path);
+    return generateRecordWithSchema(path, Optional.empty());
+  }
+
+  public static GenericRecord generateRecordWithSchema(String path, Optional<Double> notInformedColumnRate) {
+    Generator generator = builderWithSchema(path, notInformedColumnRate, Optional.empty());
     return (GenericRecord) generator.generate();
   }
 
   public static Generator builderWithSchema(String path) {
+    return builderWithSchema(path, Optional.empty(), Optional.empty());
+  }
+
+  public static Generator builderWithSchemaAndMalformedRate(String path, Double malformedColumnRate) {
+    return builderWithSchema(path, Optional.empty(), Optional.of(malformedColumnRate));
+  }
+
+  public static Generator builderWithSchema(String path, Optional<Double> notInformedColumnRate, Optional<Double> malformedColumnRate) {
     String schema = ResourceUtil.loadContent(path);
-    return new Generator.Builder().schemaString(schema).build();
+    return new Generator.Builder().schemaString(schema, notInformedColumnRate.isPresent())
+            .malformedColumnRate(malformedColumnRate)
+            .notInformedColumnRate(notInformedColumnRate)
+            .build();
   }
 
 }

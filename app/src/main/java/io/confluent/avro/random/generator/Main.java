@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Optional;
 
 /* TODO:  Find a good argument parser that doesn't strip double quotes off of arguments and allows
           for mutually exclusive options to cancel each other out without error */
@@ -68,6 +69,10 @@ public class Main {
     private static final boolean JSON_ENCODING = true;
     private static final boolean BINARY_ENCODING = false;
 
+    public static final String NOT_INFORMED_SCHEMA = "--not-informed";
+    public static final String MALFORMED_RATE = "--malformed-column-rate";
+    public static final String NOT_INFORMED_RATE = "--not-informed-column-rate";
+
     /**
      * Parses options passed in via the args argument to main() and then leverages a new
      * {@link Generator} object to produce randomized output according to the parsed options.
@@ -83,6 +88,9 @@ public class Main {
 
         long iterations = 1;
         String outputFile = null;
+
+        Optional<Double> malformedColumnRate = Optional.empty();
+        Optional<Double> notInformedColumnRate = Optional.empty();
 
         Iterator<String> argv = Arrays.asList(args).iterator();
         while (argv.hasNext()) {
@@ -127,6 +135,15 @@ public class Main {
                 case HELP_LONG_FLAG:
                     usage();
                     break;
+                case MALFORMED_RATE:
+                    malformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
+                    break;
+                case NOT_INFORMED_SCHEMA:
+                    notInformedColumnRate = Optional.of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
+                    break;
+                case NOT_INFORMED_RATE:
+                    notInformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
+                    break;
                 default:
                     System.err.printf("%s: %s: unrecognized option%n%n", PROGRAM_NAME, flag);
                     usage(1);
@@ -135,7 +152,7 @@ public class Main {
 
         Generator generator = null;
         try {
-            generator = getGenerator(schema, schemaFile);
+            generator = getGenerator(schema, schemaFile, notInformedColumnRate, malformedColumnRate);
         } catch (IOException ioe) {
             System.err.println("Error occurred while trying to read schema file");
             System.exit(1);
@@ -301,13 +318,22 @@ public class Main {
     }
 
     private static Generator getGenerator(String schema, String schemaFile) throws IOException {
+        return getGenerator(schema, schemaFile, Optional.empty(), Optional.empty());
+    }
+
+    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> malformedNotInformedRate, Optional<Double> malformedColumnRate) throws IOException {
         if (schema != null) {
-            return new Generator.Builder().schemaString(schema).build();
+            return new Generator.Builder().schemaString(schema)
+                    .malformedColumnRate(malformedColumnRate)
+                    .build();
         } else if (!schemaFile.equals("-")) {
-            return new Generator.Builder().schemaFile(new File(schemaFile)).build();
+            return new Generator.Builder()
+                    .schemaFile(new File(schemaFile), malformedNotInformedRate.isPresent())
+                    .malformedColumnRate(malformedColumnRate)
+                    .build();
         } else {
             System.err.println("Reading schema from stdin...");
-            return new Generator.Builder().schemaStream(System.in).build();
+            return new Generator.Builder().schemaStream(System.in).malformedColumnRate(malformedColumnRate).build();
         }
     }
 
@@ -318,4 +344,5 @@ public class Main {
             return System.out;
         }
     }
+
 }

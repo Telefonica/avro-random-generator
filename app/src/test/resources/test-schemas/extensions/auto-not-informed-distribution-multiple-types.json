@@ -1,0 +1,18 @@
+{ "type": "record",
+  "name": "logicals",
+  "namespace": "io.confluent.avro.random.generator",
+  "fields":
+  [
+    {
+      "name": "col",
+      "type": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "int"
+        }
+      ]
+    }
+  ]
+}

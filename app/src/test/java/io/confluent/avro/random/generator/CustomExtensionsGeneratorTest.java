@@ -8,9 +8,9 @@ import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static io.confluent.avro.random.generator.util.ResourceUtil.builderWithSchema;
-import static io.confluent.avro.random.generator.util.ResourceUtil.generateRecordWithSchema;
+import static io.confluent.avro.random.generator.util.ResourceUtil.*;
 import static org.junit.Assert.*;
 
 
@@ -65,6 +65,49 @@ public class CustomExtensionsGeneratorTest {
     }
 
     assertEquals("Wrong union distribution", 0.7, ((double) results.size()) / 100, 0.1);
+  }
+
+  @Test
+  public void shouldCreateNotInformedUnionWithoutDistributionProv() {
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution.json", Optional.of(Generator.DEFAULT_NOT_INFORMED_RATE), Optional.empty());
+
+    GenericRecord record;
+    List<Object> results = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      Object col = record.get("col");
+      if (col instanceof String) {
+        results.add(col);
+      }
+    }
+
+    assertEquals("Wrong union distribution", 0.9, ((double) results.size()) / 100, 0.1);
+  }
+
+  @Test
+  public void shouldCreateNotInformedUnionMultipleTypesWithoutDistributionProv() {
+    Generator generator = builderWithSchema("test-schemas/extensions/auto-not-informed-distribution-multiple-types.json", Optional.of(Generator.DEFAULT_NOT_INFORMED_RATE), Optional.empty());
+
+    GenericRecord record;
+    List<Object> stringResults = new ArrayList<>();
+    List<Object> intResults = new ArrayList<>();
+    List<Object> notInformedResults = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      Object col = record.get("col");
+      if (col instanceof String) {
+        stringResults.add(col);
+      } else if (col instanceof Integer) {
+        intResults.add(col);
+      } else {
+        notInformedResults.add(col);
+      }
+    }
+
+    assertEquals("Wrong string distribution", 0.45, ((double) stringResults.size()) / 100, 0.1);
+    assertEquals("Wrong int distribution", 0.45, ((double) intResults.size()) / 100, 0.1);
+    assertEquals("Wrong not informed distribution", 0.1, ((double) notInformedResults.size()) / 100, 0.1);
+    assertNotEquals("Empty not informed values", notInformedResults.size(), 0);
   }
 
   @Test
@@ -185,5 +228,22 @@ public class CustomExtensionsGeneratorTest {
     }
 
     assertEquals("Wrong malformed distribution", 0.7, ((double) results.size()) / 100, 0.1);
+  }
+
+  @Test
+  public void shouldCreateFieldWithGlobalMalformedRate() {
+    Generator generator = builderWithSchemaAndMalformedRate("test-schemas/extensions/malformed-without-distribution.json", 0.2);
+
+    GenericRecord record;
+    List<Object> results = new ArrayList<>();
+    for (int i = 0; i < 100; i++) {
+      record = (GenericRecord) generator.generate();
+      String col = (String) record.get("day_dt");
+      if (Validations.isValidDate(col)) {
+        results.add(col);
+      }
+    }
+
+    assertEquals("Wrong malformed distribution", 0.8, ((double) results.size()) / 100, 0.1);
   }
 }

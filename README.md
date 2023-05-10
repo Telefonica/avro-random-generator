@@ -800,3 +800,23 @@ Note that all enum positions with each distribution must be specified.
     ]
 }
 ```
+
+## Working with malformed data
+
+Malformed data for all column can be generated using the `--malformed-column-rate=0.1` build script option. With this mode all the columns will have the desired percentage of malformed data.
+
+Example:
+```
+bash lanuza/pipelines/run.sh lanuza/scripts/build-data.sh --dataset-id=Full_LogicalType_Dataset_With_Complex_Types --dataset-version=1.0.0 --records=50 --datasets-in=samples/datasets --datasets-extensions-in=samples/extensions --out=output --num-files=1 --max-threads=1 --start-date=2023-04-24 --end-date=2023-04-27 --malformed-column-rate=0.1 
+```
+
+
+## Working with not informed data
+
+Not informed data can be generated using the `--not-informed` build script option. With this mode the not-informed schema will be generated on the fly and every column will have a 0.1 rate of not-informed data.
+Additionally, the not-informed column rate can be configured using `--not-informed-column-rate=0.05`.
+
+Example:
+```
+bash lanuza/pipelines/run.sh lanuza/scripts/build-data.sh --dataset-id=Full_LogicalType_Dataset_With_Complex_Types --dataset-version=1.0.0 --records=50 --datasets-in=samples/datasets --datasets-extensions-in=samples/extensions --out=output --num-files=1 --max-threads=1 --start-date=2023-04-24 --end-date=2023-04-27 --extension-flavour=.full-malformed --not-informed=true
+```
