@@ -83,10 +83,10 @@ function run() {
 
       local extra_args=""
       if [ -n "${MALFORMED_COLUMN_RATE}" ]; then
-        extra_args="--malformed-column-rate=${MALFORMED_COLUMN_RATE}"
+        extra_args=" --malformed-column-rate=${MALFORMED_COLUMN_RATE}"
       fi
 
-      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} --not-informed ${NOT_INFORMED} "${extra_args}" &
+      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} --not-informed ${NOT_INFORMED}"${extra_args}" &
       pids[$counter]=$!
       echo "Generating ${out} in background, current thread [${pids[current_threads]}]"
 
