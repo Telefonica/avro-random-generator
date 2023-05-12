@@ -139,7 +139,10 @@ public class Main {
                     malformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
                     break;
                 case NOT_INFORMED_SCHEMA:
-                    notInformedColumnRate = Optional.of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
+                    boolean isEnabled = Boolean.parseBoolean(nextArg(argv, flag));
+                    if (isEnabled) {
+                        notInformedColumnRate = Optional.of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
+                    }
                     break;
                 case NOT_INFORMED_RATE:
                     notInformedColumnRate = Optional.of(Double.parseDouble(nextArg(argv, flag)));
