@@ -1,0 +1,13 @@
+{
+	"name": "qa_d_channel_no_partitions_evolved",
+	"type": "record",
+	"doc": "Description of sales channels (online channel, call center, etc.): The specific mechanism that Customers, Providers and Organizations use to interact, conduct business or obtain information about a product or service. \n A Channel identifies each possible link where interaction with the Communications Service Provider",
+	"x-fp-version": "1.1.0",
+	"fields": [
+		{"name": "OPERATOR_ID", "aliases": ["operator_id"], "type": "string", "doc": "Global Operator Identifier"},
+		{"name": "CHANNEL_ID", "aliases": ["channel_id"], "type": "string", "doc": "Identifier of the sales channel"},
+		{"name": "CHANNEL_NAME", "aliases": ["channel_name"], "type": "string", "doc": "Description / Name of the sales channel (online channel, call center, etc.)"},
+		{"name": "GBL_CHANNEL_CD", "aliases": ["gbl_channel_cd"], "type": {"name": "GBL_CHANNEL_CD_ENUM", "type": "enum", "symbols":["Unknown", "NonPresential", "Presential", "Other"]}, "doc": "Global identifier of the sales channel"},
+		{"name": "EVOLUTION_COLUMN", "aliases": ["channel_description"], "type": [ "null", "string" ], "doc": "Evolution Column", "default": "null"}
+	]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "record",
+  "name": "qa_d_channel_no_partitions_evolved",
+  "doc": "Description of sales channels (online channel, call center, etc.): The specific mechanism that Customers, Providers and Organizations use to interact, conduct business or obtain information about a product or service. \n A Channel identifies each possible link where interaction with the Communications Service Provider",
+  "fields": [
+    {
+      "name": "OPERATOR_ID",
+      "type": "string"
+    },
+    {
+      "name": "CHANNEL_ID",
+      "type": "string"
+    },
+    {
+      "name": "CHANNEL_NAME",
+      "type": "string"
+    },
+    {
+      "name": "GBL_CHANNEL_CD",
+      "type": {
+        "name": "GBL_CHANNEL_CD_ENUM",
+        "type": "enum",
+        "symbols": [
+          "Unknown",
+          "NonPresential",
+          "Presential",
+          "Other"
+        ]
+      }
+    },
+    {
+      "name": "EVOLUTION_COLUMN",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "evolved_column"
+          ]
+        }
+      }
+    }
+  ],
+  "x-fp-version": "1.1.0"
+}
