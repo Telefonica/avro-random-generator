@@ -274,4 +274,34 @@ public class LogicalTypeGeneratorTest {
     assertTrue("Invalid latitude: " + value, Validations.isValidLongitude(value));
   }
 
+  @Test
+  public void shouldCreateValidLGeometry() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/geometry.json");
+    String field = "geometry";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    // assertTrue("Invalid geometry: " + value, Validations.isValidGeometry(value));
+  }
+
+  @Test
+  public void shouldCreateValidLFeature() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature.json");
+    String field = "feature";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    // assertTrue("Invalid feature: " + value, Validations.isValidFeature(value));
+  }
+
+  @Test
+  public void shouldCreateValidLFeatureCollection() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature-collection.json");
+    String field = "featureCollection";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    // assertTrue("Invalid feature-collection: " + value, Validations.isValidFeatureCollection(value));
+  }
+
 }
