@@ -3,17 +3,16 @@ package io.confluent.avro.random.generator.geojson;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import io.confluent.avro.random.generator.geojson.crs.CRS;
+import io.confluent.avro.random.generator.geojson.crs.EPSG4326;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
 public class FeatureTest {
     GeometryType geometryType = GeometryType.Point;
-    ReferenceSystemAndProjection referenceSystemAndProjection = new ReferenceSystemAndProjection(
-            ReferenceSystem.ETRS89,
-            Projection.UTM
-    );
-    Geometry geometry = new Geometry(geometryType, referenceSystemAndProjection);
+    CRS crs = new EPSG4326();
+    Geometry geometry = new Geometry(geometryType, crs);
 
     @Test
     public void shouldCreateFeature() {

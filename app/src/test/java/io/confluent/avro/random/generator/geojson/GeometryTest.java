@@ -3,16 +3,15 @@ package io.confluent.avro.random.generator.geojson;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import io.confluent.avro.random.generator.geojson.crs.CRS;
+import io.confluent.avro.random.generator.geojson.crs.EPSG4326;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
 public class GeometryTest {
     GeometryType geometryType = GeometryType.Point;
-    ReferenceSystemAndProjection referenceSystemAndProjection = new ReferenceSystemAndProjection(
-            ReferenceSystem.ETRS89,
-            Projection.UTM
-    );
+    CRS crs = new EPSG4326();
 
     @Test
     public void shouldCreateGeometryWithDefaults() {
@@ -34,17 +33,17 @@ public class GeometryTest {
 
     @Test
     public void shouldCreateGeometryWithSpecificReferenceSystem() {
-        Geometry geometry = new Geometry(null, referenceSystemAndProjection);
+        Geometry geometry = new Geometry(null, crs);
         assertNotNull(geometry);
         assertNotNull(geometry.geometryType);
         assertNotNull(geometry.coordinates);
-        assertEquals(geometry.referenceSystemAndProjection, referenceSystemAndProjection);
+        assertEquals(geometry.crs, crs);
         System.out.println(geometry);
     }
 
     @Test
     public void shouldStringifyCorrectly() {
-        Geometry geometry = new Geometry(geometryType, referenceSystemAndProjection);
+        Geometry geometry = new Geometry(geometryType, crs);
         assertNotNull(geometry.toString());
         Gson gson = new Gson();
 

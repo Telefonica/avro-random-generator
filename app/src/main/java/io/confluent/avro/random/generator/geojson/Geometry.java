@@ -1,6 +1,8 @@
 package io.confluent.avro.random.generator.geojson;
 
-import java.util.ArrayList;
+import io.confluent.avro.random.generator.geojson.crs.CRS;
+import io.confluent.avro.random.generator.geojson.crs.EPSG4326;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,25 +10,21 @@ import java.util.List;
  * Use this class in order to create Geometry objects according to GeoJson standard that can be stringified.
  */
 public class Geometry {
-    private static final ReferenceSystem DEF_REF_SYSTEM = ReferenceSystem.ETRS89;
-    private static final Projection DEF_PROJECTION = Projection.UTM;
     public final GeometryType geometryType;
-    public final ReferenceSystemAndProjection referenceSystemAndProjection;
+    public final CRS crs;
     public final String coordinates;
 
     /**
      * Constructor.
-     * @param geometryType                 Geometry type as can be found in GeometryType.java . Random type by default.
-     * @param referenceSystemAndProjection Reference system and projection as can be found in
-     *                                     ReferenceSystemAndProjection.java . DEF_REF_SYSTEM by default.
+     * @param geometryType Geometry type as can be found in GeometryType.java . Random type by default.
+     * @param crs          Coordinates Reference System. EPSG4326 by default.
      */
     public Geometry(
             GeometryType geometryType,
-            ReferenceSystemAndProjection referenceSystemAndProjection
+            CRS crs
     ) {
         this.geometryType = geometryType == null ? GeometryType.randomGeometryType() : geometryType;
-        this.referenceSystemAndProjection = referenceSystemAndProjection == null ?
-                new ReferenceSystemAndProjection(DEF_REF_SYSTEM, DEF_PROJECTION) : referenceSystemAndProjection;
+        this.crs = crs == null ? new EPSG4326() : crs;
         coordinates = randomCoordinates();
     }
 
@@ -41,58 +39,58 @@ public class Geometry {
     private String randomCoordinates() {
         switch (geometryType) {
             case Point:
-                return new Point(null, null, referenceSystemAndProjection).toString();
+                return new Point(null, null, crs).toString();
             case MultiPoint:
                 return Arrays.asList(
-                        new Point(null, null, referenceSystemAndProjection).toString(),
-                        new Point(null, null, referenceSystemAndProjection).toString()
+                        new Point(null, null, crs).toString(),
+                        new Point(null, null, crs).toString()
                 ).toString();
             case LineString:
                 return Arrays.asList(
-                        new Point(null, null, referenceSystemAndProjection).toString(),
-                        new Point(null, null, referenceSystemAndProjection).toString(),
-                        new Point(null, null, referenceSystemAndProjection).toString()
+                        new Point(null, null, crs).toString(),
+                        new Point(null, null, crs).toString(),
+                        new Point(null, null, crs).toString()
                 ).toString();
             case MultiLineString:
                 return Arrays.asList(
                         Arrays.asList(
-                                new Point(null, null, referenceSystemAndProjection).toString(),
-                                new Point(null, null, referenceSystemAndProjection).toString()
+                                new Point(null, null, crs).toString(),
+                                new Point(null, null, crs).toString()
                         ),
                         Arrays.asList(
-                                new Point(null, null, referenceSystemAndProjection).toString(),
-                                new Point(null, null, referenceSystemAndProjection).toString()
+                                new Point(null, null, crs).toString(),
+                                new Point(null, null, crs).toString()
                         )
                 ).toString();
             case Polygon:
-                String first = new Point(null, null, referenceSystemAndProjection).toString();
+                String first = new Point(null, null, crs).toString();
 
                 return List.of(
                         Arrays.asList(
                                 first,
-                                new Point(null, null, referenceSystemAndProjection).toString(),
-                                new Point(null, null, referenceSystemAndProjection).toString(),
+                                new Point(null, null, crs).toString(),
+                                new Point(null, null, crs).toString(),
                                 first
                         )
                 ).toString();
             case MultiPolygon:
-                String first1 = new Point(null, null, referenceSystemAndProjection).toString();
-                String first2 = new Point(null, null, referenceSystemAndProjection).toString();
+                String first1 = new Point(null, null, crs).toString();
+                String first2 = new Point(null, null, crs).toString();
 
                 return Arrays.asList(
                         List.of(
                                 Arrays.asList(
                                         first1,
-                                        new Point(null, null, referenceSystemAndProjection).toString(),
-                                        new Point(null, null, referenceSystemAndProjection).toString(),
+                                        new Point(null, null, crs).toString(),
+                                        new Point(null, null, crs).toString(),
                                         first1
                                 )
                         ),
                         List.of(
                                 Arrays.asList(
                                         first2,
-                                        new Point(null, null, referenceSystemAndProjection).toString(),
-                                        new Point(null, null, referenceSystemAndProjection).toString(),
+                                        new Point(null, null, crs).toString(),
+                                        new Point(null, null, crs).toString(),
                                         first2
                                 )
                         )
@@ -109,7 +107,7 @@ public class Geometry {
         public Point(
                 Double latitude,
                 Double longitude,
-                ReferenceSystemAndProjection referenceSystemAndProjection
+                CRS referenceSystemAndProjection
         ) {
             this.latitude = latitude == null ? referenceSystemAndProjection.randomLatitude() : latitude;
             this.longitude = longitude == null ? referenceSystemAndProjection.randomLongitude() : longitude;

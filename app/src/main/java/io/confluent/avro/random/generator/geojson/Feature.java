@@ -1,5 +1,7 @@
 package io.confluent.avro.random.generator.geojson;
 
+import io.confluent.avro.random.generator.geojson.crs.CRS;
+
 import java.util.*;
 
 /**
@@ -18,7 +20,7 @@ public class Feature {
             Geometry geometry
     ) {
         this.geometry = geometry;
-        this.properties = new Properties(geometry.referenceSystemAndProjection);
+        this.properties = new Properties(geometry.crs);
     }
 
     /**
@@ -31,10 +33,9 @@ public class Feature {
     }
 
     private static class Properties extends HashMap<String, String> {
-        public Properties(ReferenceSystemAndProjection referenceSystemAndProjection) {
+        public Properties(CRS crs) {
             super();
-            this.put("\"reference_system\"", "\"" + referenceSystemAndProjection.referenceSystem + "\"");
-            this.put("\"projection\"", "\"" + referenceSystemAndProjection.projection + "\"");
+            this.put("\"crs\"", "\"" + crs.toString() + "\"");
             this.put("\"date_time\"", "\"" + new java.util.Date() + "\"");
         }
 
