@@ -2,7 +2,11 @@ package io.confluent.avro.random.generator;
 
 import com.telefonica.baikal.utils.Validations;
 import org.apache.avro.generic.GenericRecord;
+import org.geotools.data.geojson.GeoJSONReader;
 import org.junit.Test;
+import org.locationtech.jts.geom.Geometry;
+
+import java.io.IOException;
 
 import static io.confluent.avro.random.generator.util.ResourceUtil.builderWithSchema;
 import static io.confluent.avro.random.generator.util.ResourceUtil.generateRecordWithSchema;
@@ -281,7 +285,7 @@ public class LogicalTypeGeneratorTest {
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
     System.out.println("Generated value is: " + value);
-    // assertTrue("Invalid geometry: " + value, Validations.isValidGeometry(value));
+    assertTrue("Invalid geometry: " + value, Validations.isValidGeometry(value));
   }
 
   @Test
@@ -291,7 +295,7 @@ public class LogicalTypeGeneratorTest {
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
     System.out.println("Generated value is: " + value);
-    // assertTrue("Invalid feature: " + value, Validations.isValidFeature(value));
+    assertTrue("Invalid feature: " + value, Validations.isValidFeature(value));
   }
 
   @Test
@@ -301,7 +305,7 @@ public class LogicalTypeGeneratorTest {
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
     System.out.println("Generated value is: " + value);
-    // assertTrue("Invalid feature-collection: " + value, Validations.isValidFeatureCollection(value));
+    assertTrue("Invalid feature-collection: " + value, Validations.isValidFeatureCollection(value));
   }
 
 }

@@ -295,7 +295,7 @@ public class LogicalTypeGenerator {
         ArrayList<Feature> features = new ArrayList<>(numFeatures);
 
         for (int i = 0; i < numFeatures; i++) {
-          features.set(i, new Feature(new Geometry(null, null)));
+          features.add(new Feature(new Geometry(null, null)));
         }
 
         return new FeatureCollection(features).toString();
