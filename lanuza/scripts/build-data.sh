@@ -71,7 +71,9 @@ function run() {
     while [  $counter -lt $NUM_FILES ]; do
 
       if [ "${SHOW}" = "true" ]; then
-        ARGS="-j -p"
+        out="${out_dir}/${DATASET_ID}.${FILE_PREFIX}.${counter}_${DATE_RANGE_START}.json"
+        touch $out
+        ARGS="-j -p -o ${out}"
       else
         out="${out_dir}/${DATASET_ID}.${FILE_PREFIX}.${counter}_${DATE_RANGE_START}.avro"
         touch $out
