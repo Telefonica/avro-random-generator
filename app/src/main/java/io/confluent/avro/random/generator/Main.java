@@ -73,9 +73,15 @@ public class Main {
     public static final String MALFORMED_RATE = "--malformed-column-rate";
     public static final String NOT_INFORMED_RATE = "--not-informed-column-rate";
 
+    public static final String START_JSON_LIST = "[";
+    public static final String END_JSON_LIST = "]";
+    public static final String COMA_SEPARATOR = ",";
+
     /**
-     * Parses options passed in via the args argument to main() and then leverages a new
-     * {@link Generator} object to produce randomized output according to the parsed options.
+     * Parses options passed in via the args argument to main() and then leverages a
+     * new
+     * {@link Generator} object to produce randomized output according to the parsed
+     * options.
      */
     public static void main(String[] args) {
 
@@ -141,7 +147,8 @@ public class Main {
                 case NOT_INFORMED_SCHEMA:
                     boolean isEnabled = Boolean.parseBoolean(nextArg(argv, flag));
                     if (isEnabled) {
-                        notInformedColumnRate = Optional.of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
+                        notInformedColumnRate = Optional
+                                .of(notInformedColumnRate.orElse(Generator.DEFAULT_NOT_INFORMED_RATE));
                     }
                     break;
                 case NOT_INFORMED_RATE:
@@ -164,32 +171,30 @@ public class Main {
         DatumWriter<Object> dataWriter = new GenericDatumWriter<>(generator.schema());
         if (encoding == JSON_ENCODING) {
             try (OutputStream output = getOutput(outputFile)) {
-                output.write('[');
+                output.write(START_JSON_LIST.getBytes());
                 Encoder encoder = EncoderFactory.get().jsonEncoder(generator.schema(), output, jsonFormat);
                 for (int i = 0; i < iterations; i++) {
                     dataWriter.write(generator.generate(), encoder);
                     encoder.flush();
                     if (i < iterations - 1) {
-                        output.write(',');
+                        output.write(COMA_SEPARATOR.getBytes());
                     }
-                }                
-                output.write(']');
+                }
+                output.write(END_JSON_LIST.getBytes());
             } catch (IOException ioe) {
                 System.err.println(
-                        "Error occurred while trying to write to output file: " + ioe.getLocalizedMessage()
-                );
+                        "Error occurred while trying to write to output file: " + ioe.getLocalizedMessage());
                 System.exit(1);
             }
         } else {
-            try (DataFileWriter<Object> dataFileWriter =
-                         new DataFileWriter<>(dataWriter).create(generator.schema(), getOutput(outputFile))) {
+            try (DataFileWriter<Object> dataFileWriter = new DataFileWriter<>(dataWriter).create(generator.schema(),
+                    getOutput(outputFile))) {
                 for (int i = 0; i < iterations; i++) {
                     dataFileWriter.append(generator.generate());
                 }
             } catch (IOException ioe) {
                 System.err.println(
-                        "Error occurred while trying to write to output file: " + ioe.getLocalizedMessage()
-                );
+                        "Error occurred while trying to write to output file: " + ioe.getLocalizedMessage());
                 System.exit(1);
             }
         }
@@ -209,8 +214,7 @@ public class Main {
         }
         System.err.println(
                 "This statement was put in to make the compiler happy."
-                        + " If you are seeing it, something has gone very wrong."
-        );
+                        + " If you are seeing it, something has gone very wrong.");
         System.exit(1);
         return 0L;
     }
@@ -240,85 +244,82 @@ public class Main {
                 PRETTY_SHORT_FLAG,
                 COMPACT_SHORT_FLAG,
                 ITERATIONS_SHORT_FLAG,
-                OUTPUT_FILE_SHORT_FLAG
-        );
+                OUTPUT_FILE_SHORT_FLAG);
 
         final String indentation = "    ";
         final String separation = "\t";
-        String flags =
-                "Flags:\n"
-                        + String.format(
+        String flags = "Flags:\n"
+                + String.format(
                         "%s%s, %s, %s:%s%s%n",
                         indentation,
                         HELP_SHORT_FLAG_1,
                         HELP_SHORT_FLAG_2,
                         HELP_LONG_FLAG,
                         separation,
-                        "Print a brief usage summary and exit with status 0"
-                ) + String.format(
+                        "Print a brief usage summary and exit with status 0")
+                + String.format(
                         "%s%s, %s:%s%s%n",
                         indentation,
                         BINARY_SHORT_FLAG,
                         BINARY_LONG_FLAG,
                         separation,
-                        "Encode outputted data in binary format"
-                ) + String.format(
+                        "Encode outputted data in binary format")
+                + String.format(
                         "%s%s, %s:%s%s%n",
                         indentation,
                         COMPACT_SHORT_FLAG,
                         COMPACT_LONG_FLAG,
                         separation,
-                        "Output each record on a single line of its own (has no effect if encoding is not JSON)"
-                ) + String.format(
+                        "Output each record on a single line of its own (has no effect if encoding is not JSON)")
+                + String.format(
                         "%s%s <file>, %s <file>:%s%s%n",
                         indentation,
                         SCHEMA_FILE_SHORT_FLAG,
                         SCHEMA_FILE_LONG_FLAG,
                         separation,
-                        "Read the schema to spoof from <file>, or stdin if <file> is '-' (default is '-')"
-                ) + String.format(
+                        "Read the schema to spoof from <file>, or stdin if <file> is '-' (default is '-')")
+                + String.format(
                         "%s%s <i>, %s <i>:%s%s%n",
                         indentation,
                         ITERATIONS_SHORT_FLAG,
                         ITERATIONS_LONG_FLAG,
                         separation,
-                        "Output <i> iterations of spoofed data (default is 1)"
-                ) + String.format(
+                        "Output <i> iterations of spoofed data (default is 1)")
+                + String.format(
                         "%s%s, %s:%s%s%n",
                         indentation,
                         JSON_SHORT_FLAG,
                         JSON_LONG_FLAG,
                         separation,
-                        "Encode outputted data in JSON format (default)"
-                ) + String.format(
+                        "Encode outputted data in JSON format (default)")
+                + String.format(
                         "%s%s <file>, %s <file>:%s%s%n",
                         indentation,
                         OUTPUT_FILE_SHORT_FLAG,
                         OUTPUT_FILE_LONG_FLAG,
                         separation,
-                        "Write data to the file <file>, or stdout if <file> is '-' (default is '-')"
-                ) + String.format(
+                        "Write data to the file <file>, or stdout if <file> is '-' (default is '-')")
+                + String.format(
                         "%s%s, %s:%s%s%n",
                         indentation,
                         PRETTY_SHORT_FLAG,
                         PRETTY_LONG_FLAG,
                         separation,
                         "Output each record in prettified format (has no effect if encoding is not JSON)"
-                                + "(default)"
-                ) + String.format(
+                                + "(default)")
+                + String.format(
                         "%s%s <schema>, %s <schema>:%s%s%n",
                         indentation,
                         SCHEMA_SHORT_FLAG,
                         SCHEMA_LONG_FLAG,
                         separation,
-                        "Spoof the schema <schema>"
-                ) + "\n";
+                        "Spoof the schema <schema>")
+                + "\n";
 
         String footer = String.format(
                 "%s%n%s%n",
                 "Source repository:",
-                "https://github.com/confluentinc/avro-random-generator"
-        );
+                "https://github.com/confluentinc/avro-random-generator");
 
         System.err.printf(header + summary + flags + footer);
         System.exit(exitValue);
@@ -328,7 +329,8 @@ public class Main {
         return getGenerator(schema, schemaFile, Optional.empty(), Optional.empty());
     }
 
-    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> malformedNotInformedRate, Optional<Double> malformedColumnRate) throws IOException {
+    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> malformedNotInformedRate,
+            Optional<Double> malformedColumnRate) throws IOException {
         if (schema != null) {
             return new Generator.Builder().schemaString(schema)
                     .malformedColumnRate(malformedColumnRate)
