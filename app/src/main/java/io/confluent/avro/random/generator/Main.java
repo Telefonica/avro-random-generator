@@ -164,12 +164,16 @@ public class Main {
         DatumWriter<Object> dataWriter = new GenericDatumWriter<>(generator.schema());
         if (encoding == JSON_ENCODING) {
             try (OutputStream output = getOutput(outputFile)) {
+                output.write('[');
                 Encoder encoder = EncoderFactory.get().jsonEncoder(generator.schema(), output, jsonFormat);
                 for (int i = 0; i < iterations; i++) {
                     dataWriter.write(generator.generate(), encoder);
-                }
-                encoder.flush();
-                output.write('\n');
+                    encoder.flush();
+                    if (i < iterations - 1) {
+                        output.write(',');
+                    }
+                }                
+                output.write(']');
             } catch (IOException ioe) {
                 System.err.println(
                         "Error occurred while trying to write to output file: " + ioe.getLocalizedMessage()
