@@ -2,7 +2,11 @@ package io.confluent.avro.random.generator;
 
 import com.telefonica.baikal.utils.Validations;
 import org.apache.avro.generic.GenericRecord;
+import org.geotools.data.geojson.GeoJSONReader;
 import org.junit.Test;
+import org.locationtech.jts.geom.Geometry;
+
+import java.io.IOException;
 
 import static io.confluent.avro.random.generator.util.ResourceUtil.builderWithSchema;
 import static io.confluent.avro.random.generator.util.ResourceUtil.generateRecordWithSchema;
@@ -272,6 +276,36 @@ public class LogicalTypeGeneratorTest {
     Double value = Double.valueOf(record.get(field).toString());
     System.out.println("Generated value is: " + value);
     assertTrue("Invalid latitude: " + value, Validations.isValidLongitude(value));
+  }
+
+  @Test
+  public void shouldCreateValidLGeometry() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/geometry.json");
+    String field = "geometry";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid geometry: " + value, Validations.isValidGeometry(value));
+  }
+
+  @Test
+  public void shouldCreateValidLFeature() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature.json");
+    String field = "feature";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid feature: " + value, Validations.isValidFeature(value));
+  }
+
+  @Test
+  public void shouldCreateValidLFeatureCollection() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature-collection.json");
+    String field = "featureCollection";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid feature-collection: " + value, Validations.isValidFeatureCollection(value));
   }
 
 }

@@ -6,6 +6,9 @@ import com.google.i18n.phonenumbers.Phonemetadata;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.googlecode.ipv6.IPv6Address;
 import com.telefonica.baikal.utils.Validations;
+import io.confluent.avro.random.generator.geojson.Feature;
+import io.confluent.avro.random.generator.geojson.FeatureCollection;
+import io.confluent.avro.random.generator.geojson.Geometry;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.commons.text.RandomStringGenerator;
 import scala.collection.JavaConverters;
@@ -283,6 +286,19 @@ public class LogicalTypeGenerator {
       case "time-zone":
         List<String> timezones = JavaConverters.seqAsJavaList(Validations.availableTimeZones());
         return timezones.get(random.nextInt(timezones.size()));
+      case "geometry":
+        return new Geometry(null, null).toString();
+      case "feature":
+        return new Feature(new Geometry(null, null)).toString();
+      case "feature-collection":
+        int numFeatures = 10;
+        ArrayList<Feature> features = new ArrayList<>(numFeatures);
+
+        for (int i = 0; i < numFeatures; i++) {
+          features.add(new Feature(new Geometry(null, null)));
+        }
+
+        return new FeatureCollection(features).toString();
       default:
         throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
     }
