@@ -32,7 +32,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
     implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
-    implementation group: 'com.telefonica.baikal', name: 'spark-commons_2.12', version: '2.2.0-RC1'
+    implementation group: 'com.telefonica.baikal', name: 'spark-commons_2.12', version: '2.2.0'
 
     // XXX: custom lib with performance improvements: https://github.com/Telefonica/libphonenumber-1
     implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.25-4p'
