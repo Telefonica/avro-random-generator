@@ -1,0 +1,265 @@
+{
+    "type": "record",
+    "name": "qa_all_logical_types",
+    "namespace": "com.telefonica.baikal.qa",
+    "x-fp-version": "1.0.0",
+    "doc": "Schema for logical types supported by spark sdk",
+    "fields" : [ {
+        "name" : "PHONE_NUMBER",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "phone-number",
+          "arg.properties" : {
+            "options" : [ "+34667895234", "+447911223344", "+34983879621", "+551122334455", "+64 (0) 24099 2001", "1111111111111111111111111111111111", "77777777777777777", "+3333", "+", "", "+44765DD78906", "+158976543215" ]
+          }
+        },
+        "doc" : "International number value according to ITU E.164"
+      }, {
+        "name" : "IMSI",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "imsi",
+          "arg.properties" : {
+            "options" : [ "002170234567891", "2143423232323", "", "7480767890546324567", "122330567890658", "7301876A9c124f3", "214091234567890", "214050987654321", "214342323232323", "255086767675434", "748076789054632", "722330567890654" ]
+          }
+        },
+        "doc" : "A valid International Mobile Subscriber Identity"
+      }, {
+        "name" : "IMEI",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "imei",
+          "arg.properties" : {
+            "options" : [ "262189041050750", "889198767562944708", "62189041050", "AAAAAAAAAAAAAAA", "", "1345A6B89CD765", "62189041050750", "91987675629447", "05363487594832", "04160044677810" ]
+          }
+        },
+        "doc" : "International Mobile Equipment Identity"
+      }, {
+        "name" : "DATE",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "iso-date",
+          "arg.properties" : {
+            "options" : [ "21:48:66Z21:48:66Z", "13-18-05", "252025", "08:17:46+28:00", "016032", "00", "20071103", "2018-05-03", "2013-W44-6", "2019W303", "2015307", "1998-001", "20071303", "2018/05/03", "", "19", "1980", "2014W", "16-04-07", "20021990", "20190740", "00000000" ]
+          }
+        },
+        "doc" : "A valid ISO-8601 value that contains a complete date representation, with no time specification"
+      }, {
+        "name" : "TIME",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "time",
+          "arg.properties" : {
+            "options" : [ "00", "25", "14:34:12", "063305", "152025Z", "000000", "21:48:13Z", "08:17:46-02:00", "11:47:15.12", "13:18:05", "240000", "17:38:15.44Z", "08:17:46-02:00", "18:29:14.58+01:00", "101515-01", "02:20:05+03", "123824.28-0300", "162609.29Z", "063305.32" ]
+          }
+        },
+        "doc" : "A valid ISO-8601 value that contains a complete time representation"
+      }, {
+        "name" : "DATETIME",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "datetime",
+          "arg.properties" : {
+            "options" : [ "0000304T150605Z", "2007-15-03T16:18:05Z", "2015-12-33T16:18:05Z", "2016-12-13T26:18:05Z", "19900304T156605Z", "19750804T153661", "20170929153600", "2011/11/11T26:18:05Z", "19800304T150605Z", "2007-11-03T16:18:05Z", "20071103T131805", "2017-12-03T13:18:05", "20071103T131805-0300", "2009-03-08T20:18:05-03:00", "1986250T231305", "2000-002T13:18:05", "1997107T161805Z", "1956-007T16:56:05Z", "2007138T143905-06", "2008-096T13:18:05-03", "1986W403T131805", "2013-W44-6T06:05:05", "2010W103T161805Z", "1978-W49-2T02:13:05Z", "2007W386T211805-0300", "1981-W26-1T13:49:05-04:00" ]
+          }
+        },
+        "doc" : "A valid ISO-8601 value that contains a complete date and time representation"
+      }, {
+        "name" : "TIMESTAMP",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "iso8601-timestamp",
+          "arg.properties" : {
+            "options" : [ "19750804T153661", "19900304T156605Z", "2016-12-13T26:18:05Z", "19750804T153661", "19800304T150605Z", "2007-11-03T16:18:05Z", "20071103T131805", "2017-12-03T13:18:05", "20071103T131805-0300", "2009-03-08T20:18:05-03:00", "1986250T231305", "2000-002T13:18:05", "1997107T161805Z", "1956-007T16:56:05Z", "2007138T143905-06", "2008-096T13:18:05-03", "1986W403T131805", "2013-W44-6T06:05:05", "2010W103T161805Z", "1978-W49-2T02:13:05Z", "2007W386T211805-0300", "1981-W26-1T13:49:05-04:00" ]
+          }
+        },
+        "doc" : "A valid ISO-8601 value that contains a complete date and time representation"
+      }, {
+        "name" : "DURATION",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "duration",
+          "arg.properties" : {
+            "options" : [ "", "P", "P1", "8Y3M5D", "T23H", "P3Y13M43DT", "P1Y4M23DT3H34M56S", "P0Y7M9DT8H12M33S", "P9M2DT23H55M55S", "P28DT12H12M36S", "PT09H7M6S", "PT90M", "P8M", "P6Y", "P12D", "PT15H", "PT0S", "P5Y12W", "P2W" ]
+          }
+        },
+        "doc" : "A valid ISO-8601 value that contains a complete duration representation"
+      }, {
+        "name" : "COUNTRY_CODE2",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "country-code-alpha-2",
+          "arg.properties" : {
+            "options" : [ "AN", "JJJJJJJJJJ", "", "H4", "55", "XX", "BLZ", "108", "ES", "UK", "BR", "DE" ]
+          }
+        },
+        "doc" : "A valid ISO-3166-1 alpha-2 country code"
+      }, {
+        "name" : "COUNTRY_CODE3",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "country-code-alpha-3",
+          "arg.properties" : {
+            "options" : [ "AF", "XXX", "DZAMD", "A8D", "020", "", "ESP", "BRA", "DEU", "GBR" ]
+          }
+        },
+        "doc" : "A valid ISO-3166-1 alpha-3 country code"
+      }, {
+        "name" : "COUNTRY_NUMERIC",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "country-code-numeric",
+          "arg.properties" : {
+            "options" : [ "127", "973", "00", "87956214", "ALA", "", "2", "6B0", "276", "076", "724", "826" ]
+          }
+        },
+        "doc" : "A valid ISO-3166-1 numeric country code"
+      }, {
+        "name" : "CURRENCY_CODE",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "currency-code-alpha",
+          "arg.properties" : {
+            "options" : [ "AEDIN", "ZZM", "AL", "", "", "784", "A0A", "EUR", "USD", "BRL", "GBP" ]
+          }
+        },
+        "doc" : "A valid ISO-4217 alpha currency code"
+      }, {
+        "name" : "CURRENCY_NUMERIC",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "currency-code-numeric",
+          "arg.properties" : {
+            "options" : [ "1000", "88", "EUR", "9.e0", "+2E8", "13:18:05", "063305.32", "978", "784", "840", "986", "826" ]
+          }
+        },
+        "doc" : "A valid ISO-4217 numeric currency code"
+      }, {
+        "name" : "DECIMAL",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "decimal-string",
+          "arg.properties" : {
+            "options" : [ "0,5", "1,99", "44,5555", "99,999999999", "e12", "-E15", "2.e34", "e3", "12345678912345678912345.2", "-23.123456789009876543212345643", "5e7", "6E-4", "+12e-5", "-57.6789", "+89.076", "28.04E-10", "-2.89e3", "9.e0", "-3.", ".23450987654322", "-12345678912345678989.123456789123456789", "4.67", "234.345e12" ]
+          }
+        },
+        "doc" : "A string representation of a decimal numeral"
+      }, {
+        "name" : "IPV4",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "ipv4",
+          "arg.properties" : {
+            "options" : [ "80.90.3.10", "192.127.55.98", "90.77.6.99", "100.100.100.100", "10", "10.10", "10.10.10", "", "10.10.0.0/16", "11000000.10101000.00000101.11111111", "10.A.10.10", "10.10.A.10", "10.10.10.A", "A.10.10.10", "10...", ".10..", "ABCD:EF01:2345:6789:ABCD:EF01:2345:6789", "256.0.0.0", "-1.0.0.0", "1.2.3.1.2" ]
+          }
+        },
+        "doc" : "A string representation of a ipv4",
+        "aliases" : [ "ipv4" ]
+      }, {
+        "name" : "IPV6",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "ipv6",
+          "arg.properties" : {
+            "options" : [ "FFFF:129.144.52.38", "ABCDE:EF01:2345:6789:ABCD:EF01:2345:6789", "GGGG:EF01:2345:6789:ABCD:EF01:2345:6789", "", "ABCD:EF01:2345:6789:ABCD:EF01:2345:6789", "2001:DB8:0:0:8:800:200C:417A", "FF01:0:0:0:0:0:0:101", "2001:0DB8:0:CD30::/60", "::13.1.68.3", "2001:0DB8:0000:CD30:0000:0000:0000:0000/60", "0:0:0:0:0:FFFF:129.144.52.38", "2001:0DB8::CD30:0:0:0:0/60", "0:0:0:0:0:0:13.1.68.3", "0:0:0:0:0:0:0:1", "0:0:0:0:0:0:0:0", "2001:DB8::8:800:200C:417A", "FF01::101", "::1", "::" ]
+          }
+        },
+        "doc" : "A string representation of a ipv6",
+        "aliases" : [ "ipv6" ]
+      }, {
+        "name" : "TIMEZONE",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "time-zone",
+          "arg.properties" : {
+            "options" : [ "+01:00", "-01:00", "+01:30", "+02:00", "+03:00", "+05:000", "+00:00", "-00:00", "-11:", ":00", "AA:BB", ":", "1:98", "-37:00", "" ]
+          }
+        },
+        "doc" : "A string representation of timezone",
+        "aliases" : [ "timezone" ]
+      }, {
+        "name" : "LATITUDE",
+        "type" : {
+          "type" : "double",
+          "logicalType" : "latitude",
+          "arg.properties" : {
+            "options" : [ -90.1, 90.1, 60.896802461096335, 19.620623405587907, 2000.0, -2000.0 ]
+          }
+        },
+        "doc" : "A double representation of latitude",
+        "aliases" : [ "latitude" ]
+      }, {
+        "name" : "LONGITUDE",
+        "type" : {
+          "type" : "double",
+          "logicalType" : "longitude",
+          "arg.properties" : {
+            "options" : [ -90.1, 90.1, 60.896802461096335, 19.620623405587907, 2000.0, -2000.0 ]
+          }
+        },
+        "doc" : "A double representation of longitude",
+        "aliases" : [ "longitude" ]
+      }, {
+        "name" : "GEOMETRY",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "geometry",
+          "arg.properties" : {
+            "options" : [
+                "{\"type\": \"Point\", \"coordinates\": [83.85858933276846, 71.6389665812352]}",
+                "{\"type\": \"LineString\", \"coordinates\": [[1.608617407055661, -78.73731870470039], [9.233333601632339, 179.35618944377535], [76.67083587579512, -9.426422664692637]]}",
+                "{\"type\": \"MultiLineString\", \"coordinates\": [[[-62.88038973341574, -7.884525178928072], [66.62719048051727, 145.7757244249645]], [[-17.12030356893561, -41.22146995188922], [20.98303684075934, 75.2642730867853]]]}",
+                "invalid",
+                "",
+                "{}",
+                "{'type': 'invalid'}"
+            ]
+          }
+        },
+        "doc" : "A Geometry object represents points, curves, and surfaces in coordinate space",
+        "aliases" : [ "geometry" ]
+      }, {
+        "name" : "FEATURE",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "feature",
+          "arg.properties" : {
+            "options" : [
+                "{\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[0.04663030905000198, -121.56197861492906], [76.29177684652296, 78.16814444674833], [-55.01124082925347, 125.72150609944998]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}",
+                "{\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[-65.64400991049877, 52.29151789124609], [-38.041574011488024, 143.10225630696914], [-60.605846152018785, 41.472639873206816], [-65.64400991049877, 52.29151789124609]]], [[[-6.815279395562541, 116.12152263328517], [30.92811713123509, 75.18762820656474], [-17.963080757434298, 167.78113693494697], [-6.815279395562541, 116.12152263328517]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}",
+                "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [-29.334665882083, -146.60839755831736]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}",
+                "invalid",
+                "",
+                "{}",
+                "{'type': 'invalid'}",
+                "{\"type\": \"Point\", \"coordinates\": [83.85858933276846, 71.6389665812352]}"
+            ]
+          }
+        },
+        "doc" : "A Feature object represents a spatially bounded thing",
+        "aliases" : [ "feature" ]
+      }, {
+        "name" : "FEATURE_COLLECTION",
+        "type" : {
+          "type" : "string",
+          "logicalType" : "feature_collection",
+          "arg.properties" : {
+            "options" : [
+                "{\"type\": \"FeatureCollection\", \"features\":[{\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPoint\", \"coordinates\": [[-1.867158911404701, -90.27531864319347], [63.5382867569839, 136.17493352529294]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[71.18439879377914, -169.61479086298385], [-32.83066571071359, 69.7533031231707], [-44.67841400113613, -111.45740226847289], [71.18439879377914, -169.61479086298385]]], [[[-23.32145842025224, 163.02236996069666], [70.66813767071994, -7.124959740229997], [-16.080966255400355, 119.64528468466801], [-23.32145842025224, 163.02236996069666]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[-70.24643380933952, 104.31204415936338], [68.48055794394433, 7.5247658724218525], [-2.7820364780107525, 51.72088124827221], [-70.24643380933952, 104.31204415936338]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiLineString\", \"coordinates\": [[[23.331816514267643, -129.02350660196527], [-67.33313931923854, -125.46036922875982]], [[33.57349837726482, -24.846030003957168], [15.303115231241904, -116.16856677209415]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[18.917754571217884, 52.190677943927454], [-47.75841196162983, -119.46794524419475], [18.6648295247426, -64.62891329509273], [18.917754571217884, 52.190677943927454]]], [[[72.06785851992095, -163.02441175460802], [-88.48255106182341, -137.65518719341597], [-47.07601992800039, 37.60930664928466], [72.06785851992095, -163.02441175460802]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[-83.138780187925, 157.33529151142181], [-83.64813323974192, 109.36130468577329], [-45.716180636337356, -38.125501493399696], [-83.138780187925, 157.33529151142181]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[-47.24214375647202, -35.514038622067915], [-89.39349388756034, -176.37406797796476], [41.32360097125755, 70.16247569746335], [-47.24214375647202, -35.514038622067915]]], [[[27.07305924971098, 45.688414593785524], [-7.289580334066812, -103.10057017427428], [6.573108312868115, 22.037416247588055], [27.07305924971098, 45.688414593785524]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [9.301001952643063, 146.13584284200078]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPoint\", \"coordinates\": [[-67.79315735408184, -68.03193431648407], [80.39360165337001, 121.34798073222873]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[-33.78320125245034, -68.23968809532704], [67.83597215887056, 94.62443304420935], [80.54142551247953, -17.883846172672833]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}]}",
+                "{\"type\": \"FeatureCollection\", \"features\":[{\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPoint\", \"coordinates\": [[-69.16091937553688, 110.23354387866686], [-17.81735887932585, 113.2744468510507]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [62.75745916665444, 176.74676197324504]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [-7.514075414510742, -43.16356175087137]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[40.021056250582006, 60.65211681709138], [45.35028056651753, -114.2616702183166], [89.88034998612721, -101.39727539717974]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[72.5365105239107, -119.49427440748279], [55.70405914007731, -171.96151099495518], [-50.44751452275972, 53.532071026353094], [72.5365105239107, -119.49427440748279]]], [[[-83.20486449408207, 10.378190646545306], [-67.34024525291971, 86.36510872230758], [-85.16828773186253, -8.560965456512292], [-83.20486449408207, 10.378190646545306]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[-3.5260553286850893, 6.817642886123309], [-63.75798263101828, -58.23966495457404], [51.086622820248095, -127.53775035064764], [-3.5260553286850893, 6.817642886123309]]], [[[-25.51837687755139, -15.27744020587383], [-71.38752359475777, -161.5131092935444], [86.28703120003321, 109.28564089638752], [-25.51837687755139, -15.27744020587383]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[-11.612417557114384, 154.9154668705993], [5.021873094043343, 69.49687534607742], [56.80836206520238, 126.93701253044316]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[-82.55561106677499, 0.447771698179281], [15.768625684965158, -148.5751625393454], [-38.500267092109965, -94.5695814685565]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiLineString\", \"coordinates\": [[[44.5378981002369, -29.79485171335594], [-4.614081083542374, 50.14324703578643]], [[-34.087454055820885, 165.64410706723942], [31.30554694313765, 22.530559289580737]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[-42.69849323471047, 51.431448151254585], [15.110025996462085, 120.03895941011604], [10.585255860270536, 131.8307641624089], [-42.69849323471047, 51.431448151254585]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}]}",
+                "{\"type\": \"FeatureCollection\", \"features\":[{\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPoint\", \"coordinates\": [[58.46286075328916, 25.645208644676643], [80.25047595712385, -83.350766591553]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiLineString\", \"coordinates\": [[[-18.327561500299353, -72.79650715622958], [-26.98124381836807, 91.77404895243762]], [[18.794805090390682, 52.22768440030217], [24.64167867281492, -109.83806381484352]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[38.357199380684506, 129.8756284862298], [-56.33847791807992, 33.99922597558327], [2.2171435818095944, -13.31799952115179], [38.357199380684506, 129.8756284862298]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiPolygon\", \"coordinates\": [[[[84.20562507638921, -160.40882830530217], [10.842194445722555, -138.1731026003748], [44.767833049478014, -52.57200953176559], [84.20562507638921, -160.40882830530217]]], [[[6.102908199568759, 10.795252852933203], [-31.106772820646682, 61.65042019776982], [-64.01708053563729, -108.94658938614187], [6.102908199568759, 10.795252852933203]]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[-29.53735735877531, -147.8640054152043], [-58.82679352019741, 112.57612099218022], [14.98238901607148, -65.85491836074006], [-29.53735735877531, -147.8640054152043]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Polygon\", \"coordinates\": [[[83.24237481525904, 40.0159982000111], [-49.39380608605501, -69.00894065716054], [71.49165371414698, -8.269353470693972], [83.24237481525904, 40.0159982000111]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiLineString\", \"coordinates\": [[[82.11962630987114, 58.95544613310716], [34.420962504524056, -150.6298443538362]], [[-36.88643359798914, -25.218660344284558], [42.15581789058159, 16.734408223531403]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [-22.950825426196047, -155.32801566416538]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"MultiLineString\", \"coordinates\": [[[1.1912385978825029, 82.3005035852687], [47.21307199281306, 153.27589439557306]], [[36.57150118326193, -128.9054578099788], [67.13222640414574, -152.243709957608]]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}, {\"type\": \"Feature\", \"geometry\": {\"type\": \"LineString\", \"coordinates\": [[-68.73882929995113, -138.1733815346053], [-85.37738380808756, 3.977899903804399], [62.9071330120679, -73.32098524309771]]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}]}",
+                "invalid",
+                "",
+                "{}",
+                "{'type': 'invalid'}",
+                "{\"type\": \"Point\", \"coordinates\": [83.85858933276846, 71.6389665812352]}",
+                "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [-29.334665882083, -146.60839755831736]}, \"properties\": {\"date_time\": \"Fri Jul 07 12:20:08 UTC 2023\", \"crs\": \"EPSG4326\"}}"
+            ]
+          }
+        },
+        "doc" : "List of features",
+        "aliases" : [ "feature_collection" ]
+      }
+     ]
+
+  }

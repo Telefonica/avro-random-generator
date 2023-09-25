@@ -161,6 +161,33 @@
         "logicalType": "longitude"
       },
       "doc": "A double representation of longitude"
+    },
+    {
+      "name": "GEOMETRY",
+      "aliases": ["geometry"],
+      "type": {
+        "type": "string",
+        "logicalType": "geometry"
+      },
+      "doc": "A Geometry object represents points, curves, and surfaces in coordinate space"
+    },
+    {
+      "name": "FEATURE",
+      "aliases": ["feature"],
+      "type": {
+        "type": "string",
+        "logicalType": "feature"
+      },
+      "doc": "A Feature object represents a spatially bounded thing"
+    },
+    {
+      "name": "FEATURE_COLLECTION",
+      "aliases": ["feature_collection"],
+      "type": {
+        "type": "string",
+        "logicalType": "feature-collection"
+      },
+      "doc": "List of features"
     }
   ]
 }
