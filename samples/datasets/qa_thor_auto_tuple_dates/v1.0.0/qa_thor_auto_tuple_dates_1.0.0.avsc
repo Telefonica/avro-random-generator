@@ -1,0 +1,48 @@
+{
+    "type": "record",
+    "doc": "Dataset for automatic thor launching with tuple date partitioned",
+    "x-fp-version": "1.0.0",
+    "fields": [
+        {
+            "name": "OPERATOR_ID",
+            "aliases": [
+                "operator_id"
+            ],
+            "type": ["null", "string"],
+            "doc": "Global Operator Identifier (Operator acting as owner of the information present in the current entity)"
+        },
+        {
+            "name": "YEAR_NUM",
+            "aliases": [
+                "count"
+            ],
+            "type": {
+                "type": "int",
+                "x-fp-time-dimension": "YYYY"
+            },
+            "doc": "YEAR NUM"
+        },
+        {
+            "name": "MONTH_NUM",
+            "aliases": [
+                "count"
+            ],
+            "type": {
+                "type": "int",
+                "x-fp-time-dimension": "MM"
+            },
+            "doc": "MONTH NUM"
+        },
+        {
+            "name": "DAY_NUM",
+            "aliases": [
+                "count"
+            ],
+            "type": {
+                "type": "int",
+                "x-fp-time-dimension": "dd"
+            },
+            "doc": "DAY NUM"
+        }
+    ]
+}
