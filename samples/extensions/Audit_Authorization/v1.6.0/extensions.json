@@ -1,0 +1,442 @@
+{
+  "name": "Audit_Authorization",
+  "x-fp-version": "1.6.0",
+  "type": "record",
+  "fields": [
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "type": "string",
+        "logicalType" : "datetime",
+        "arg.properties": {
+          "options" : [ "2023-12-18T16:18:05Z", "2023-12-18T16:19:05Z", "2023-12-18T16:20:05Z", "2023-12-18T16:21:05Z", "2023-12-18T16:22:05Z", "2023-12-18T16:23:05Z" ]
+        }
+      }
+    },
+    {
+      "name": "YEAR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 2023 ]
+        }
+      }
+    },
+    {
+      "name": "MONTH",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 12 ]
+        }
+      }
+    },
+    {
+      "name": "DAY",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 18 ]
+        }
+      }
+    },
+    {
+      "name": "HOUR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 16 ]
+        }
+      }
+    },
+    {
+      "name": "CLIENT_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options" : [ "app1", "app2" ]
+        }
+      }
+    },
+    {
+      "name": "MAY_ACT_SUB",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [ "may_act_sub1",  "may_act_sub2" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CLIENT_IP_ADDRESS",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType" : "ipv4",
+          "arg.properties": {
+            "options" : [ "193.168.10.1", "194.205.20.2" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "SUB",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "x-fp-user-id": true,
+          "arg.properties": {
+            "options": [ "sub1",  "sub2" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PURPOSES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "purpose1", "purpose2" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GRANT_TYPE",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "grant_type1", "grant_type2" ]
+        }
+      }
+    },
+    {
+      "name": "ISSUER",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "issuer1", "issuer2" ]
+        }
+      }
+    },
+    {
+      "name": "SCOPES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "scope1", "scope2" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "CONSENTS",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "consent1", "consent2" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "OWNER",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options" : [ "owner1", "owner2" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "EXTRA_INFORMATION",
+      "type": [
+        {
+          "type": "record",
+          "name": "TOKEN_INFO",
+          "fields" : [
+            {
+              "name": "ACR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "acr1", "acr2" ]
+                }
+              }
+            },
+            {
+              "name": "JTI",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "jti1", "jti2" ]
+                }
+              }
+            },
+            {
+              "name": "ACTIVATED_ROLES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "arg.properties": {
+                    "options" : [ "activated_role1", "activated_role2" ]
+                  }
+                }
+              }
+            },
+            {
+              "name": "IDENTIFIER_BOUND_SCOPES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "IDENTIFIER_BOUND_SCOPES_RECORD",
+                  "fields": [
+                    {
+                      "name": "IDENTIFIER",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [
+                            "identifier1",
+                            "identifier2"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [
+                            "type1",
+                            "type2"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "SCOPES",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "arg.properties": {
+                            "options": [
+                              "scope1",
+                              "scope2"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "AUTHORIZATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authid1", "authid2" ]
+                }
+              }
+            },
+            {
+              "name": "AUTHENTICATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authid3", "authid4" ]
+                }
+              }
+            },
+            {
+              "name": "AUTHENTICATION_CONTEXT",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "AUTHENTICATION_CONTEXT_RECORD",
+                  "fields": [
+                    {
+                      "name": "IDENTIFIER",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "identifier1", "identifier2" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "type1", "type2" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "ACTIVATED_ROLES",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "arg.properties": {
+                            "options" : [ "activated_role1", "activated_role2" ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "record",
+          "name": "TOKEN_ERROR",
+          "fields" : [
+            {
+              "name": "ERROR_TYPE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options": [ "error_type1", "error_type2" ]
+                }
+              }
+            },
+            {
+              "name": "ERROR_MESSAGE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options": [ "error_message1", "error_message2" ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MAY_ACT",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "MAY_ACT_RECORD",
+          "fields": [
+            {
+              "name": "SUB",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "sub1", "sub2" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "opid1", "opid2" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_TYPE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "optype1", "optype2" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ROLES",
+              "type": {
+                "type": "array",
+                "name": "OPERATOR_ROLES_RECORD",
+                "items": {
+                  "type": "record",
+                  "name": "OPERATOR_ROLES_RECORD",
+                  "fields": [
+                    {
+                      "name": "ROLE_ID",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "roleid1", "roleid2" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "ROLE_TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "roletype1", "roletype2" ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "LOA",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "loa1", "loa2" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_AMR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "opamr1", "opamr2" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_SCOPES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "arg.properties": {
+                    "options" : [ "opscope1", "opscope2" ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

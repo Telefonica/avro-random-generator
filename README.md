@@ -39,7 +39,7 @@ cause any issues if present when the schema is used with other programs.
 ### Local
 
 ```
-$ ./gradlew build
+./gradlew build
 ```
 
 ### Docker
@@ -55,6 +55,8 @@ $ ./gradlew build
 ```
 lanuza/pipelines/run.sh lanuza/scripts/build-data.sh --dataset-id=Full_LogicalType_Dataset --dataset-version=1.0.0 --records=20 --datasets-in=samples/datasets --datasets-extensions-in=samples/extensions --out=output
 ```
+
+The output folder is always relative to this project.
 
 In order to introduce your own schemas please check samples folder and replicate datasets and extensions scaffolding.
 
