@@ -72,7 +72,7 @@
                 "type": "string",
                 "x-fp-user-id": true,
                 "arg.properties": {
-                  "options" : [ "user1", "user2" ]
+                  "options" : [ "user1", "user2", "user3", "user4", "user5" ]
                 }
               }
             },
@@ -89,7 +89,7 @@
                       "type": {
                         "type": "string",
                         "arg.properties": {
-                          "options" : [ "value1", "value2" ]
+                          "options" : [ "identifier_value1", "identifier_value2", "identifier_value3", "identifier_value4", "identifier_value5" ]
                         }
                       }
                     },
@@ -98,7 +98,7 @@
                       "type": {
                         "type": "string",
                         "arg.properties": {
-                          "options" : [ "type1", "type2" ]
+                          "options" : [ "identifier_type1", "identifier_type2", "identifier_type3", "identifier_type4", "identifier_type5" ]
                         }
                       }
                     }
@@ -111,7 +111,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "authid1", "authid2" ]
+                  "options" : [ "authorization_id1", "authorization_id2",  "authorization_id3", "authorization_id4", "authorization_id5" ]
                 }
               }
             },
@@ -120,7 +120,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "authid3", "authid4" ]
+                  "options" : [ "authentication_id1", "authentication_id2", "authentication_id3", "authentication_id4", "authentication_id5" ]
                 }
               }
             },
@@ -129,7 +129,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "acr1", "acr2" ]
+                  "options" : [ "acr1", "acr2", "acr3", "acr4", "acr5" ]
                 }
               }
             }
@@ -151,7 +151,7 @@
       "type": {
         "type": "string",
         "arg.properties": {
-            "options" : [ "admin", "apps" ]
+            "options" : [ "admin/datasets", "admin/apps" ]
         }
       }
     },
@@ -161,7 +161,7 @@
         "name": "HTTP_VERB",
         "type": "enum",
         "arg.properties": {
-          "options": [ "GET", "POST" ]
+          "options": [ "GET", "POST", "PUT" ]
         },
         "symbols": [ "GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH" ]
       }
@@ -171,7 +171,7 @@
       "type": {
         "type": "string",
         "arg.properties": {
-          "options" : [ "app1", "app2" ]
+          "options" : [ "app1", "app2", "app3", "app4", "app5" ]
         }
       }
     },
@@ -182,7 +182,7 @@
         {
           "type": "string",
           "arg.properties": {
-            "options": [ "may_act_sub1",  "may_act_sub2" ]
+            "options": [ "may_act_sub1",  "may_act_sub2", "may_act_sub3", "may_act_sub4", "may_act_sub5" ]
           }
         }
       ]
@@ -192,7 +192,7 @@
       "type": {
         "type": "string",
         "arg.properties": {
-          "options": [ "jti1", "jti2" ]
+          "options": [ "jti1", "jti2", "jti3", "jti4", "jti5" ]
         }
       }
     },
@@ -203,7 +203,7 @@
         "items" : {
           "type" : "string",
             "arg.properties": {
-                "options" : [ "consent1", "consent2" ]
+                "options" : [ "consent1", "consent2", "consent3", "consent4", "consent5" ]
             }
         }
       }
@@ -215,7 +215,7 @@
         "items" : {
           "type" : "string",
           "arg.properties": {
-            "options" : [ "scope1", "scope2" ]
+            "options" : [ "scope1", "scope2", "scope3", "scope4", "scope5" ]
           }
         }
       }
@@ -227,7 +227,7 @@
         "items" : {
           "type" : "string",
           "arg.properties": {
-            "options" : [ "purpose1", "purpose2" ]
+            "options" : [ "purpose1", "purpose2", "purpose3", "purpose4", "purpose5" ]
           }
         }
       }
@@ -239,7 +239,7 @@
         "items" : {
           "type" : "string",
           "arg.properties": {
-            "options" : [ "role1", "role2" ]
+            "options" : [ "role1", "role2", "role3", "role4", "role5" ]
           }
         }
       }
@@ -251,7 +251,7 @@
         {
           "type": "string",
           "arg.properties": {
-            "options" : [ "owner1", "owner2" ]
+            "options" : [ "owner1", "owner2", "owner3", "owner4", "owner5" ]
           }
         }
       ]
@@ -314,7 +314,7 @@
         {
           "type": "string",
           "arg.properties": {
-              "options" : [ "correlator1", "correlator2" ]
+              "options" : [ "correlator1", "correlator2", "correlator3", "correlator4", "correlator5" ]
           }
         }
       ]
@@ -332,7 +332,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "sub1", "sub2" ]
+                  "options" : [ "sub1", "sub2", "sub3", "sub4", "sub5" ]
                 }
               }
             },
@@ -341,7 +341,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "opid1", "opid2" ]
+                  "options" : [ "operator_id1", "operator_id2", "operator_id3", "operator_id4", "operator_id5" ]
                 }
               }
             },
@@ -350,7 +350,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "optype1", "optype2" ]
+                  "options" : [ "operator_type1", "operator_type2", "operator_type3", "operator_type4", "operator_type5" ]
                 }
               }
             },
@@ -368,7 +368,7 @@
                       "type": {
                         "type": "string",
                         "arg.properties": {
-                          "options" : [ "roleid1", "roleid2" ]
+                          "options" : [ "operator_role_id1", "operator_role_id2", "operator_role_id3", "operator_role_id4", "operator_role_id5" ]
                         }
                       }
                     },
@@ -377,7 +377,7 @@
                       "type": {
                         "type": "string",
                         "arg.properties": {
-                          "options" : [ "roletype1", "roletype2" ]
+                          "options" : [ "operator_role_type1", "operator_role_type2", "operator_role_type3", "operator_role_type4", "operator_role_type5" ]
                         }
                       }
                     }
@@ -390,7 +390,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "loa1", "loa2" ]
+                  "options" : [ "loa1", "loa2", "loa3", "loa4", "loa5" ]
                 }
               }
             },
@@ -399,7 +399,7 @@
               "type": {
                 "type": "string",
                 "arg.properties": {
-                  "options" : [ "opamr1", "opamr2" ]
+                  "options" : [ "operator_amr1", "operator_amr2", "operator_amr3", "operator_amr4", "operator_amr5" ]
                 }
               }
             },
@@ -410,7 +410,7 @@
                 "items": {
                     "type": "string",
                     "arg.properties": {
-                    "options" : [ "opscope1", "opscope2" ]
+                    "options" : [ "operator_scope1", "operator_scope2", "operator_scope3", "operator_scope4", "operator_scope5" ]
                     }
                 }
               }
@@ -427,7 +427,7 @@
           "type": "string",
           "logicalType" : "ipv4",
           "arg.properties": {
-              "options" : [ "193.168.10.1", "194.205.20.2" ]
+              "options" : [ "193.168.10.1", "194.205.20.2", "202.90.30.1", "204.100.50.2", "93.250.0.1" ]
           }
         }
       ]
