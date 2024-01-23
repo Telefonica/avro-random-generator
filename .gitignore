@@ -3,6 +3,7 @@
 *.jar
 build/
 bin/
+target/
 
 # But allow the Gradle wrapper jar to be included
 !gradle/wrapper/gradle-wrapper.jar
@@ -17,6 +18,7 @@ output/
 
 .DS_STORE
 .env
+.bsp/
 
 # Ignore Gradle project-specific cache directory
 .gradle

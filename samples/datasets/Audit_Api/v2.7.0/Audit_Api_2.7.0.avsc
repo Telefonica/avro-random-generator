@@ -1,0 +1,87 @@
+{
+    "x-fp-version": "2.7.0",
+    "namespace": "com.telefonica",
+    "x-fp-avro4p-version": "1.4",
+    "type": "record",
+    "name": "Audit_Api",
+    "doc": "Audit data of API access (read/write).",
+    "fields": [
+      { "name": "EVENT_TM","type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime"}, "doc": "Datetime of the event." },
+      { "name": "YEAR","type": { "x-fp-time-dimension": "YYYY", "type": "int"}, "doc": "Year of the data access." },
+      { "name": "MONTH","type": { "x-fp-time-dimension": "MM", "type": "int"}, "doc": "Month of the data access." },
+      { "name": "DAY","type": { "x-fp-time-dimension": "dd", "type": "int"}, "doc": "Day of the data access." },
+      { "name": "HOUR","type": { "x-fp-time-dimension": "hh", "type": "int"}, "doc": "Hour of the data access." },
+      { "name": "ID","type": "string", "doc": "UUID audit event.","x-fp-unique-constraints": [1] },
+      { "name": "USER_INFO", "type": [
+          "null",
+          {
+            "type": "record", "name": "USER_INFO_RECORD", "fields": [
+                { "name": "USER_ID","type": {"type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "The User_ID identifier that access the data." },
+                { "name": "IDENTIFIER","type":
+                  {
+                    "type": "array", "items": {
+                        "type": "record", "name": "IDENTIFIER_RECORD",  "fields": [
+                          { "name": "value", "type": {"type": "string", "x-fp-data-protection": "pseudonymize"}},
+                          { "name": "type", "type": "string" }
+                        ]
+                    }
+                  }, "doc": "The identifiers of the user accessing an API. They are taken from the context of the authentication. It can include different types."},
+                { "name": "AUTHORIZATION_ID","type": "string", "doc": "Identifier of the Authorization" },
+                { "name": "AUTHENTICATION_ID","type": ["null","string"], "default": null, "doc": "Identifier of the Authentication" },
+                { "name": "ACR","type": "string", "doc": "Level of assurance of authenticacion." }
+              ]
+          }
+        ], "default": null, "doc": "user related information."
+      },
+      { "name": "URL","type": "string", "doc": "complete endpoint access."},
+      { "name": "API_NAME","type": "string", "doc": "Name of the API." },
+      { "name": "HTTP_VERB","type": { "name": "HTTP_VERB", "type": "enum", "symbols": [ "GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH" ]}, "doc": "Method HTTP: GET/HEAD/POST/PUT/DELETE/CONNECT/OPTIONS/TRACE/PATCH ." },
+      { "name": "CLIENT_ID","type": "string", "doc": "The CLIENT_ID identifier that access the data." },
+      { "name": "MAY_ACT_SUB","type": ["null", {"type": "string", "x-fp-data-protection": "pseudonymize"}], "default": null, "doc": "The MAY_ACT_SUB identifier that access the data as authorized actor." },
+      { "name": "JTI","type": "string", "doc": "Unique Identifier of emitted token" },
+      { "name": "CONSENTS","type": { "type": "array", "items": "string"}, "doc": "Consents used in the request."},
+      { "name": "SCOPES","type": { "type": "array", "items": "string"}, "doc": "Scopes used in the request."},
+      { "name": "PURPOSES","type": { "type": "array", "items": "string"}, "doc": "Purposes used in the request." },
+      { "name": "ACTIVATED_ROLES","type": { "type": "array", "items": "string"}, "doc": "Roles activated in te petition." },
+      { "name": "OWNER","type": ["null","string"], "default": null, "doc": "The owner of the token used in the request." },
+      { "name": "LATENCY","type": "long", "doc": "number of milliseconds of latency." },
+      { "name": "REQUEST_SIZE","type": "long", "doc": "Amount of bytes in the request." },
+      { "name": "RESPONSE_SIZE","type": "long", "doc": "Amount of bytes in the response." },
+      { "name": "STATUS_CODE","type": "int", "doc": "Final HTTP status code." },
+      { "name": "BODY", "type": ["null", {"type": "string", "x-fp-data-protection": "pseudonymize"}], "default": null, "doc": "HTTP request body" },
+      { "name": "CORRELATOR", "type": ["null", "string"], "default": null, "doc": "Correlator attached to the request" },
+      { "name": "MAY_ACT", "type": [
+          "null",
+          {
+            "type": "record", "name": "MAY_ACT_RECORD", "fields": [
+              { "name": "SUB", "type": ["null", {"type": "string", "x-fp-data-protection": "pseudonymize"}], "default": null, "doc": "The MAY_ACT_SUB identifier that access the data as authorized actor." },
+              { "name": "OPERATOR_ID", "type": ["null", "string"], "default": null, "doc": "idParty belonging to the authenticated telco manager which is serving the client and coming from claim's sub within x-token-info." },
+              { "name": "OPERATOR_TYPE", "type": ["null", "string"], "default": null, "doc": "Accepted values: legacy or telco." },
+              { "name": "OPERATOR_ROLES", "type": [
+                  "null",
+                  {
+                    "type": "array", "items": {
+                      "type": "record", "name": "OPERATOR_ROLES_RECORD", "fields": [
+                        { "name": "ROLE_ID", "type": ["null", "string"], "default": null, "doc": "idOrganizationRole belonging to the authenticated telco manager which is serving the client and coming from claim's sub within x-token-info." },
+                        { "name": "ROLE_TYPE", "type": ["null", "string"], "default": null, "doc": "Custom." }
+                      ]
+                    }
+                  }
+                ], "default": null, "doc": "List of operator roles."
+              },
+              { "name": "LOA", "type": ["null", "string"], "default": null, "doc": "LoA belonging to the authenticated telco manager which is serving the client and coming from claim's sub within x-token-info." },
+              { "name": "OPERATOR_AMR", "type": ["null", "string"], "default": null, "doc": "AMR belonging to the authenticated telco manager which is serving the client and coming from claim's sub within x-token-info." },
+              { "name": "OPERATOR_SCOPES", "type": [
+                  "null",
+                  {
+                    "type": "array", "items": "string"
+                  }
+                ], "default": null, "doc": "Scopes returned within the access_token when externally login."
+              }
+            ]
+          }
+        ], "default": null, "doc": "MAY_ACT claim."
+      },
+      { "name": "CLIENT_IP_ADDRESS", "type": ["null", { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize"}], "default": null, "doc": "The client IP address." }
+    ]
+}

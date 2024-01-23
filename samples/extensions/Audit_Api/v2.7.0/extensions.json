@@ -1,0 +1,436 @@
+{
+  "name": "Audit_Api",
+  "x-fp-version": "2.7.0",
+  "type": "record",
+  "fields": [
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "type": "string",
+        "logicalType" : "datetime",
+        "arg.properties": {
+          "options" : [ "2023-12-18T16:18:05Z", "2023-12-18T16:19:05Z", "2023-12-18T16:20:05Z", "2023-12-18T16:21:05Z", "2023-12-18T16:22:05Z", "2023-12-18T16:23:05Z" ]
+        }
+      }
+    },
+    {
+      "name": "YEAR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 2023 ]
+        }
+      }
+    },
+    {
+      "name": "MONTH",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+            "options" : [ 12 ]
+        }
+      }
+    },
+    {
+      "name": "DAY",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+            "options" : [ 18 ]
+        }
+      }
+    },
+    {
+      "name": "HOUR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+            "options" : [ 16 ]
+        }
+      }
+    },
+    {
+      "name": "ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "kind": "uuid"
+        }
+      }
+    },
+    {
+      "name": "USER_INFO",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "USER_INFO_RECORD",
+          "fields" : [
+            {
+              "name": "USER_ID",
+              "type": {
+                "type": "string",
+                "x-fp-user-id": true,
+                "arg.properties": {
+                  "options" : [ "user1", "user2", "user3", "user4", "user5" ]
+                }
+              }
+            },
+            {
+              "name": "IDENTIFIER",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "IDENTIFIER_RECORD",
+                  "fields": [
+                    {
+                      "name": "value",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "identifier_value1", "identifier_value2", "identifier_value3", "identifier_value4", "identifier_value5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "type",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "identifier_type1", "identifier_type2", "identifier_type3", "identifier_type4", "identifier_type5" ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "AUTHORIZATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authorization_id1", "authorization_id2",  "authorization_id3", "authorization_id4", "authorization_id5" ]
+                }
+              }
+            },
+            {
+              "name": "AUTHENTICATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authentication_id1", "authentication_id2", "authentication_id3", "authentication_id4", "authentication_id5" ]
+                }
+              }
+            },
+            {
+              "name": "ACR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "acr1", "acr2", "acr3", "acr4", "acr5" ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "URL",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+            "options" : [ "https://api.shared-azure.baikalplatform.es/admin/v2/datasets", "https://api.shared-azure.baikalplatform.es/admin/v2/apps" ]
+        }
+      }
+    },
+    {
+      "name": "API_NAME",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+            "options" : [ "admin/datasets", "admin/apps" ]
+        }
+      }
+    },
+    {
+      "name": "HTTP_VERB",
+      "type": {
+        "name": "HTTP_VERB",
+        "type": "enum",
+        "arg.properties": {
+          "options": [ "GET", "POST", "PUT" ]
+        },
+        "symbols": [ "GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH" ]
+      }
+    },
+    {
+      "name": "CLIENT_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options" : [ "app1", "app2", "app3", "app4", "app5" ]
+        }
+      }
+    },
+    {
+      "name": "MAY_ACT_SUB",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [ "may_act_sub1",  "may_act_sub2", "may_act_sub3", "may_act_sub4", "may_act_sub5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "JTI",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "jti1", "jti2", "jti3", "jti4", "jti5" ]
+        }
+      }
+    },
+    {
+      "name": "CONSENTS",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+            "arg.properties": {
+                "options" : [ "consent1", "consent2", "consent3", "consent4", "consent5" ]
+            }
+        }
+      }
+    },
+    {
+      "name": "SCOPES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "scope1", "scope2", "scope3", "scope4", "scope5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "PURPOSES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "purpose1", "purpose2", "purpose3", "purpose4", "purpose5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ACTIVATED_ROLES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "role1", "role2", "role3", "role4", "role5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "OWNER",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options" : [ "owner1", "owner2", "owner3", "owner4", "owner5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "LATENCY",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "min": "0",
+          "max": "1000"
+        }
+      }
+    },
+    {
+      "name": "REQUEST_SIZE",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "min": "0",
+          "max": "1000"
+        }
+      }
+    },
+    {
+      "name": "RESPONSE_SIZE",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "min": "0",
+          "max": "1000"
+        }
+      }
+    },
+    {
+      "name": "STATUS_CODE",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 200, 201, 202, 400, 500 ]
+        }
+      }
+    },
+    {
+      "name": "BODY",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options" : [ "<html><head><title>body1</title></head></html>", "<html><head><title>body2</title></head></html>" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CORRELATOR",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+              "options" : [ "correlator1", "correlator2", "correlator3", "correlator4", "correlator5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "MAY_ACT",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "MAY_ACT_RECORD",
+          "fields": [
+            {
+              "name": "SUB",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "sub1", "sub2", "sub3", "sub4", "sub5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_id1", "operator_id2", "operator_id3", "operator_id4", "operator_id5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_TYPE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_type1", "operator_type2", "operator_type3", "operator_type4", "operator_type5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ROLES",
+              "type": {
+                "type": "array",
+                "name": "OPERATOR_ROLES_RECORD",
+                "items": {
+                  "type": "record",
+                  "name": "OPERATOR_ROLES_RECORD",
+                  "fields": [
+                    {
+                      "name": "ROLE_ID",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "operator_role_id1", "operator_role_id2", "operator_role_id3", "operator_role_id4", "operator_role_id5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "ROLE_TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "operator_role_type1", "operator_role_type2", "operator_role_type3", "operator_role_type4", "operator_role_type5" ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "LOA",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "loa1", "loa2", "loa3", "loa4", "loa5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_AMR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_amr1", "operator_amr2", "operator_amr3", "operator_amr4", "operator_amr5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_SCOPES",
+              "type": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "arg.properties": {
+                    "options" : [ "operator_scope1", "operator_scope2", "operator_scope3", "operator_scope4", "operator_scope5" ]
+                    }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CLIENT_IP_ADDRESS",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType" : "ipv4",
+          "arg.properties": {
+              "options" : [ "193.168.10.1", "194.205.20.2", "202.90.30.1", "204.100.50.2", "93.250.0.1" ]
+          }
+        }
+      ]
+    }
+  ]
+}

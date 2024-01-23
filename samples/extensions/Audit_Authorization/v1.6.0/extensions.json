@@ -1,0 +1,433 @@
+{
+  "name": "Audit_Authorization",
+  "x-fp-version": "1.6.0",
+  "type": "record",
+  "fields": [
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "type": "string",
+        "logicalType" : "datetime",
+        "arg.properties": {
+          "options" : [ "2023-12-18T16:18:05Z", "2023-12-18T16:19:05Z", "2023-12-18T16:20:05Z", "2023-12-18T16:21:05Z", "2023-12-18T16:22:05Z", "2023-12-18T16:23:05Z" ]
+        }
+      }
+    },
+    {
+      "name": "YEAR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 2023 ]
+        }
+      }
+    },
+    {
+      "name": "MONTH",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 12 ]
+        }
+      }
+    },
+    {
+      "name": "DAY",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 18 ]
+        }
+      }
+    },
+    {
+      "name": "HOUR",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "options" : [ 16 ]
+        }
+      }
+    },
+    {
+      "name": "CLIENT_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options" : [ "app1", "app2", "app3", "app4", "app5" ]
+        }
+      }
+    },
+    {
+      "name": "MAY_ACT_SUB",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [ "may_act_sub1",  "may_act_sub2", "may_act_sub3", "may_act_sub4", "may_act_sub5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CLIENT_IP_ADDRESS",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType" : "ipv4",
+          "arg.properties": {
+            "options" : [ "193.168.10.1", "194.205.20.2", "202.90.30.1", "204.100.50.2", "93.250.0.1" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "SUB",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "x-fp-user-id": true,
+          "arg.properties": {
+            "options": [ "sub1",  "sub2", "sub3", "sub4", "sub5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PURPOSES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "purpose1", "purpose2", "purpose3", "purpose4", "purpose5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "GRANT_TYPE",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "grant_type1", "grant_type2", "grant_type3", "grant_type4", "grant_type5" ]
+        }
+      }
+    },
+    {
+      "name": "ISSUER",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [ "issuer1", "issuer2", "issuer3", "issuer4", "issuer5" ]
+        }
+      }
+    },
+    {
+      "name": "SCOPES",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "scope1", "scope2", "scope3", "scope4", "scope5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "CONSENTS",
+      "type": {
+        "type" : "array",
+        "items" : {
+          "type" : "string",
+          "arg.properties": {
+            "options" : [ "consent1", "consent2", "consent3", "consent4", "consent5" ]
+          }
+        }
+      }
+    },
+    {
+      "name": "OWNER",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options" : [ "owner1", "owner2", "owner3", "owner4", "owner5" ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "EXTRA_INFORMATION",
+      "type": [
+        {
+          "type": "record",
+          "name": "TOKEN_INFO",
+          "fields" : [
+            {
+              "name": "ACR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "acr1", "acr2", "acr3", "acr4", "acr5" ]
+                }
+              }
+            },
+            {
+              "name": "JTI",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "jti1", "jti2", "jti3", "jti4", "jti5" ]
+                }
+              }
+            },
+            {
+              "name": "ACTIVATED_ROLES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "arg.properties": {
+                    "options" : [ "activated_role1", "activated_role2", "activated_role3", "activated_role4", "activated_role5" ]
+                  }
+                }
+              }
+            },
+            {
+              "name": "IDENTIFIER_BOUND_SCOPES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "IDENTIFIER_BOUND_SCOPES_RECORD",
+                  "fields": [
+                    {
+                      "name": "IDENTIFIER",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "identifier1", "identifier2", "identifier3", "identifier4", "identifier5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "identifier_type1", "identifier_type2", "identifier_type3", "identifier_type4", "identifier_type5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "SCOPES",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "arg.properties": {
+                            "options": [ "identifier_scope1", "identifier_scope2", "identifier_scope3", "identifier_scope4", "identifier_scope5" ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "AUTHORIZATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authorization_id1", "authorization_id2", "authorization_id3", "authorization_id4", "authorization_id5" ]
+                }
+              }
+            },
+            {
+              "name": "AUTHENTICATION_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "authentication_id1", "authentication_id2", "authentication_id3", "authentication_id4", "authentication_id5" ]
+                }
+              }
+            },
+            {
+              "name": "AUTHENTICATION_CONTEXT",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "record",
+                  "name": "AUTHENTICATION_CONTEXT_RECORD",
+                  "fields": [
+                    {
+                      "name": "IDENTIFIER",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "authentication_context_identifier1", "authentication_context_identifier2", "authentication_context_identifier3", "authentication_context_identifier4", "authentication_context_identifier5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options": [ "authentication_context_type1", "authentication_context_type2", "authentication_context_type3", "authentication_context_type4", "authentication_context_type5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "ACTIVATED_ROLES",
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "arg.properties": {
+                            "options" : [ "authentication_context_activated_role1", "authentication_context_activated_role2", "authentication_context_activated_role3", "authentication_context_activated_role4", "authentication_context_activated_role5" ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "record",
+          "name": "TOKEN_ERROR",
+          "fields" : [
+            {
+              "name": "ERROR_TYPE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options": [ "error_type1", "error_type2", "error_type3", "error_type4", "error_type5" ]
+                }
+              }
+            },
+            {
+              "name": "ERROR_MESSAGE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options": [ "error_message1", "error_message2", "error_message3", "error_message4", "error_message5" ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MAY_ACT",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "MAY_ACT_RECORD",
+          "fields": [
+            {
+              "name": "SUB",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "sub1", "sub2", "sub3", "sub4", "sub5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ID",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_id1", "operator_id2", "operator_id3", "operator_id4", "operator_id5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_TYPE",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_type1", "operator_type2", "operator_type3", "operator_type4", "operator_type5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_ROLES",
+              "type": {
+                "type": "array",
+                "name": "OPERATOR_ROLES_RECORD",
+                "items": {
+                  "type": "record",
+                  "name": "OPERATOR_ROLES_RECORD",
+                  "fields": [
+                    {
+                      "name": "ROLE_ID",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "operator_role1", "operator_role2", "operator_role3", "operator_role4", "operator_role5" ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "ROLE_TYPE",
+                      "type": {
+                        "type": "string",
+                        "arg.properties": {
+                          "options" : [ "operator_type1", "operator_type2", "operator_type3", "operator_type4", "operator_type5" ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "LOA",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "loa1", "loa2", "loa3", "loa4", "loa5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_AMR",
+              "type": {
+                "type": "string",
+                "arg.properties": {
+                  "options" : [ "operator_amr1", "operator_amr2", "operator_amr3", "operator_amr4", "operator_amr5" ]
+                }
+              }
+            },
+            {
+              "name": "OPERATOR_SCOPES",
+              "type": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "arg.properties": {
+                    "options" : [ "operator_scope1", "operator_scope2", "operator_scope3", "operator_scope4", "operator_scope5" ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
