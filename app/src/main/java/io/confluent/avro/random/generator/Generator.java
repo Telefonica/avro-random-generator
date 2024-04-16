@@ -18,7 +18,7 @@ package io.confluent.avro.random.generator;
 
 import com.mifmif.common.regex.Generex;
 import com.telefonica.baikal.avro.types.CustomLogicalTypes;
-import com.telefonica.baikal.utils.avro.BaikalAvroUtils;
+import com.telefonica.baikal.utils.avro.NotInformedUtilsBridge;
 import org.apache.avro.LogicalType;
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.Schema;
@@ -306,7 +306,7 @@ public class Generator {
     public Builder schemaFile(File schemaFile, Boolean useNotInformedSchema) throws IOException {
       if (useNotInformedSchema) {
         String rawSchema = Files.readString(schemaFile.toPath());
-        String notInformedSchema = BaikalAvroUtils.createNotInformedSchema(rawSchema).toString();
+        String notInformedSchema = NotInformedUtilsBridge.getInstance().createNotInformedSchema(rawSchema).toString();
         System.out.println(notInformedSchema);
         topLevelSchema = parser.parse(notInformedSchema);
       } else {
@@ -326,7 +326,7 @@ public class Generator {
 
     public Builder schemaString(String schemaString, Boolean useNotInformedSchema) {
       if (useNotInformedSchema) {
-        String notInformedSchema = BaikalAvroUtils.createNotInformedSchema(schemaString).toString();
+        String notInformedSchema = NotInformedUtilsBridge.getInstance().createNotInformedSchema(schemaString).toString();
         System.out.println(notInformedSchema);
         topLevelSchema = parser.parse(notInformedSchema);
       } else {

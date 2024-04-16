@@ -11,8 +11,8 @@ function init() {
 }
 
 function run() {
-  docker-compose build app
-  docker-compose run app ./lanuza/scripts/build.sh
+  docker compose build app
+  docker compose run app ./lanuza/scripts/build.sh
 }
 
 source $(dirname $0)/../base.inc

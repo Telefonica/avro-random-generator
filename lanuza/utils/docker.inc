@@ -34,6 +34,9 @@ fi
 # lanuza builder name to use when building via docker compose build
 export LANUZA_BUILDX_DRIVER=${LANUZA_BUILDX_DRIVER:-lanuza}
 
+# lanuza builder image to use when building via docker compose build
+export LANUZA_BUILDX_DRIVER_IMAGE=${LANUZA_BUILDX_DRIVER_IMAGE:-moby/buildkit:v0.11.6}
+
 # flag to know when should we autocleanup docker compose
 LANUZA_DOCKER_COMPOSE__CLEANUP=0
 
@@ -138,13 +141,19 @@ function _docker_compose_build() {
       local branch
       branch=$(git_get_branch)
       if [[ ! -z ${CI+x} ]] && [[ " ${branches[*]} " =~ " ${branch} " ]]; then
-        build_cache_to[${service}]+="        - ${dest_image}:${branch}"$'\n'
+        local tag_to=$(_docker_compose_normalize_tag "$branch")
+        build_cache_to[${service}]+="        - ${dest_image}:${tag_to}"$'\n'
       fi
     done
   fi
 
   # Only build it there are buildable services
   if [[ ${#services[@]} -ne 0 ]]; then
+    # build automatically with VERSION
+    # TODO: VERSION should be 0.0.0-snapshot, but this is breaking change
+    set -- "build" "--build-arg" "VERSION=${VERSION:-snapshot}" "${@:2}"
+    set -- "build" "--build-arg" "DOCKER_UID=${DOCKER_UID}" "${@:2}"
+    set -- "build" "--build-arg" "DOCKER_GID=${DOCKER_GID}" "${@:2}"
 
     declare -A build_labels
     local date version revision
@@ -176,21 +185,20 @@ function _docker_compose_build() {
     done
 
     # Include new yaml in the docker-compose files
-    temp_compose=$(mktemp "${TMPDIR:-/tmp/}"docker-compose.labels.$LANUZA_BUILD_ID.XXXXXXXXX)
+    temp_compose=$(: ${TMPDIR:=/tmp}; mktemp "${TMPDIR%/}/docker-compose.labels.$LANUZA_BUILD_ID.XXXXXXXXX")
+
     # To cleanup at exit
     temp_files+=( $temp_compose )
-    COMPOSE_FILE=${COMPOSE_FILE:-docker-compose.yml}
-    export COMPOSE_FILE="${COMPOSE_FILE}${COMPOSE_PATH_SEPARATOR}${temp_compose}"
 
     debug "Using the following docker compose file to customize build"
     debug "$yaml"
     echo "$yaml" > $temp_compose
 
-    # build automatically with VERSION
-    # TODO: VERSION should be 0.0.0-snapshot, but this is breaking change
-    set -- "build" "--build-arg" "VERSION=${VERSION:-snapshot}" "${@:2}"
-    set -- "build" "--build-arg" "DOCKER_UID=${DOCKER_UID}" "${@:2}"
-    set -- "build" "--build-arg" "DOCKER_GID=${DOCKER_GID}" "${@:2}"
+    IFS="${COMPOSE_PATH_SEPARATOR}" read -r -a compose_files <<< "${COMPOSE_FILE:-docker-compose.yml}${COMPOSE_PATH_SEPARATOR}${temp_compose}"
+    # reverse order to keep the original COMPOSE_FILE order
+    for ((i=${#compose_files[@]}-1; i>=0; i--)); do
+      set -- "-f" "${compose_files[$i]}" "${@:1}"
+    done
     _docker_setup_builder
   fi
   _docker_compose "$@"
@@ -276,10 +284,14 @@ function _docker_setup_builder() {
   local use="docker buildx use ${LANUZA_BUILDX_DRIVER}"
   debug "${use}"
   if ! command ${use} &> /dev/null ; then
-    local create="docker buildx create --name ${LANUZA_BUILDX_DRIVER} --use --bootstrap"
+    local create="docker buildx create --name ${LANUZA_BUILDX_DRIVER} --use --bootstrap --driver-opt=image=${LANUZA_BUILDX_DRIVER_IMAGE}"
     debug "${create}"
     command ${create} &> /dev/null
   fi
+  # Booting builder before execution to avoid failures when building multiple services in docker compose.
+  local inspect="docker buildx inspect --bootstrap"
+  debug "${inspect}"
+  command ${inspect} &> /dev/null
 }
 
 # Checks for failed containers and writes logs for them the the provided dir

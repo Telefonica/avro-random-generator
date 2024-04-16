@@ -1,0 +1,351 @@
+{
+  "namespace": "com.plainAVRO",
+  "name": "Contact_Center_CDR",
+  "type": "record",
+  "doc": "Data records that contain information about each interaction (such as calls or interactions/contacts through other channels/apps) received by a Contact Center",
+  "x-fp-version": "5.9.0",
+  "fields": [
+    {
+      "name": "OPERATOR_ID",
+      "aliases": [
+        "operator_id"
+      ],
+      "type": "string",
+      "doc": "Global Operator Identifier"
+    },
+    {
+      "name": "INTERACTION_TM",
+      "aliases": [
+        "interaction_tm"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "datetime"
+      },
+      "doc": "Year, month, day and time of the interaction (contact action)"
+    },
+    {
+      "name": "CUSTOMER_ID",
+      "aliases": [
+        "customer_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Customer ID (if known when the call occurs).\nAs much as possible, each customer will maintain the same identifier within any business (fixed, mobile, cloud, IoT, ...), which will allow to build a complete vision of the customer. If a client has a prepaid number and a postpaid and/or hybrid number, the client ID should be unique (common for both lines)."
+    },
+    {
+      "name": "SUBSCRIBER_ID",
+      "aliases": [
+        "subscriber_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Unique identifier of the line associated to the call (in the case of lines already registered), as it comes in the origin system"
+    },
+    {
+      "name": "INTERACTION_ID",
+      "aliases": [
+        "interaction_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "ID/Ref number of the \"event\"/contact action (as it is registered in call center systems). Typically used for later tracking/monitoring of status"
+    },
+    {
+      "name": "ACTIVATION_DT",
+      "aliases": [
+        "activation_dt"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "iso-date"
+        }
+      ],
+      "doc": "(Fixed or mobile) Line activation date"
+    },
+    {
+      "name": "ADMINISTRA_ID",
+      "aliases": [
+        "administra_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Unique identifier of the Broadband or TV circuit code"
+    },
+    {
+      "name": "SOURCE_SYSTEM_ID",
+      "aliases": [
+        "source_system_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "System or origin/type of the event, as registered in the call center platform (eg: Tkt_Remedy, Novum, etc.)"
+    },
+    {
+      "name": "AGENT_ID",
+      "aliases": [
+        "agent_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Id of the \"agent\" handling the call (or contact action)"
+    },
+    {
+      "name": "AGENT_GROUP_ID",
+      "aliases": [
+        "agent_group_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Id of the \"agent group\" (to which the agent handling the call belongs)"
+    },
+    {
+      "name": "EXT_USER_ID",
+      "aliases": [
+        "ext_user_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Id of the \"user\" who makes the \"call\"/contact in the external/origin system (in the case of clients from Novum, TV platform, etc. which may have internal IDs of clients). It can be also the \"username\" or e-mail"
+    },
+    {
+      "name": "CALLER_PHONE_ID",
+      "aliases": [
+        "caller_phone_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Phone number (in the case of contact via phone call), without international prefix, used in the contact action. It may not coincide with the phone number associated to the line or SUBSCRIBER_ID/CUSTOMER_ID"
+    },
+    {
+      "name": "IMEI_ID",
+      "aliases": [
+        "imei_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "imei"
+        }
+      ],
+      "doc": "If the user interaction is a call from a mobile phone, the IMEI of the device used to make the call.\nInternational Mobile Equipment Identity\nIMPORTANT: IMEI must be normalized, which means:\n* Invalid imeis must be removed (ie. Imeis including letters)\n* Text format\n* Complete to 15 digits by adding zeros at the left\n* Remove control digit (position #15)"
+    },
+    {
+      "name": "DEST_PHONE_ID",
+      "aliases": [
+        "dest_phone_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "In the case of a Contact Center call, the telephone number that receives the call (the number associated with the call center)"
+    },
+    {
+      "name": "DEST_BASE_PHONE_ID",
+      "aliases": [
+        "dest_base_phone_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "In the case of a Contact Center call, the \"base telephone number\" that receives the call (the \"base number\" associated with DEST_PHONE_ID)."
+    },
+    {
+      "name": "LINE_PHONE_ID",
+      "aliases": [
+        "line_phone_id"
+      ],
+      "type": "string",
+      "doc": "Phone number to which the call/interaction is associated (may be different to the phone number used by the caller). It is the phone number associated to the line or CUSTOMER_ID/SUBSCRIBER_ID.\nIn the case of mobile lines, it will be the MSISDN without international prefix"
+    },
+    {
+      "name": "DURATION_QT",
+      "aliases": [
+        "duration_qt"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "duration"
+        }
+      ],
+      "doc": "Duration of the interaction (ISO-8601 value that contains a complete duration representation). In the case of a Contact Center calls, the duration of the call. In other cases, the session duration, etc."
+    },
+    {
+      "name": "CONTACT_IND",
+      "aliases": [
+        "contact_ind"
+      ],
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "doc": "In the case of a Contact Center call, indicates whether the call was or not answered. I.e.: If it lasts less than X seconds, it is considered that the call was not answered, if lasts more or equal than X seconds, it is considered that the customer spoke with someone."
+    },
+    {
+      "name": "HOLD_TIME_QT",
+      "aliases": [
+        "hold_time_qt"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "duration"
+        }
+      ],
+      "doc": "Hold time of the interaction (ISO-8601 value that contains a complete duration representation). In the case of call center calls, hold time during the call."
+    },
+    {
+      "name": "INTERACTION_TYPE_ID",
+      "aliases": [
+        "interaction_type_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Type/topic of the call (i.e: a complaint about billing, purchasing a bundle, etc)"
+    },
+    {
+      "name": "TROUBLE_TICKET_ID",
+      "aliases": [
+        "trouble_ticket_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Identifier of the trouble ticket associated with the interaction, when necessary."
+    },
+    {
+      "name": "REASON_ID",
+      "aliases": [
+        "reason_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Code of the reason of the interaction (in the case of contact center calls, there is a hierarchy)"
+    },
+    {
+      "name": "CSI_QT",
+      "aliases": [
+        "csi_qt"
+      ],
+      "type": [
+        "null",
+        "float"
+      ],
+      "doc": "The result of the customer satisfaction survey where applicable"
+    },
+    {
+      "name": "CHANNEL_ID",
+      "aliases": [
+        "channel_id"
+      ],
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "In the case of multi-channel contact center, identifies the channel used by the user to interact with the Company"
+    },
+    {
+      "name": "BILLABLE_CALL_IND",
+      "aliases": [
+        "billable_call_ind"
+      ],
+      "type": [
+        "null",
+        {
+          "name": "BILLABLE_CALL_IND_ENUM",
+          "type": "enum",
+          "symbols": [
+            "Free",
+            "Billable"
+          ]
+        }
+      ],
+      "doc": "Indicates if if the call is billable or free (if known)"
+    },
+    {
+      "name": "USER_4P_ID",
+      "aliases": [
+        "user_4p_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "x-fp-user-id": true
+        }
+      ],
+      "doc": "Identifier of the user in 4th Platform (as returned by the OB in the 4th Platform APIs)"
+    },
+    {
+      "name": "CALLER_PHONE_WITH_PREFIX_ID",
+      "aliases": [
+        "caller_phone_with_prefix_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "phone-number"
+        }
+      ],
+      "doc": "Phone number (in the case of contact via phone call), WITH_INTERNATIONAL_PREFIX, used in the contact action. It may not coincide with the phone number associated to the line or SUBSCRIBER_ID/CUSTOMER_ID"
+    },
+    {
+      "name": "LINE_PHONE_WITH_PREFIX_ID",
+      "aliases": [
+        "line_phone_with_prefix_id"
+      ],
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-identifier": "phone-number"
+        }
+      ],
+      "doc": "Phone number for which the call/interaction is associated (may be different to phone used by the caller). It is the phone number associated to the line or CUSTOMER_ID/SUBSCRIBER_ID.\n       In the case of mobile lines, it will be the MSISDN WITH international prefix."
+    },
+    {
+      "name": "DAY_DT",
+      "aliases": [
+        "day_dt"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date"
+      },
+      "doc": "Year, month and day of the interaction"
+    }
+  ]
+}

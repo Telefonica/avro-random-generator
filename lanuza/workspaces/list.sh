@@ -1,4 +1,4 @@
-#!/usr/bin/env -S -u TAGS bash
+#!/usr/bin/env -S -u TAGS -u FORMAT bash
 
 # list all workspace names
 #
@@ -8,10 +8,20 @@
 ARG_DEFS=(
   # comma separated list of tags to filter workspaces (OR)
   "[--tags=(.+)]"
+  "[--format=(text|json)]"
 )
 
+function init() {
+  TAGS="${TAGS:-""}"
+  FORMAT="${FORMAT:-text}"
+}
+
 function run() {
-  workspace_list "${TAGS:-""}"
+  if [[ "${FORMAT}" == "json" ]]; then
+    workspace_list "${TAGS}" | jq -cnR '[inputs | select(length>0)]'
+  else
+    workspace_list "${TAGS}"
+  fi
 }
 
 source $(dirname $0)/../base.inc
