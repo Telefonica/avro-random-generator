@@ -7,8 +7,8 @@ function init() {
 }
 
 function run() {
-  docker-compose build app 1>&2
-  docker-compose run app "$@"
+  docker compose build app 1>&2
+  docker compose run app "$@"
 }
 
 source $(dirname $0)/../base.inc

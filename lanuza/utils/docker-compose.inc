@@ -146,7 +146,8 @@ function _docker-compose_build() {
     debug "Using the following docker-compose file to specify labels"
     debug "$yaml"
     # Include new yaml in the docker-compose files
-    temp_compose=$(mktemp "${TMPDIR:-/tmp/}"docker-compose.labels.$LANUZA_BUILD_ID.XXXXXXXXX)
+    temp_compose=$(: ${TMPDIR:=/tmp}; mktemp "${TMPDIR%/}/docker-compose.labels.$LANUZA_BUILD_ID.XXXXXXXXX")
+
     # To cleanup at exit
     temp_files+=( $temp_compose )
     echo "$yaml" > $temp_compose
@@ -218,7 +219,8 @@ function _docker-compose_build() {
     debug "$yaml"
 
     # Include new yaml in the docker-compose files
-    temp_compose=$(mktemp "${TMPDIR:-/tmp/}"docker-compose.cache.$LANUZA_BUILD_ID.XXXXXXXXX)
+    temp_compose=$(: ${TMPDIR:=/tmp}; mktemp "${TMPDIR%/}/docker-compose.cache.$LANUZA_BUILD_ID.XXXXXXXXX")
+
     # To cleanup at exit
     temp_files+=( $temp_compose )
     echo "$yaml" > $temp_compose

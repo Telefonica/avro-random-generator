@@ -17,20 +17,24 @@ function _workspace_init() {
   # compute only if an empty array
   if [[ "${#lanuza_ws_projects[@]}" == 0 ]]; then
     function get_workspaces() {
-      debug "Finding all workspaces..."
+      (
+        set -euo pipefail
+        cd "${LANUZA_ROOT}"
+        debug "Finding all workspaces..."
 
-      local workspace
-      while IFS= read -r -d '' workspace; do
-        local path name
-        path=$(dirname "${workspace}")
-        name=$(jq -r -e '.name' "${workspace}") || fail "Cannot get mandatory \"name\" property for ${workspace}"
-        debug "  //${name}: ${path}"
-        echo "${name} ${path}"
-      done < <(fs_list --null -u -g 'workspace.lanuza')
+        local workspace
+        fs_list --no-ignore-dot -g 'workspace.lanuza' | canonical.sh | sort -u | while read -r workspace; do
+          local path name
+          path=$(dirname "${workspace}")
+          name=$(jq -r -e '.name' "${workspace}") || fail "Cannot get mandatory \"name\" property for ${workspace}"
+          debug "  //${name}: ${path}"
+          echo "${name} ${path}"
+        done
+      )
     }
 
     local workspaces
-    workspaces=$(_workspace_cache_get "workspaces" "get_workspaces")
+    workspaces=$(_workspace_cache_get "workspaces" "get_workspaces") || fail "Cannot get workspaces"
 
     # load to our internal associative array
     local line
@@ -48,34 +52,40 @@ function _workspace_init() {
 function _workspace_init_tags() {
   if [[ "${#lanuza_ws_tags[@]}" == 0 ]]; then
     function get_tags() {
-      debug "Finding all tags..."
+      (
+        set -euo pipefail
+        cd "${LANUZA_ROOT}"
+        debug "Finding all tags..."
 
-      for name in "${!lanuza_ws_projects[@]}"; do
-        local path=${lanuza_ws_projects[${name}]}
+        for name in "${!lanuza_ws_projects[@]}"; do
+          local path=${lanuza_ws_projects[${name}]}
 
-        local btag=""
-        if [[ -f "${path}/lanuza/pipelines/publish.sh" ]]; then
-          btag="lanuza:pipelines:publish"
-        fi
+          local btag=""
+          if [[ -f "${path}/lanuza/pipelines/publish.sh" ]]; then
+            btag="lanuza:pipelines:publish"
+          fi
 
-        local ptag=""
-        if [[ -f "${path}/lanuza/pipelines/build.sh" ]]; then
-          ptag="lanuza:pipelines:build"
-        fi
+          local ptag=""
+          if [[ -f "${path}/lanuza/pipelines/build.sh" ]]; then
+            ptag="lanuza:pipelines:build"
+          fi
 
-        tags=$(jq -r  \
-          --arg btag "${btag}" \
-          --arg ptag "${ptag}" \
-          '[ $btag, $ptag ] + try .tags | [ .[] |  select(length > 0) ] | sort | join(",")' \
-          "${path}/workspace.lanuza"
-        )
-        debug "  //${name}: ${tags}"
-        echo "${name} ${tags}"
-      done
+          local tags
+          tags=$(jq -r  \
+            --arg btag "${btag}" \
+            --arg ptag "${ptag}" \
+            '[ $btag, $ptag ] + try .tags | [ .[] |  select(length > 0) ] | sort | join(",")' \
+            "${path}/workspace.lanuza"
+          ) || return 1
+
+          debug "  //${name}: ${tags}"
+          echo "${name} ${tags}"
+        done
+      )
     }
 
     local tags
-    tags=$(_workspace_cache_get "tags" "get_tags")
+    tags=$(_workspace_cache_get "tags" "get_tags") || fail "Cannot get tags"
 
     # load to our internal associative array
     local line
@@ -91,9 +101,10 @@ function _workspace_init_tags() {
 # print the names of all the available projects with a workspace
 function workspace_list() {
   local tagString="${1:-""}"
-  # # make the intersection for both ordered sets to get the modified files
+  # make the intersection for both ordered sets to get the modified files
   (
-    cd "$LANUZA_ROOT"
+    set -euo pipefail
+    cd "${LANUZA_ROOT}"
     _workspace_init
     if [[ "$tagString" != "" ]]; then
       _workspace_init_tags
@@ -123,7 +134,8 @@ function workspace_get_sha() {
   name=${1:-$(workspace_name)}
   mode=${2:-"standard"}
   (
-    cd "$LANUZA_ROOT"
+    set -euo pipefail
+    cd "${LANUZA_ROOT}"
 
     local sha
 
@@ -151,7 +163,8 @@ function workspace_path() {
 # Runs a command in all workspaces
 function workspace_run() {
   (
-    cd "$LANUZA_ROOT"
+    set -euo pipefail
+    cd "${LANUZA_ROOT}"
 
     local pipeline=$1
 
@@ -176,7 +189,8 @@ function workspace_exec() {
   local pipeline=$2
   local path
   (
-    cd "$LANUZA_ROOT"
+    set -euo pipefail
+    cd "${LANUZA_ROOT}"
 
     _workspace_init
     _workspace_assert_workspace_exists ${name}
@@ -191,9 +205,9 @@ function workspace_exec() {
   )
 }
 
-# echoes the current namespace manifest with env from publish pipeline interpolated
-function workspace_manifest() {
-  local name manifest path local_path
+# echoes the VERSION env var declared for a publish pipeline in a workspace
+function workspace_version() {
+  local name path 
   name=${1:-$(workspace_name)}
   _workspace_init
   _workspace_assert_workspace_exists ${name}
@@ -201,34 +215,56 @@ function workspace_manifest() {
   (
     set -e
     cd "${path}"
-    manifest=$(cat "./workspace.lanuza")
-    # try to laod the publish pipeline to get its env vars
     if [[ -f "./lanuza/pipelines/publish.sh" ]]; then
-      debug "Loading \"${name}\" publish pipeline init function for manifest env var interpolation"
-      # remove any init function that may have been defined because this method
-      # is called from another lanuza script
-      unset -f init
-      # remove the lanuza base source to only get function definitions
-      # and load the pipeline in the subshell
-      source <(cat ./lanuza/pipelines/publish.sh | sed '/source $(dirname $0)\/..\/base.inc/d')
-      # call the init function to get all en vars in our shell session
-      if isFunction "init"; then
-        # list of env vars to clean to avoid side-effects when calling from
-        # componentes
-        # TODO: This list should be created on-demand by parsing init contents and see what
-        # variables are getting the default or maybe exposing a configuration env_var per pipeline
-        local clean=("VERSION" "TAG")
-        local env_var
-        for env_var in "${clean[@]}"; do
-          unset "${env_var}"
-        done
-        init
-      fi
+      _workspace_load_publish_init
+    fi
+    echo "${VERSION:-""}"
+  )
+}
+
+# echoes the current namespace manifest with env from publish pipeline interpolated
+function workspace_manifest() {
+  local name manifest path
+  name=${1:-$(workspace_name)}
+  _workspace_init
+  _workspace_assert_workspace_exists ${name}
+  path=${lanuza_ws_projects[${name}]}
+  (
+    set -e
+    cd "${path}"
+    if [[ -f "./lanuza/pipelines/publish.sh" ]]; then
+      _workspace_load_publish_init
     fi
     # load manifest and interpolate the env vars in the current shell
     # TODO: inherited values will be interpolated also
+    manifest=$(cat "./workspace.lanuza")
     echo $(envsubst <<< "${manifest}")
   )
+}
+
+
+# try to load the publish pipeline to get its env vars
+function _workspace_load_publish_init() {
+  debug "Loading \"${name}\" publish pipeline init function"
+  # remove any init function that may have been defined because this method
+  # is called from another lanuza script
+  unset -f init
+  # remove the lanuza base source to only get function definitions
+  # and load the pipeline in the subshell
+  source <(cat ./lanuza/pipelines/publish.sh | sed '/source $(dirname $0)\/..\/base.inc/d' | sed '/source "$(dirname $0)"\/..\/base.inc/d' | sed '/source "$(dirname "$0")"\/..\/base.inc/d')
+  # call the init function to get all en vars in our shell session
+  if isFunction "init"; then
+    # list of env vars to clean to avoid side-effects when calling from
+    # componentes
+    # TODO: This list should be created on-demand by parsing init contents and see what
+    # variables are getting the default or maybe exposing a configuration env_var per pipeline
+    local clean=("VERSION" "TAG")
+    local env_var
+    for env_var in "${clean[@]}"; do
+      unset "${env_var}"
+    done
+    init
+  fi
 }
 
 # echoes the current namespace tags
@@ -286,7 +322,7 @@ function workspace_files() {
   mode=${2:-"standard"}
   circular=${3:-""} # simple recursive call stack
 
-  local path
+  local path list_path
   local stack="${circular} -> //${name}"
   # check if our manual simple call stack contains the current workspace
   # to detect circular dependencies
@@ -304,21 +340,37 @@ function workspace_files() {
 
       path=${lanuza_ws_projects[${name}]}
 
+      # if path == '.' we are in the root dir, and we need to get all files without telling
+      # rg that the path is ".", because it will prefix all results with ./
+      if [[ "${path}" == "." ]]; then
+        list_path=""
+      else
+        list_path="${path}"
+      fi
+
       debug " ${stack}"
       if [[ "${mode}" == "pr" ]]; then
-        # In "pr" mode, we get all workspace files. This way we can get all component files that maybe be ignored (test, etc... )
-        # and allow CI processes to run testing because it may exists test modified files that are ignored
-        fs_list -u ${path} | canonical.sh
+        # In "pr" mode, we get all workspace files not using the .ignore files in a canonical (resolving symlinks) format,
+        # to allow comparing with the modified files in the PR
+        # This way we can get all component files that maybe be ignored (test, etc... ) by users
+        # and allow CI processes to run testing because it may exists test modified files that are ignored to
+        # compute the SHA version in a published artifact, but must not be ignored to run tests
+        fs_list --no-ignore-dot ${list_path} | canonical.sh
         # switch to canonical mode to process deps, where we dont care about test modified files
         mode="canonical"
       elif [[ "${mode}" == "component" ]]; then
-        fs_list -u ${path}
+        # In "component" mode, we get all workspace files not using the .ignore files
+        # This way we can get all component files that maybe be ignored (test, etc... ) by users
+        # and compute things like the whole component sha (including test files)
+        fs_list --no-ignore-dot ${list_path}
         mode="standard"
       elif [[ "${mode}" == "canonical" ]]; then
-        fs_list ${path} | canonical.sh
+        # In "canonical" mode, we get all workspace files resolving symlinks
+        fs_list ${list_path} | canonical.sh
         mode="canonical"
       else
-        fs_list ${path}
+        # In "standard" mode, we get all workspace files honoring the .***ignore files
+        fs_list ${list_path}
         mode="standard"
       fi
 
@@ -342,9 +394,9 @@ function workspace_files() {
         # deactivate .ignore files, to allow referencing any file
         debug " ${stack} -> ${globs[@]}"
         if [[ "${mode}" == "canonical" ]]; then
-          fs_list -u "${globs[@]}" | canonical.sh || fail "Invalid glob \"${globs[@]}\" in \"${name}\" workspace deps"
+          fs_list -u --hidden "${globs[@]}" | canonical.sh || fail "Invalid glob \"${globs[@]}\" in \"${name}\" workspace deps"
         else
-          fs_list -u "${globs[@]}" || fail "Invalid glob \"${globs[@]}\" in \"${name}\" workspace deps"
+          fs_list -u --hidden "${globs[@]}" || fail "Invalid glob \"${globs[@]}\" in \"${name}\" workspace deps"
         fi
       fi
     ) | sort -u # return sorted and without dupes
@@ -383,7 +435,7 @@ function _workspace_cache_get() {
     mkdir -p "${LANUZA_WORKSPACE_CACHE_DIR}"
     # to avoid creating the file when the $getter fails
     local output
-    output=$($getter)
+    output=$($getter) || return 1
     echo "$output" > "${file}"
   fi
   cat "${file}"

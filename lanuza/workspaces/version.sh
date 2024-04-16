@@ -1,6 +1,6 @@
 #!/usr/bin/env -S -u WORKSPACE -u FORMAT bash
 
-# gets all tags for a set of workspaces
+# returns VERSION for a set of workspaces
 #
 # Uses the shebang line to unset env vars that may cause interference before base.inc sourcing
 # https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
@@ -12,11 +12,11 @@ ARG_DEFS=(
 )
 
 function init() {
-  FORMAT="${FORMAT:-text}"
+  export FORMAT="${FORMAT:-text}"
 }
 
 function run() {
-  local workspaces
+  local workspaces 
 
   if [[ -z ${WORKSPACE+x} ]]; then
     workspaces=$(workspace_list)
@@ -26,17 +26,18 @@ function run() {
     workspaces=$(echo ${WORKSPACE} | tr ',' '\n')
   fi
 
-  local output=""
+  local data=""
   while read workspace; do
     # add a newline between workspaces tags
-    [[ "${workspace}" != "" ]] && output="${output}$(workspace_tags "${workspace}")"$'\n'
+    [[ "${workspace}" != "" ]] && data="${data}{\"${workspace}\": \"$(workspace_version "${workspace}")\"}"$'\n'
   done <<< "$workspaces"
-
+  
+  local output
+  output=$(echo "${data}" | jq -rcs 'add | with_entries( select( .value != "" ) )')
   if [[ "${FORMAT}" == "json" ]]; then
-    # sort and remove empty lines and convert to json array
-    echo "${output}" | sort -u | sed '/^[[:space:]]*$/d' | jq -cnR '[inputs | select(length>0)]'
+    echo "${output}"
   else
-    echo "${output}" | sort -u | sed '/^[[:space:]]*$/d'
+    echo "${output}" | jq -r 'to_entries[] | [.key, .value] | @tsv' | column -s$'\t' -t
   fi
 }
 

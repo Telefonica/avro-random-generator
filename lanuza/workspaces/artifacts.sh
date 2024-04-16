@@ -6,8 +6,8 @@
 # https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
 
 ARG_DEFS=(
-  # comma separated list of workspaces
-  "[--workspace=(.+)]"
+  # comma separated list of workspaces or - to read from stdin
+  "[--workspace=(.+|-)]"
   # comma separated list of tags to filter workspaces (OR)
   "[--tags=(.+)]"
   "[--format=(text|json)]"
@@ -19,17 +19,19 @@ function init() {
 }
 
 function run() {
-  local workspaces
+  local workspaces 
 
   if [[ -z ${WORKSPACE+x} ]]; then
     # no WORKSPACE specified, use builtin API to filter by tags
     workspaces=$(workspace_list "${TAGS}")
   elif [[ "${TAGS}" == "" ]]; then
     # no TAGS. use the specified WORKSPACE
-    workspaces=$(echo ${WORKSPACE} | tr ',' '\n' | sort -u)
+    workspaces=$(read_workspaces)
   else
     # both TAGS and WORKSPACE specified. filter manually
-    workspaces=$(comm -12 <(workspace_list "${TAGS}") <(echo ${WORKSPACE} | tr ',' '\n' | sort -u ))
+    local input_workspaces
+    input_workspaces=$(read_workspaces)
+    workspaces=$(comm -12 <(workspace_list "${TAGS}") <(echo "${input_workspaces}" | sort -u ))
   fi
 
   local workspace
@@ -50,6 +52,16 @@ function for_workspace() {
   workspace_manifest "${workspace}" | jq -r \
         --arg WORKSPACE "${workspace}" \
         'try .artifacts[] + {"workspace": $WORKSPACE }'
+}
+
+function read_workspaces() {
+  local workspaces
+  if [[ "${WORKSPACE}" == "-" ]]; then
+    workspaces=$(cat)
+  else
+    workspaces=$(echo ${WORKSPACE} | tr ',' '\n' | sort -u)
+  fi
+  echo "${workspaces}"
 }
 
 source $(dirname $0)/../base.inc

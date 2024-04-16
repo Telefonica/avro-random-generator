@@ -324,19 +324,25 @@ public class Main {
         return getGenerator(schema, schemaFile, Optional.empty(), Optional.empty());
     }
 
-    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> malformedNotInformedRate, Optional<Double> malformedColumnRate) throws IOException {
+    private static Generator getGenerator(String schema, String schemaFile, Optional<Double> notInformedColumnRate, Optional<Double> malformedColumnRate) throws IOException {
         if (schema != null) {
             return new Generator.Builder().schemaString(schema)
                     .malformedColumnRate(malformedColumnRate)
+                    .notInformedColumnRate(notInformedColumnRate)
                     .build();
         } else if (!schemaFile.equals("-")) {
             return new Generator.Builder()
-                    .schemaFile(new File(schemaFile), malformedNotInformedRate.isPresent())
+                    .schemaFile(new File(schemaFile), notInformedColumnRate.isPresent())
                     .malformedColumnRate(malformedColumnRate)
+                    .notInformedColumnRate(notInformedColumnRate)
                     .build();
         } else {
             System.err.println("Reading schema from stdin...");
-            return new Generator.Builder().schemaStream(System.in).malformedColumnRate(malformedColumnRate).build();
+            return new Generator.Builder()
+                    .schemaStream(System.in)
+                    .malformedColumnRate(malformedColumnRate)
+                    .notInformedColumnRate(notInformedColumnRate)
+                    .build();
         }
     }
 

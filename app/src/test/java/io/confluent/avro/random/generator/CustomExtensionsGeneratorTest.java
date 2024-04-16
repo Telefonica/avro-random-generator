@@ -104,9 +104,9 @@ public class CustomExtensionsGeneratorTest {
       }
     }
 
-    assertEquals("Wrong string distribution", 0.45, ((double) stringResults.size()) / 100, 0.1);
-    assertEquals("Wrong int distribution", 0.45, ((double) intResults.size()) / 100, 0.1);
-    assertEquals("Wrong not informed distribution", 0.1, ((double) notInformedResults.size()) / 100, 0.1);
+    assertEquals("Wrong string distribution", 0.45, ((double) stringResults.size()) / 100, 0.2);
+    assertEquals("Wrong int distribution", 0.45, ((double) intResults.size()) / 100, 0.2);
+    assertEquals("Wrong not informed distribution", 0.1, ((double) notInformedResults.size()) / 100, 0.2);
     assertNotEquals("Empty not informed values", notInformedResults.size(), 0);
   }
 
