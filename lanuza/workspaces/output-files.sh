@@ -6,8 +6,8 @@
 # https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
 
 ARG_DEFS=(
-  # workspaces
-  "[--workspace=(.+)]"
+  # comma separated list of workspaces or - to read from stdin
+  "[--workspace=(.+|-)]"
   # the artifact type files to return.
   "[--type=(output|.+)]"
   # compress the involved files and return the final filename
@@ -17,9 +17,11 @@ ARG_DEFS=(
 
 function run() {
   local artifacts workspaces files
+
   if [[ -z ${WORKSPACE+x} ]]; then
-    # no WORKSPACE specified
     workspaces=$(workspace_list)
+  elif [[ "${WORKSPACE}" == "-" ]]; then
+    workspaces=$(cat)
   else
     workspaces=$(echo ${WORKSPACE} | tr ',' '\n' | sort -u)
   fi

@@ -1,0 +1,25 @@
+{
+  "namespace": "com.plainAVRO",
+  "name": "Contact_Center_CDR",
+  "type": "record",
+  "doc": "Data records that contain information about each interaction (such as calls or interactions/contacts through other channels/apps) received by a Contact Center",
+  "x-fp-version": "5.9.0",
+  "fields": [
+    {
+      "name": "DAY_DT",
+      "aliases": [
+        "day_dt"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date",
+        "arg.properties": {
+          "range": {
+            "start": "${DATE_RANGE_START}",
+            "end": "${DATE_RANGE_END}"
+          }
+        }
+      }
+    }
+  ]
+}

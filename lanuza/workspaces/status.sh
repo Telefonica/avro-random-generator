@@ -7,7 +7,8 @@
 # https://www.gnu.org/software/coreutils/manual/html_node/env-invocation.html#env-invocation
 
 ARG_DEFS=(
-  "[--workspace=(.+)]"
+  # comma separated list of workspaces or - to read from stdin
+  "[--workspace=(.+|-)]"
   # comma separated list of tags to filter workspaces (OR)
   "[--tags=(.+)]"
   "[--filter=(published|missing|unknown|failed)]"

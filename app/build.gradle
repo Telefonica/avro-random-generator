@@ -38,6 +38,7 @@ dependencies {
     implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.25-4p'
     implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
     implementation group: 'com.googlecode.java-ipv6', name: 'java-ipv6', version: '0.17'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
     testImplementation group: 'org.apache.spark', name: 'spark-sql_2.12', version: '3.3.2'
     testImplementation group: 'commons-validator', name: 'commons-validator', version: '1.6'

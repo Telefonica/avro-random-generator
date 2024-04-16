@@ -2,7 +2,7 @@
 
 #@IgnoreInspection BashAddShebang
 #
-# LANUZA v4.3.3
+# LANUZA v4.14.0
 #
 # This file provides:
 # - a default control flow
@@ -75,21 +75,35 @@ function fail {
 
 # gets the lanuza root dir
 # https://www.ostricher.com/2014/10/the-right-way-to-get-the-directory-of-a-bash-script/
-function get_root_dir () {
+function get_root_dir {
   local SOURCE DIR
 
-  SOURCE="${BASH_SOURCE[0]}"
-  # While $SOURCE is a symlink, resolve it
-  while [ -h "$SOURCE" ]; do
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    SOURCE="$( readlink "$SOURCE" )"
-    # If $SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-  done
+  # absolute pathname of this script
+  SOURCE="$( _realpath "${BASH_SOURCE[0]}" )"
 
-  # once this file has
+  # print absolute pathname of parent directory
   DIR="$( cd -P "$( dirname "$SOURCE" )/../" && pwd )"
   echo "$DIR"
+}
+
+# gets the canonicalised absolute pathname of the argument, resolving symlinks
+# realpath(1) is part of GNU Coreutils, not always available as preinstalled command in other Unix variants
+function _realpath {
+  local NAME="$1"
+  local DIR
+
+  # While $NAME is a symlink, resolve it
+  while [[ -h "$NAME" ]]; do
+    DIR="$( cd -P "$( dirname "$NAME" )" && pwd )"
+    NAME="$( readlink "$NAME" )"
+    # If $NAME was a relative symlink (so no "/" as prefix), need to resolve it relative to the symlink base directory
+    [[ $NAME != /* ]] && NAME="$DIR/$NAME"
+  done
+
+  # Resolve relative paths in $NAME and print final absolute pathname
+  [[ -d "$NAME" ]] && NAME="$( cd -P "$NAME" && pwd )"
+  DIR="$( cd -P "$( dirname "$NAME" )" && pwd )"
+  echo "${DIR%/}/$( basename "${NAME%/}" )"
 }
 
 function parseArgs {
@@ -172,7 +186,7 @@ function parseArgs {
 
     # -- run
     for i in "$@"; do
-      parseArg $i
+      parseArg "$i"
       validateArg
       setVar "${ARG_NAME_UPPER}" "$ARG_VALUE"
     done
@@ -223,33 +237,35 @@ function isFunction {
 function gen_lanuza_id() {
   # Using /dev/urandom hangs the process on GitHub Actions, and we do not need such great entropy
   # based on https://gist.github.com/markusfisch/6110640
-	local N B C='89ab'
+  local N B C='89ab'
 
-	for (( N=0; N < 6; ++N )); do
-		B=$(( $RANDOM%256 ))
+  for (( N=0; N < 6; ++N )); do
+    B=$(( $RANDOM%256 ))
 
-		case $N in
-			1)
-				printf '4%x' $(( B%16 ))
-				;;
-			3 | 5)
-				printf '%c%x' ${C:$RANDOM%${#C}:1} $(( B%16 ))
-				;;
-			*)
-				printf '%02x' $B
-				;;
-		esac
-	done
+    case $N in
+      1)
+        printf '4%x' $(( B%16 ))
+        ;;
+      3 | 5)
+        printf '%c%x' ${C:$RANDOM%${#C}:1} $(( B%16 ))
+        ;;
+      *)
+        printf '%02x' $B
+        ;;
+    esac
+  done
 
-	echo
+  echo
 }
 
 function main {
   function cleanup__() {
+    local exit_code=$?
+
     mapfile -t cleanup_functions < <( declare -F | grep -E 'cleanup$' | tr -s ' ' | cut -d ' ' -f3 )
 
     for cleanup in "${cleanup_functions[@]}"; do
-      $cleanup || true
+      $cleanup $exit_code|| true
     done
   }
 
@@ -257,25 +273,11 @@ function main {
   set +x
 
   setVar "LANUZA_ROOT" "$(get_root_dir)"
-  # change directory to base directory of the project
-  BASE_DIR=$(dirname $BASH_SOURCE)
-  cd $BASE_DIR/..;
-
-  local current_dir=$(pwd)
-  local project_name
-  if [[ ${LANUZA_ROOT} == ${current_dir} ]]; then
-    # use the root dir as wht project name
-    project_name=$(basename "$(pwd)")
-  else
-    # The relative path from root to project without /
-    project_name=$(echo ${current_dir#"${LANUZA_ROOT}/"} | tr '/' _ )
-  fi
-
-  setVar "LANUZA_PROJECT" "${project_name}"
 
   # caller 1 # contains the caller script
-  local source=$(caller 1 | tr -s ' ' | cut -d ' ' -f3 )
-  setVar "LANUZA_SOURCE" "$source"
+  local source=$(_realpath $(caller 1 | tr -s ' ' | cut -d ' ' -f3 ))
+  local rootless_source="${source#"${LANUZA_ROOT}/"}"
+  setVar "LANUZA_SOURCE" "$rootless_source"
   setVar "LANUZA_SOURCE_FILE" "$(basename $source .sh)"
 
   # a random number tied to this execution
@@ -284,6 +286,22 @@ function main {
 
   # Output directory to save lanuza generated files
   setVar "LANUZA_OUTPUT_DIR" "${LANUZA_OUTPUT_DIR:-"output"}"
+
+  # change directory to base directory of the project
+  BASE_DIR=$(dirname $BASH_SOURCE)
+  cd $BASE_DIR/..;
+
+  local current_dir=$(_realpath $PWD)
+  local project_name
+  if [[ ${LANUZA_ROOT} == ${current_dir} ]]; then
+    # use the root dir as project name
+    project_name=$(basename "${LANUZA_ROOT}")
+  else
+    # The relative path from root to project without /
+    project_name=$(echo ${current_dir#"${LANUZA_ROOT}/"} | tr '/' _ )
+  fi
+
+  setVar "LANUZA_PROJECT" "${project_name}"
 
   local f
   # load other utilities

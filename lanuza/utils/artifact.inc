@@ -81,6 +81,20 @@ function artifact_exists_helm() {
   _artifact_check_with_retries exists "no such manifest"
 }
 
+# Checks if an artifact exists in an OCI registry
+# uses the docker cli to check the manifest
+function artifact_exists_oci() {
+  local image="${1}"
+
+  function exists() {
+    docker manifest inspect "${image}"
+  }
+
+  # Docker error on missing artifact is exit code == 1 and stderr:
+  # no such manifest: ${image}
+  _artifact_check_with_retries exists "no such manifest"
+}
+
 # Retries an exists command a with backoff.
 #
 # The retry count is given by LANUZA_ARTIFACT_RETRIES (default 5), the
