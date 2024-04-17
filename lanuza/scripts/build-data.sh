@@ -28,6 +28,7 @@ ARG_DEFS=(
   "[--extension-flavour=(.*)]"
   "[--not-informed=(true|false)]"
   "[--malformed-column-rate=(.*)]"
+  "[--not-informed-column-rate=(.*)]"
 )
 
 function init() {
@@ -43,6 +44,7 @@ function init() {
   export FILE_PREFIX=${FILE_PREFIX:-"1"}
   export NOT_INFORMED=${NOT_INFORMED:-"false"}
   export MALFORMED_COLUMN_RATE=${MALFORMED_COLUMN_RATE:-""}
+  export NOT_INFORMED_COLUMN_RATE=${NOT_INFORMED_COLUMN_RATE:-""}
   export OUT=${OUT:-"datasets-out"}
 }
 
@@ -83,10 +85,13 @@ function run() {
 
       local extra_args=""
       if [ -n "${MALFORMED_COLUMN_RATE}" ]; then
-        extra_args=" --malformed-column-rate=${MALFORMED_COLUMN_RATE}"
+        extra_args=" --malformed-column-rate ${MALFORMED_COLUMN_RATE}"
+      fi
+      if [ -n "${NOT_INFORMED_COLUMN_RATE}" ]; then
+        extra_args="${extra_args} --not-informed-column-rate ${NOT_INFORMED_COLUMN_RATE}"
       fi
 
-      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} --not-informed ${NOT_INFORMED}"${extra_args}" &
+      java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75 -jar ${jar_location} -f ${out_schemas_dir}/schema_${counter}_${DATE_RANGE_START}.json -i ${RECORDS} ${ARGS} --not-informed ${NOT_INFORMED}${extra_args} &
       pids[$counter]=$!
       echo "Generating ${out} in background, current thread [${pids[current_threads]}]"
 
