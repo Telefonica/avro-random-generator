@@ -281,6 +281,7 @@ public class LogicalTypeGeneratorTest {
   @Test
   public void shouldCreateValidLGeometry() {
     GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/geometry.json");
+
     String field = "geometry";
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
@@ -291,6 +292,7 @@ public class LogicalTypeGeneratorTest {
   @Test
   public void shouldCreateValidLFeature() {
     GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature.json");
+
     String field = "feature";
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
@@ -301,6 +303,7 @@ public class LogicalTypeGeneratorTest {
   @Test
   public void shouldCreateValidLFeatureCollection() {
     GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/feature-collection.json");
+
     String field = "featureCollection";
     assertNotNull(record.get(field));
     String value = record.get(field).toString();
@@ -308,4 +311,36 @@ public class LogicalTypeGeneratorTest {
     assertTrue("Invalid feature-collection: " + value, Validations.isValidFeatureCollection(value));
   }
 
+  @Test
+  public void shouldCreateValidUUID() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/uuid-string.json");
+
+    String field = "uuid";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid uuid: " + value, Validations.isValidUUID(value));
+  }
+
+  @Test
+  public void shouldCreateValidRate() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/rate.json");
+
+    String field = "rate";
+    assertNotNull(record.get(field));
+    Float value = (float)record.get(field);
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid rate: " + value, Validations.isValidRate(value));
+  }
+
+  @Test
+  public void shouldCreateValidSemVer() {
+    GenericRecord record = generateRecordWithSchema("test-schemas/logical-types/semver.json");
+
+    String field = "semver";
+    assertNotNull(record.get(field));
+    String value = record.get(field).toString();
+    System.out.println("Generated value is: " + value);
+    assertTrue("Invalid semver: " + value, Validations.isValidSemVer(value));
+  }
 }

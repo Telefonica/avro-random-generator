@@ -188,6 +188,33 @@
         "logicalType": "feature-collection"
       },
       "doc": "List of features"
+    },
+    {
+      "name": "UUID",
+      "aliases": ["uuid-string"],
+      "type": {
+        "type": "string",
+        "logicalType": "uuid-string"
+      },
+      "doc": "A string representation of a UUID"
+    },
+    {
+      "name": "RATE",
+      "aliases": ["rate"],
+      "type": {
+        "type": "float",
+        "logicalType": "rate"
+      },
+      "doc": "A float representation of a rate"
+    },
+    {
+      "name": "SEMVER",
+      "aliases": ["semver"],
+      "type": {
+        "type": "string",
+        "logicalType": "semver"
+      },
+      "doc": "A string representation of a SemVer"
     }
   ]
 }

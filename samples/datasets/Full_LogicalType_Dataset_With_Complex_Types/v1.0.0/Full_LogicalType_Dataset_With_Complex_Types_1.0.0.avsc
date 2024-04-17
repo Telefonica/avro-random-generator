@@ -21,7 +21,14 @@
     {"name":"IPV6", "type":{"type":"string", "logicalType":"ipv6", "x-fp-data-protection": "pseudonymize"}, "doc":"Internet Protocol Address v6"},
     {"name":"LATITUDE", "type":{"type":"double", "logicalType":"latitude"}, "doc":"Latitude"},
     {"name":"LONGITUDE", "type":{"type":"double", "logicalType":"longitude"}, "doc":"Longitude"},
-    {"name": "SUB_RECORD", "type":{"name":"SUB_RECORD", "type": "record", "fields": [
+    {"name":"DECIMAL", "type": {"type": "string", "logicalType": "decimal-string"}, "doc": "A string representation of a decimal numeral"},
+    {"name":"GEOMETRY", "aliases": ["geometry"], "type": {"type": "string", "logicalType": "geometry"}, "doc": "A Geometry object represents points, curves, and surfaces in coordinate space"},
+    {"name":"FEATURE", "aliases": ["feature"], "type": {"type": "string", "logicalType": "feature"}, "doc": "A Feature object represents a spatially bounded thing"},
+    {"name":"FEATURE_COLLECTION", "aliases": ["feature_collection"], "type": {"type": "string", "logicalType": "feature-collection"}, "doc": "List of features"},
+    {"name":"UUID", "aliases": ["uuid-string"], "type": {"type": "string", "logicalType": "uuid-string"}, "doc": "A string representation of a UUID"},
+    {"name":"RATE", "aliases": ["rate"], "type": {"type": "float", "logicalType": "rate"}, "doc": "A float representation of a rate"},
+    {"name":"SEMVER", "aliases": ["semver"], "type": {"type": "string", "logicalType": "semver"}, "doc": "A string representation of a SemVer"},
+    {"name":"SUB_RECORD", "type":{"name":"SUB_RECORD", "type": "record", "fields": [
           {"name":"PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }},
           {"name":"IMSI", "type": { "type":"string", "logicalType":"imsi", "x-fp-data-protection": "pseudonymize" }},
           {"name":"DATETIME", "type": { "type":"string", "logicalType":"datetime" }}
