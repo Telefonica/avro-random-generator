@@ -92,6 +92,7 @@ public class Main {
         Optional<Double> malformedColumnRate = Optional.empty();
         Optional<Double> notInformedColumnRate = Optional.empty();
 
+        System.out.println(Arrays.asList(args));
         Iterator<String> argv = Arrays.asList(args).iterator();
         while (argv.hasNext()) {
             String flag = argv.next();
@@ -155,6 +156,8 @@ public class Main {
 
         Generator generator = null;
         try {
+            notInformedColumnRate.ifPresent(rate -> System.out.println("- Applying not informed rate: " + rate));
+            malformedColumnRate.ifPresent(rate -> System.out.println("- Applying malformed rate: " + rate));
             generator = getGenerator(schema, schemaFile, notInformedColumnRate, malformedColumnRate);
         } catch (IOException ioe) {
             System.err.println("Error occurred while trying to read schema file");
