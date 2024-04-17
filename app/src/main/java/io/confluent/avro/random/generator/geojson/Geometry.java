@@ -86,7 +86,7 @@ public class Geometry {
                     Point point4 = new Point(null, null, crs);
                     Point point5 = new Point(point4.latitude, null, crs);
                     Point point6 = new Point(null, point5.longitude, crs);
-                    /* OJO: 5 puntos para el poligono por la librería de geojson */
+                    /* NOTE: The polygon is formed by 5 points due to geojson library */
                     result = Arrays.asList(
                             List.of(
                                 Arrays.asList(
