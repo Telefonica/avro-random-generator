@@ -236,7 +236,7 @@
         "name" : "FEATURE_COLLECTION",
         "type" : {
           "type" : "string",
-          "logicalType" : "feature_collection",
+          "logicalType" : "feature-collection",
           "arg.properties" : {
             "options" : [
                 "invalid",

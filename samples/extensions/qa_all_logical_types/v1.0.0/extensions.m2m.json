@@ -169,7 +169,7 @@
         "name" : "FEATURE_COLLECTION",
         "type" : {
           "type" : "string",
-          "logicalType" : "feature_collection"
+          "logicalType" : "feature-collection"
         },
         "doc" : "List of features",
         "aliases" : [ "feature_collection" ]
