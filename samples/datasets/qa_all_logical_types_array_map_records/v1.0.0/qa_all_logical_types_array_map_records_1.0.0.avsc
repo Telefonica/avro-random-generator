@@ -170,11 +170,14 @@
                 "name" : "FEATURE_COLLECTION",
                 "type" : {
                   "type" : "string",
-                  "logicalType" : "feature_collection"
+                  "logicalType" : "feature-collection"
                 },
                 "doc" : "List of features",
                 "aliases" : [ "feature_collection" ]
-              } ]
+              },
+              {"name":"UUID","aliases":["uuid"],"type":{"type":"string","logicalType":"uuid-string"},"doc":"A string representation of uuid"},
+              {"name":"SEMVER","aliases":["SemVer"],"type":{"type":"string","logicalType":"semver"},"doc":"A string representation of SemVer"},
+              {"name":"RATE","aliases":["rate"],"type":{"type":"float","logicalType":"rate"},"doc":"A float representation of rate"} ]
           }
         }
       }
