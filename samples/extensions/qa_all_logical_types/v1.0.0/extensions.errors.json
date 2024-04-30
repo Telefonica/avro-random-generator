@@ -302,7 +302,7 @@
           "logicalType": "rate",
           "arg.properties": {
             "options": [
-              1.001,
+              1.01,
               1256.5363,
               2.713,
               12.4562,
