@@ -293,12 +293,15 @@ public class LogicalTypeGenerator {
       case "feature-collection":
         int numFeatures = 10;
         ArrayList<Feature> features = new ArrayList<>(numFeatures);
-
+        Feature feat = null;
         for (int i = 0; i < numFeatures; i++) {
           features.add(new Feature(new Geometry(null, null)));
         }
-
         return new FeatureCollection(features).toString();
+      case "uuid-string":
+        return UUID.randomUUID().toString();
+      case "semver":
+        return faker.regexify("(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-((0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\\+([0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*))?");
       default:
         throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
     }
@@ -315,4 +318,12 @@ public class LogicalTypeGenerator {
     }
   }
 
+  public Float randomFloat(String logicalType, Map propertiesProp) {
+    switch (logicalType) {
+      case "rate":
+        return random.nextFloat();
+      default:
+        throw new IllegalArgumentException("Unsupported logical type: " + logicalType);
+    }
+  }
 }

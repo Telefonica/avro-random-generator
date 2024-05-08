@@ -24,10 +24,12 @@ public class FeatureCollectionTest {
         FeatureCollection featureCollection = createFeatureCollection();
         assertNotNull(featureCollection.toString());
         Gson gson = new Gson();
-
+        String fcollection = featureCollection.toString();
         try {
-            gson.fromJson(featureCollection.toString(), JsonObject.class);
-        } catch (JsonSyntaxException exception) {
+            gson.fromJson(fcollection, JsonObject.class);
+        } catch (Exception exception) {
+
+            exception.printStackTrace();
             fail();
         }
 

@@ -1,12 +1,14 @@
 {
+  "name": "Logical_Types",
   "type": "record",
-  "name": "qa_all_logical_types",
-  "namespace": "com.telefonica.baikal.qa",
+  "doc": "Description of logical types of spark_sdk",
   "x-fp-version": "1.0.0",
-  "doc": "Schema for logical types supported by spark sdk with not informed fields",
   "fields": [
     {
       "name": "PHONE_NUMBER",
+      "aliases": [
+        "phone_number"
+      ],
       "type": {
         "type": "string",
         "logicalType": "phone-number"
@@ -15,14 +17,20 @@
     },
     {
       "name": "IMSI",
+      "aliases": [
+        "imsi"
+      ],
       "type": {
         "type": "string",
         "logicalType": "imsi"
       },
-      "doc": "A valid International Mobile Subscriber Identity"
+      "doc": "International Mobile Subscriber Identity"
     },
     {
       "name": "IMEI",
+      "aliases": [
+        "imei"
+      ],
       "type": {
         "type": "string",
         "logicalType": "imei"
@@ -31,14 +39,20 @@
     },
     {
       "name": "DATE",
-      "type":{
+      "aliases": [
+        "date"
+      ],
+      "type": {
         "type": "string",
         "logicalType": "iso-date"
       },
-      "doc": "A valid ISO-8601 value that contains a complete date representation, with no time specification"
+      "doc": "A valid ISO-8601 value that contains a complete date representation"
     },
     {
       "name": "TIME",
+      "aliases": [
+        "time"
+      ],
       "type": {
         "type": "string",
         "logicalType": "time"
@@ -47,6 +61,9 @@
     },
     {
       "name": "DATETIME",
+      "aliases": [
+        "datetime"
+      ],
       "type": {
         "type": "string",
         "logicalType": "datetime"
@@ -55,14 +72,28 @@
     },
     {
       "name": "TIMESTAMP",
+      "aliases": [
+        "timestamp"
+      ],
       "type": {
         "type": "string",
-        "logicalType": "iso8601-timestamp"
+        "logicalType": "iso8601-timestamp",
+        "arg.properties": {
+          "options": [
+            "19868888825077T231305",
+            "2000-X-002-113T13:18:05",
+            "A1907T161805Z",
+            "1956-ABC-007T16:56:05Z"
+          ]
+        }
       },
       "doc": "A valid ISO-8601 value that contains a complete date and time representation"
     },
     {
       "name": "DURATION",
+      "aliases": [
+        "duration"
+      ],
       "type": {
         "type": "string",
         "logicalType": "duration"
@@ -71,6 +102,9 @@
     },
     {
       "name": "COUNTRY_CODE2",
+      "aliases": [
+        "country_code2"
+      ],
       "type": {
         "type": "string",
         "logicalType": "country-code-alpha-2"
@@ -79,6 +113,9 @@
     },
     {
       "name": "COUNTRY_CODE3",
+      "aliases": [
+        "country_code3"
+      ],
       "type": {
         "type": "string",
         "logicalType": "country-code-alpha-3"
@@ -87,6 +124,9 @@
     },
     {
       "name": "COUNTRY_NUMERIC",
+      "aliases": [
+        "country_numeric"
+      ],
       "type": {
         "type": "string",
         "logicalType": "country-code-numeric"
@@ -95,6 +135,9 @@
     },
     {
       "name": "CURRENCY_CODE",
+      "aliases": [
+        "currency_code"
+      ],
       "type": {
         "type": "string",
         "logicalType": "currency-code-alpha"
@@ -103,7 +146,10 @@
     },
     {
       "name": "CURRENCY_NUMERIC",
-      "type":  {
+      "aliases": [
+        "currency_numeric"
+      ],
+      "type": {
         "type": "string",
         "logicalType": "currency-code-numeric"
       },
@@ -111,6 +157,9 @@
     },
     {
       "name": "DECIMAL",
+      "aliases": [
+        "decimal"
+      ],
       "type": {
         "type": "string",
         "logicalType": "decimal-string"
@@ -119,7 +168,9 @@
     },
     {
       "name": "IPV4",
-      "aliases": ["ipv4"],
+      "aliases": [
+        "ipv4"
+      ],
       "type": {
         "type": "string",
         "logicalType": "ipv4"
@@ -128,7 +179,9 @@
     },
     {
       "name": "IPV6",
-      "aliases": ["ipv6"],
+      "aliases": [
+        "ipv6"
+      ],
       "type": {
         "type": "string",
         "logicalType": "ipv6"
@@ -137,7 +190,9 @@
     },
     {
       "name": "TIMEZONE",
-      "aliases": ["timezone"],
+      "aliases": [
+        "timezone"
+      ],
       "type": {
         "type": "string",
         "logicalType": "time-zone"
@@ -146,7 +201,9 @@
     },
     {
       "name": "LATITUDE",
-      "aliases": ["latitude"],
+      "aliases": [
+        "latitude"
+      ],
       "type": {
         "type": "double",
         "logicalType": "latitude"
@@ -155,7 +212,9 @@
     },
     {
       "name": "LONGITUDE",
-      "aliases": ["longitude"],
+      "aliases": [
+        "longitude"
+      ],
       "type": {
         "type": "double",
         "logicalType": "longitude"
@@ -164,57 +223,69 @@
     },
     {
       "name": "GEOMETRY",
-      "aliases": ["geometry"],
+      "aliases": [
+        "geometry"
+      ],
       "type": {
-        "type": "string",
-        "logicalType": "geometry"
+        "logicalType": "geometry",
+        "type": "string"
       },
       "doc": "A Geometry object represents points, curves, and surfaces in coordinate space"
     },
     {
       "name": "FEATURE",
-      "aliases": ["feature"],
+      "aliases": [
+        "feature"
+      ],
       "type": {
-        "type": "string",
-        "logicalType": "feature"
+        "logicalType": "feature",
+        "type": "string"
       },
       "doc": "A Feature object represents a spatially bounded thing"
     },
     {
       "name": "FEATURE_COLLECTION",
-      "aliases": ["feature_collection"],
+      "aliases": [
+        "feature_collection"
+      ],
       "type": {
-        "type": "string",
-        "logicalType": "feature-collection"
+        "logicalType": "feature-collection",
+        "type": "string"
       },
       "doc": "List of features"
     },
     {
       "name": "UUID",
-      "aliases": ["uuid-string"],
+      "aliases": [
+        "uuid"
+      ],
       "type": {
         "type": "string",
         "logicalType": "uuid-string"
       },
-      "doc": "A string representation of a UUID"
-    },
-    {
-      "name": "RATE",
-      "aliases": ["rate"],
-      "type": {
-        "type": "float",
-        "logicalType": "rate"
-      },
-      "doc": "A float representation of a rate"
+      "doc": "A string representation of uuid"
     },
     {
       "name": "SEMVER",
-      "aliases": ["semver"],
+      "aliases": [
+        "SemVer"
+      ],
       "type": {
         "type": "string",
         "logicalType": "semver"
       },
-      "doc": "A string representation of a SemVer"
+      "doc": "A string representation of SemVer"
+    },
+    {
+      "name": "RATE",
+      "aliases": [
+        "rate"
+      ],
+      "type": {
+        "type": "float",
+        "logicalType": "rate"
+      },
+      "doc": "A float representation of rate"
     }
   ]
 }

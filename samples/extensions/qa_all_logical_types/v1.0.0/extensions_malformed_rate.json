@@ -1,0 +1,358 @@
+{
+  "name": "Logical_Types",
+  "type": "record",
+  "doc": "Description of logical types of spark_sdk",
+  "x-fp-version": "1.0.0",
+  "fields": [
+    {
+      "name": "PHONE_NUMBER",
+      "aliases": [
+        "phone_number"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "phone-number",
+        "arg.properties": {
+          "malformed-rate": 0.5
+        }
+      },
+      "doc": "International number value according to ITU E.164"
+    },
+    {
+      "name": "IMSI",
+      "aliases": [
+        "imsi"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "imsi",
+        "arg.properties": {
+          "malformed-rate": 0.4
+        }
+      },
+      "doc": "International Mobile Subscriber Identity"
+    },
+    {
+      "name": "IMEI",
+      "aliases": [
+        "imei"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "imei",
+        "arg.properties": {
+          "malformed-rate": 0.7
+        }
+      },
+      "doc": "International Mobile Equipment Identity"
+    },
+    {
+      "name": "DATE",
+      "aliases": [
+        "date"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date",
+        "arg.properties": {
+          "malformed-rate": 0.2
+        }
+      },
+      "doc": "A valid ISO-8601 value that contains a complete date representation"
+    },
+    {
+      "name": "TIME",
+      "aliases": [
+        "time"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "time",
+        "arg.properties": {
+          "malformed-rate": 0.6
+        }
+      },
+      "doc": "A valid ISO-8601 value that contains a complete time representation"
+    },
+    {
+      "name": "DATETIME",
+      "aliases": [
+        "datetime"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "datetime",
+        "arg.properties": {
+          "malformed-rate": 0.3
+        }
+      },
+      "doc": "A valid ISO-8601 value that contains a complete date and time representation"
+    },
+    {
+      "name": "TIMESTAMP",
+      "aliases": [
+        "timestamp"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "iso8601-timestamp",
+        "arg.properties": {
+          "malformed-rate": 0.3
+        }
+      },
+      "doc": "A valid ISO-8601 value that contains a complete date and time representation"
+    },
+    {
+      "name": "DURATION",
+      "aliases": [
+        "duration"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "duration",
+        "arg.properties": {
+          "malformed-rate": 0.9
+        }
+      },
+      "doc": "A valid ISO-8601 value that contains a complete duration representation"
+    },
+    {
+      "name": "COUNTRY_CODE2",
+      "aliases": [
+        "country_code2"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "country-code-alpha-2",
+        "arg.properties": {
+          "malformed-rate": 0.7
+        }
+      },
+      "doc": "A valid ISO-3166-1 alpha-2 country code"
+    },
+    {
+      "name": "COUNTRY_CODE3",
+      "aliases": [
+        "country_code3"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "country-code-alpha-3",
+        "arg.properties": {
+          "malformed-rate": 0.3
+        }
+      },
+      "doc": "A valid ISO-3166-1 alpha-3 country code"
+    },
+    {
+      "name": "COUNTRY_NUMERIC",
+      "aliases": [
+        "country_numeric"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "country-code-numeric",
+        "arg.properties": {
+          "malformed-rate": 0.5
+        }
+      },
+      "doc": "A valid ISO-3166-1 numeric country code"
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "aliases": [
+        "currency_code"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "currency-code-alpha",
+        "arg.properties": {
+          "malformed-rate": 0.8
+        }
+      },
+      "doc": "A valid ISO-4217 alpha currency code"
+    },
+    {
+      "name": "CURRENCY_NUMERIC",
+      "aliases": [
+        "currency_numeric"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "currency-code-numeric",
+        "arg.properties": {
+          "malformed-rate": 0.2
+        }
+      },
+      "doc": "A valid ISO-4217 numeric currency code"
+    },
+    {
+      "name": "DECIMAL",
+      "aliases": [
+        "decimal"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "decimal-string",
+        "arg.properties": {
+          "malformed-rate": 0.4
+        }
+      },
+      "doc": "A string representation of a decimal numeral"
+    },
+    {
+      "name": "IPV4",
+      "aliases": [
+        "ipv4"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "ipv4",
+        "arg.properties": {
+          "malformed-rate": 0.3
+        }
+      },
+      "doc": "A string representation of a ipv4"
+    },
+    {
+      "name": "IPV6",
+      "aliases": [
+        "ipv6"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "ipv6",
+        "arg.properties": {
+          "malformed-rate": 0.7
+        }
+      },
+      "doc": "A string representation of a ipv6"
+    },
+    {
+      "name": "TIMEZONE",
+      "aliases": [
+        "timezone"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "time-zone",
+        "arg.properties": {
+          "malformed-rate": 0.5
+        }
+      },
+      "doc": "A string representation of timezone"
+    },
+    {
+      "name": "LATITUDE",
+      "aliases": [
+        "latitude"
+      ],
+      "type": {
+        "type": "double",
+        "logicalType": "latitude",
+        "arg.properties": {
+          "malformed-rate": 0.2
+        }
+      },
+      "doc": "A double representation of latitude"
+    },
+    {
+      "name": "LONGITUDE",
+      "aliases": [
+        "longitude"
+      ],
+      "type": {
+        "type": "double",
+        "logicalType": "longitude",
+        "arg.properties": {
+          "malformed-rate": 0.7
+        }
+      },
+      "doc": "A double representation of longitude"
+    },
+    {
+      "name": "GEOMETRY",
+      "aliases": [
+        "geometry"
+      ],
+      "type": {
+        "logicalType": "geometry",
+        "type": "string",
+        "arg.properties": {
+          "malformed-rate": 0.5
+        }
+      },
+      "doc": "A Geometry object represents points, curves, and surfaces in coordinate space"
+    },
+    {
+      "name": "FEATURE",
+      "aliases": [
+        "feature"
+      ],
+      "type": {
+        "logicalType": "feature",
+        "type": "string",
+        "arg.properties": {
+          "malformed-rate": 0.1
+        }
+      },
+      "doc": "A Feature object represents a spatially bounded thing"
+    },
+    {
+      "name": "FEATURE_COLLECTION",
+      "aliases": [
+        "feature_collection"
+      ],
+      "type": {
+        "logicalType": "feature-collection",
+        "type": "string",
+        "arg.properties": {
+          "malformed-rate": 0.1
+        }
+      },
+      "doc": "List of features"
+    },
+    {
+      "name": "UUID",
+      "aliases": [
+        "uuid"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "uuid-string",
+        "arg.properties": {
+          "malformed-rate": 0.3
+        }
+      },
+      "doc": "A string representation of uuid"
+    },
+    {
+      "name": "SEMVER",
+      "aliases": [
+        "SemVer"
+      ],
+      "type": {
+        "type": "string",
+        "logicalType": "semver",
+        "arg.properties": {
+          "malformed-rate": 0.8
+        }
+      },
+      "doc": "A string representation of SemVer"
+    },
+    {
+      "name": "RATE",
+      "aliases": [
+        "rate"
+      ],
+      "type": {
+        "type": "float",
+        "logicalType": "rate",
+        "arg.properties": {
+          "malformed-rate": 0.5
+        }
+      },
+      "doc": "A float representation of rate"
+    }
+  ]
+}
