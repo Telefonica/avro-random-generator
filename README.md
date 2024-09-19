@@ -45,7 +45,7 @@ cause any issues if present when the schema is used with other programs.
 ### Docker
 
 ```
-./lanuza/pipelines/build
+./lanuza/pipelines/build.sh
 ```
 
 > EXTENSION_FLAVOUR environment var can be used in order switch between different datasets' extensions 
