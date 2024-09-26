@@ -3,7 +3,7 @@
   "name": "Data_XDR",
   "type": "record",
   "doc": "MOCK PRADO",
-  "x-fp-version": "5.9.0",
+  "x-fp-version": "6.0.0",
   "fields": [
     {
       "name": "OPERATOR_ID",
