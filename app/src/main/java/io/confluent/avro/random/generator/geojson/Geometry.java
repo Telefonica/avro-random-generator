@@ -2,6 +2,7 @@ package io.confluent.avro.random.generator.geojson;
 
 import io.confluent.avro.random.generator.geojson.crs.CRS;
 import io.confluent.avro.random.generator.geojson.crs.EPSG4326;
+import com.telefonica.baikal.utils.Validations;
 
 import java.util.Arrays;
 import java.util.List;
@@ -74,27 +75,44 @@ public class Geometry {
                         )
                 ).toString();
             case MultiPolygon:
-                String first1 = new Point(null, null, crs).toString();
-                String first2 = new Point(null, null, crs).toString();
-
-                return Arrays.asList(
-                        List.of(
+                int i = 0;
+                String result = null;
+                while (i < 10000) {
+                    String first1 = new Point(null, null, crs).toString();
+                    String first2 = new Point(null, null, crs).toString();
+                    Point point1 = new Point(null, null, crs);
+                    Point point2 = new Point(point1.latitude, null, crs);
+                    Point point3 = new Point(null, point2.longitude, crs);
+                    Point point4 = new Point(null, null, crs);
+                    Point point5 = new Point(point4.latitude, null, crs);
+                    Point point6 = new Point(null, point5.longitude, crs);
+                    /* NOTE: The polygon is formed by 5 points due to geojson library */
+                    result = Arrays.asList(
+                            List.of(
                                 Arrays.asList(
                                         first1,
-                                        new Point(null, null, crs).toString(),
-                                        new Point(null, null, crs).toString(),
+                                        point1.toString(),
+                                        point2.toString(),
+                                        point3.toString(),
                                         first1
-                                )
-                        ),
-                        List.of(
+                                ),
                                 Arrays.asList(
                                         first2,
-                                        new Point(null, null, crs).toString(),
-                                        new Point(null, null, crs).toString(),
+                                        point4.toString(),
+                                        point5.toString(),
+                                        point6.toString(),
                                         first2
                                 )
-                        )
-                ).toString();
+                            )
+                    ).toString();
+
+                    String geojson = "{\"type\": \"" + geometryType + "\", \"coordinates\": " + result + "}";
+                    if (Validations.isValidGeometry(geojson)) {
+                        return result;
+                    }
+                    i++;
+                }
+                throw new RuntimeException("Could not generate a valid MultiPolygon after 1000 attempts.");
             default:
                 return null;
         }

@@ -1,0 +1,142 @@
+{
+  "namespace": "com.plainAVRO",
+  "name": "Data_XDR",
+  "type": "record",
+  "doc": "MOCK PRADO",
+  "x-fp-version": "5.9.0",
+  "fields": [
+    {
+      "name": "OPERATOR_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": {
+            "file": "samples/extensions/operators.json",
+            "encoding": "json"
+          }
+        }
+      }
+    },
+    {
+      "name": "PHONE_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})"
+        }
+      }
+    },
+    {
+      "name": "USER_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "length": 15
+        }
+      }
+    },
+    {
+      "name": "CELL_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "length": 20
+        }
+      }
+    },
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "type": "string",
+        "logicalType": "datetime",
+        "arg.properties": {
+          "range": {
+            "start": "${DATE_RANGE_START}T00:00:00Z",
+            "end": "${DATE_RANGE_END}T00:00:00Z"
+          }
+        }
+      },
+      "doc": "Timestamp of the data."
+    },
+    {
+      "name": "OPERATOR_PHONE_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "length": 6
+        }
+      }
+    },
+    {
+      "name": "TERMINATION_CODE_CD",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "length": 3
+        }
+      }
+    },
+    {
+      "name": "TECHNOLOGY_CELL_CD",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "length": 80
+          }
+        }
+      ]
+    },
+    {
+      "name": "COUNTRY_ROAMING_CD",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "length": 3
+        }
+      }
+    },
+    {
+      "name": "PHONE_WITH_PREFIX_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "phone-number",
+          "x-fp-identifier": "phone-number",
+          "arg.properties": {
+            "unique": true,
+            "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+            "prefix": "+34"
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "DAY_DT",
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date",
+        "arg.properties": {
+          "options": ["2024-10-06"]
+        }
+      }
+    },
+    {
+      "name": "USER_4P_ID",
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "arg.properties": {
+          "iteration": {
+            "start": "${ITERATION_STEP}"
+          }
+        }
+      }
+    }
+  ]
+}

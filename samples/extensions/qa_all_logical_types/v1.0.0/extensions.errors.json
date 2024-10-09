@@ -236,7 +236,7 @@
         "name" : "FEATURE_COLLECTION",
         "type" : {
           "type" : "string",
-          "logicalType" : "feature_collection",
+          "logicalType" : "feature-collection",
           "arg.properties" : {
             "options" : [
                 "invalid",
@@ -250,6 +250,67 @@
         },
         "doc" : "List of features",
         "aliases" : [ "feature_collection" ]
+      }, {
+        "name": "UUID",
+        "aliases": [
+          "uuid"
+        ],
+        "type": {
+          "type": "string",
+          "logicalType": "uuid-string",
+          "arg.properties": {
+            "options": [
+              "590ded1b5b42_4aee-931c-3b5a7dda8ba1",
+              "accbc835-f21a4439-84f6.c45c248601a3",
+              "accbc835-f21a-443984f6-c45c248601a3",
+              "accbc835-f21a-4439/84f6c45c248601a3",
+              "accbc835+21a-4439-84f6c45c248601a3-v5w249s",
+              "abcde",
+              "AAAAAAAAAAAAAAA",
+              ""
+            ]
+          }
+        },
+        "doc": "A string representation of uuid"
+      }, {
+        "name": "SEMVER",
+        "aliases": [
+          "SemVer"
+        ],
+        "type": {
+          "type": "string",
+          "logicalType": "semver",
+          "arg.properties": {
+            "options": [
+              "1945.14,0-s",
+              "0.6,8",
+              "0.0.0y+-",
+              "2.80.10.0-R-0|1",
+              "...",
+              "a.b.c"
+            ]
+          }
+        },
+        "doc": "A string representation of SemVer"
+      }, {
+        "name": "RATE",
+        "aliases": [
+          "rate"
+        ],
+        "type": {
+          "type": "float",
+          "logicalType": "rate",
+          "arg.properties": {
+            "options": [
+              1.01,
+              1256.5363,
+              2.713,
+              12.4562,
+              5.82
+            ]
+          }
+        },
+        "doc": "A float representation of rate"
       }
     ]
   }

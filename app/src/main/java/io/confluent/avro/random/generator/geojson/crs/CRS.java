@@ -22,12 +22,12 @@ public abstract class CRS {
 
     public double randomLatitude() {
         Random r = new Random();
-        return bottomBound + (upperBound - bottomBound) * r.nextDouble();
+        return -90 + r.nextInt(180)  + r.nextDouble();
     }
 
     public double randomLongitude() {
         Random r = new Random();
-        return leftBound + (rightBound - leftBound) * r.nextDouble();
+        return -180 + r.nextInt(360) + r.nextDouble();
     }
 
     public abstract String toString();
