@@ -1,0 +1,44 @@
+{
+    "name": "Fabric_User_Data",
+    "x-fp-version": "1.0.0",
+    "namespace": "com.telefonica.baikal.fabric",
+    "x-fp-avro4p-version": "1.5",
+    "type": "record",
+    "doc": "User data",
+    "fields": [
+        { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier" },
+        { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Personal user identifier" },
+        { "name": "NAME", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "User name" },
+        { "name": "AGE", "type": "int", "doc": "User age" },
+        { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Activation date" },
+        { "name": "SEGMENT_ID", "type": "int", "doc": "Segment the user belongs to" },
+        { "name": "LINE", "type": {
+            "type": "record", "name": "LINE_RECORD", "fields": [
+                { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
+                { "name": "IP_ADDRESSES", "type": {
+                    "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
+                        { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
+                        { "name": "IPV6", "type": { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }, "doc:": "IPv6 address" }
+                    ]
+                }, "doc": "User IP addresses" }
+            ]
+        }, "doc": "User line at home" },
+        { "name": "MOBILE_LINES", "type": {
+            "type": "array", "items": {
+                "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
+                    { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
+                    { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
+                    { "name": "IMSI", "type": { "type": "string", "logicalType": "imsi", "x-fp-data-protection": "pseudonymize" }, "doc": "IMSI" }
+                ]
+            }
+        }, "doc": "User mobile lines" },
+        { "name": "BILLING_MEANS", "type": {
+            "type": "map", "values": {
+                "type": "record", "name": "BILLING_MEAN", "fields": [
+                    { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type" },
+                    { "name": "BILLING_VALUE", "type": "string", "doc": "Billing value" }
+                ]
+            }
+        }, "doc": "Billing means" }
+    ]
+}

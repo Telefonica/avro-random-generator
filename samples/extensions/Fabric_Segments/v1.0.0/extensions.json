@@ -1,0 +1,16 @@
+{
+  "name": "Fabric_Segments",
+  "x-fp-version": "1.0.0",
+  "namespace": "com.telefonica.baikal.fabric",
+  "x-fp-avro4p-version": "1.5",
+  "type": "record",
+  "doc": "Segments",
+  "fields": [
+    { "name": "SEGMENT_ID", "type": "string", "doc": "Segment identifier", "arg.properties": {
+      "options": [ "R", "E" ]
+    }},
+    { "name": "SEGMENT_NAME", "type": "string", "doc": "Segment name", "arg.properties": {
+      "options": [ "Residential", "Enterprise" ]
+    }}
+  ]
+}

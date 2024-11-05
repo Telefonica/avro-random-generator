@@ -1,0 +1,12 @@
+{
+    "name": "Fabric_Purposes",
+    "x-fp-version": "1.0.0",
+    "namespace": "com.telefonica.baikal.fabric",
+    "x-fp-avro4p-version": "1.5",
+    "type": "record",
+    "doc": "Purposes",
+    "fields": [
+        { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier" },
+        { "name": "LAWFUL_BASIS", "type": { "type": "enum", "name": "STATUS", "symbols": [ "LegitimateInterest", "Consent" ] }, "doc": "Lawful basis" }
+    ]
+}

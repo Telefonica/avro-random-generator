@@ -1,0 +1,23 @@
+{
+    "name": "Fabric_User_Consents",
+    "x-fp-version": "1.0.0",
+    "namespace": "com.telefonica.baikal.fabric",
+    "x-fp-avro4p-version": "1.5",
+    "type": "record",
+    "doc": "User consents",
+    "fields": [
+        { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier" },
+        { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier" },
+        { "name": "APP_ID", "type": "string", "doc": "Application identifier" },
+        { "name": "APP_LEGAL_ENTITY_ID", "type": "string", "doc": "Application legal entity identifier" },
+        { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"] }, "doc": "Consent status" },
+        { "name": "EXPIRATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Consent expiration date" },
+        { "name": "IDENTIFIER", "type": [
+            "null",
+            { "name": "IDENTIFIER", "type": "record", "fields": [
+                { "name": "TYPE", "type": "string" },
+                { "name": "ID", "type": "string", "x-fp-data-protection": "pseudonymize" }
+            ]}
+        ], "doc": "User identifier" }
+    ]
+}

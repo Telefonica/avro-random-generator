@@ -1,0 +1,46 @@
+{
+  "name": "Fabric_User_Consents",
+  "x-fp-version": "1.0.0",
+  "namespace": "com.telefonica.baikal.fabric",
+  "x-fp-avro4p-version": "1.5",
+  "type": "record",
+  "doc": "User consents",
+  "fields": [
+    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier", "arg.properties": {
+      "iteration": { "start": "0" },
+      "hashed": true,
+      "num_repetitions": 50
+    }},
+    { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier", "arg.properties": {
+      "options": [ "LI", "C" ]
+    }},
+    { "name": "APP_ID", "type": "string", "doc": "Application identifier", "arg.properties": {
+      "options": [ "baikal", "novum", "aura", "nba" ]
+    }},
+    { "name": "APP_LEGAL_ENTITY_ID", "type": "string", "doc": "Application legal entity identifier", "arg.properties": {
+      "options": [ "telefonica", "movistar", "o2" ]
+    }},
+    { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"] }, "doc": "Consent status", "arg.properties": {
+      "options": [ "Active", "Revoked" ]
+    }},
+    { "name": "EXPIRATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Consent expiration date", "arg.properties": {
+      "range": {
+        "start": "${DATE_RANGE_START}",
+        "end": "${DATE_RANGE_END}"
+      }
+    }},
+    { "name": "IDENTIFIER", "type": [
+      "null",
+      { "name": "IDENTIFIER", "type": "record", "fields": [
+        { "name": "TYPE", "type": "string", "arg.properties": {
+          "options": [ "phone-number" ]
+        }},
+        { "name": "ID", "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+          "unique": true,
+          "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+          "prefix": "+34"
+        }}
+      ]}
+    ], "doc": "User identifier" }
+  ]
+}
