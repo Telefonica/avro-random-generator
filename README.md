@@ -86,7 +86,21 @@ if &lt;restart&gt; is equal to &lt;start&gt;. If provided with a boolean
 schema, only &lt;start&gt; may be specified; the resulting values will
 begin with &lt;start&gt; and alternate from `true` to `false` and from
 `false` to `true` from that point on.
+  + __hashed:__ If this options is set to `true`, the iteration will be hashed. 
+  This is useful when you want to generate IDs that can join with other datasets.
+  + __num_repetitions:__ Number of times you want each element to be repeated. 
+  This is useful when you want to generate a dataset with a lot of repeated IDs.
+```json
+              "arg.properties": {
+                "iteration": {
+                  "start": "0"
+                },
+                "hashed": true,
+                "num_repetitions": 4
+              }
+```
 > ITERATION_STEP environment var can be used as script argument
+
 + __range:__ A JSON object that conforms to the following formats:
     - `{"min": <min>, "max": <max>}` (at least one of "min" or "max" must be
     specified). If provided, ensures that the generated number will be

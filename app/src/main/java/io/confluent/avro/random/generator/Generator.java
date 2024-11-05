@@ -36,6 +36,8 @@ import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -93,6 +95,15 @@ public class Generator {
    */
   public static final String SUFFIX_PROP = "suffix";
 
+    /**
+     * If you want to apply a hash function to generated values in iterations. As a boolean.
+     */
+  public static final String HASHED_PROP = "hashed";
+
+    /**
+     * Number of times the same element would be repeated in iterations. As an integer.
+     */
+  public static final String REPEAT_PROP = "num_repetitions";
   /**
    * The name of the attribute for specifying specific values which should be randomly chosen from
    * when generating values for the schema. Can be given as either an array of values or an object
@@ -1042,6 +1053,9 @@ public class Generator {
       case DOUBLE:
         return getDoubleIterator(iterationProps);
       case STRING:
+        if (propertiesProp.containsKey(HASHED_PROP) && (Boolean) propertiesProp.get(HASHED_PROP)) {
+          return createHashedStringIterator(getIntegerIterator(iterationProps), propertiesProp);
+        }
         return createStringIterator(getIntegerIterator(iterationProps), propertiesProp);
       default:
         throw new UnsupportedOperationException(String.format(
@@ -1153,6 +1167,53 @@ public class Generator {
       @Override
       public Object next() {
         return prefixAndSuffixString(inner.next().toString(), propertiesProp);
+      }
+    };
+  }
+
+  private String hashNumber(BigInteger number) {
+    try {
+      MessageDigest md = MessageDigest.getInstance("SHA-256");
+      byte[] hash = md.digest(number.toByteArray());
+      StringBuilder hexString = new StringBuilder();
+      for (byte b : hash) {
+        String hex = Integer.toHexString(0xff & b);
+        if (hex.length() == 1) hexString.append('0');
+        hexString.append(hex);
+      }
+      return hexString.toString();
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private Iterator<Object> createHashedStringIterator(Iterator<Object> inner, Map propertiesProp) {
+    return new Iterator<Object>() {
+      private Integer count = 0;
+      private String currentValue = "";
+      private final Integer repeatValue = getIntegerNumberField(
+          HASHED_PROP,
+          REPEAT_PROP,
+          propertiesProp
+      );
+      private final Integer numRepeat = repeatValue == null ? 1 : repeatValue;
+
+      @Override
+      public boolean hasNext() {
+        return inner.hasNext();
+      }
+
+      @Override
+      public Object next() {
+        if (numRepeat == 1) {
+          return hashNumber(BigInteger.valueOf((Integer) inner.next()));
+        }
+        if (count % numRepeat == 0) {
+          currentValue = hashNumber(BigInteger.valueOf((Integer) inner.next()));
+          count = 0;
+        }
+        count++;
+        return currentValue;
       }
     };
   }
