@@ -23,7 +23,7 @@
     { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"] }, "doc": "Consent status", "arg.properties": {
       "options": [ "Active", "Revoked" ]
     }},
-    { "name": "EXPIRATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Consent expiration date", "arg.properties": {
+    { "name": "EXPIRATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime" }, "doc": "Consent expiration date", "arg.properties": {
       "range": {
         "start": "${DATE_RANGE_START}",
         "end": "${DATE_RANGE_END}"
