@@ -71,7 +71,7 @@
             { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
               "options": [ "Activated", "Deactivated" ]
             }},
-            { "name": "TV_SERVICE_PARENTAL_CONTROL", "type": { "type": "boolean", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
+            { "name": "TV_SERVICE_PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
         ]
         }
       }
@@ -99,7 +99,7 @@
         { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2" }, "doc": "Country", "arg.properties": {
           "options": [ "ES" ]
         }},
-        { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "Geographic area", "arg.properties": {
+        { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "GeoJson-like geographic area", "arg.properties": {
           "options": [
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [40.4165, -3.70256]}, \"properties\": {\"name\": \"Madrid\"}",
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [41.3851, 2.1734]}, \"properties\": {\"name\": \"Barcelona\"}",

@@ -40,7 +40,7 @@
                     "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
                         { "name": "TV_SERVICE_TYPE", "type": "string", "doc": "Service type" },
                         { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" },
-                        { "name": "TV_SERVICE_PARENTAL_CONTROL", "type": { "type": "boolean", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
+                        { "name": "TV_SERVICE_PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
                     ]
                 }
             }
@@ -58,7 +58,7 @@
                 { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Street" },
                 { "name": "ZIP_CODE", "type": "string", "doc": "Zip code" },
                 { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2" }, "doc": "Country" },
-                { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "Geographic area" }
+                { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "GeoJson-like geographic area" }
             ]
         }, "doc": "User address" }
     ]
