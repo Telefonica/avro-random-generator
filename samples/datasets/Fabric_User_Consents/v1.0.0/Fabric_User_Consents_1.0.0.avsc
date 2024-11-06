@@ -10,7 +10,7 @@
         { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier" },
         { "name": "APP_ID", "type": "string", "doc": "Application identifier" },
         { "name": "APP_LEGAL_ENTITY_ID", "type": "string", "doc": "Application legal entity identifier" },
-        { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"] }, "doc": "Consent status" },
+        { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"] }, "doc": "Consent status" },
         { "name": "EXPIRATION_DATE", "type": [ "null", { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime" }], "doc": "Consent expiration date" },
         { "name": "IDENTIFIER", "type": [
             "null",
