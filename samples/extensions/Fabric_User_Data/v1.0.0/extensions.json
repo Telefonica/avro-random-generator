@@ -46,7 +46,7 @@
       "null",
       {
         "type": "record", "name": "LAND_LINE_RECORD", "fields": [
-        { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number", "arg.properties": {
+        { "name": "PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number", "arg.properties": {
           "unique": true,
           "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
           "prefix": "+34"
@@ -60,28 +60,29 @@
         ]
       }
     ], "doc": "Optional user line at home" },
-    { "name": "SERVICES", "type": [
+    { "name": "TV_SERVICES", "type": [
       "null",
       {
         "type": "array", "items": {
-          "type": "record", "name": "SERVICE_RECORD", "fields": [
-            { "name": "SERVICE_TYPE", "type": "string", "doc": "Service type", "arg.properties": {
-              "options": [ "TV", "Netflix", "Disney+", "HomeAlarm", "HomeAutomation" ]
+          "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
+            { "name": "TV_SERVICE_TYPE", "type": "string", "doc": "Service type", "arg.properties": {
+              "options": [ "Movistar+", "Netflix", "Disney+", "DAZN" ]
             }},
-            { "name": "SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
+            { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
               "options": [ "Activated", "Deactivated" ]
-            }}
+            }},
+            { "name": "TV_SERVICE_PARENTAL_CONTROL", "type": { "type": "boolean", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
         ]
         }
       }
     ], "doc": "Optional Services" },
     { "name": "BILLING_MEANS", "type": {
-      "type": "map", "values": {
+      "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
         "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
           { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type", "arg.properties": {
             "options": [ "CreditCard", "IBAN" ]
           }},
-          { "name": "BILLING_VALUE", "type": "string", "doc": "Billing value", "arg.properties": {
+          { "name": "BILLING_VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value", "arg.properties": {
             "regex": "^[0-9]{16}$"
           }}
         ]

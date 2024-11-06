@@ -23,7 +23,7 @@
             "null",
             {
                 "type": "record", "name": "LAND_LINE_RECORD", "fields": [
-                    { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
+                    { "name": "PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
                     { "name": "IP_ADDRESSES", "type": {
                         "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
                             { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
@@ -33,22 +33,23 @@
                 ]
             }
         ], "doc": "Optional user line at home" },
-        { "name": "SERVICES", "type": [
+        { "name": "TV_SERVICES", "type": [
             "null",
             {
                 "type": "array", "items": {
-                    "type": "record", "name": "SERVICE_RECORD", "fields": [
-                        { "name": "SERVICE_TYPE", "type": "string", "doc": "Service type" },
-                        { "name": "SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" }
+                    "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
+                        { "name": "TV_SERVICE_TYPE", "type": "string", "doc": "Service type" },
+                        { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" },
+                        { "name": "TV_SERVICE_PARENTAL_CONTROL", "type": { "type": "boolean", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
                     ]
                 }
             }
         ], "doc": "Optional Services" },
         { "name": "BILLING_MEANS", "type": {
-            "type": "map", "values": {
+            "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
                 "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
                     { "name": "BILLING_TYPE", "type": "string"", "doc": "Billing type" },
-                    { "name": "BILLING_VALUE", "type": "string", "doc": "Billing value" }
+                    { "name": "BILLING_VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
                 ]
             }
         }, "doc": "Billing means" },
