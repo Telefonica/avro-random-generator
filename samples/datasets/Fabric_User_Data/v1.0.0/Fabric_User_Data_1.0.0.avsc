@@ -8,7 +8,7 @@
     "fields": [
         { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier" },
         { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Personal user identifier" },
-        { "name": "NAME", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "User name" },
+        { "name": "NAME", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "User name" },
         { "name": "AGE", "type": "int", "doc": "User age" },
         { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Activation date" },
         { "name": "SEGMENT_ID", "type": "int", "doc": "Segment the user belongs to" },
