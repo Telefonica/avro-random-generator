@@ -12,33 +12,53 @@
         { "name": "AGE", "type": "int", "doc": "User age" },
         { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Activation date" },
         { "name": "SEGMENT_ID", "type": "int", "doc": "Segment the user belongs to" },
-        { "name": "LINE", "type": {
-            "type": "record", "name": "LINE_RECORD", "fields": [
-                { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
-                { "name": "IP_ADDRESSES", "type": {
-                    "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
-                        { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
-                        { "name": "IPV6", "type": { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }, "doc:": "IPv6 address" }
-                    ]
-                }, "doc": "User IP addresses" }
+        { "name": "MOBILE_LINE", "type": {
+            "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
+                { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
+                { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
+                { "name": "IMSI", "type": { "type": "string", "logicalType": "imsi", "x-fp-data-protection": "pseudonymize" }, "doc": "IMSI" }
             ]
-        }, "doc": "User line at home" },
-        { "name": "MOBILE_LINES", "type": {
-            "type": "array", "items": {
-                "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
+        }, "doc": "User main mobile line" },
+        { "name": "LAND_LINE", "type": [
+            "null",
+            {
+                "type": "record", "name": "LAND_LINE_RECORD", "fields": [
                     { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number" },
-                    { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
-                    { "name": "IMSI", "type": { "type": "string", "logicalType": "imsi", "x-fp-data-protection": "pseudonymize" }, "doc": "IMSI" }
+                    { "name": "IP_ADDRESSES", "type": {
+                        "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
+                            { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
+                            { "name": "IPV6", "type": { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }, "doc:": "IPv6 address" }
+                        ]
+                    }, "doc": "User IP addresses" }
                 ]
             }
-        }, "doc": "User mobile lines" },
+        ], "doc": "Optional user line at home" },
+        { "name": "SERVICES", "type": [
+            "null",
+            {
+                "type": "array", "items": {
+                    "type": "record", "name": "SERVICE_RECORD", "fields": [
+                        { "name": "SERVICE_TYPE", "type": "string", "doc": "Service type" },
+                        { "name": "SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" }
+                    ]
+                }
+            }
+        ], "doc": "Optional Services" },
         { "name": "BILLING_MEANS", "type": {
             "type": "map", "values": {
-                "type": "record", "name": "BILLING_MEAN", "fields": [
-                    { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type" },
+                "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
+                    { "name": "BILLING_TYPE", "type": "string"", "doc": "Billing type" },
                     { "name": "BILLING_VALUE", "type": "string", "doc": "Billing value" }
                 ]
             }
-        }, "doc": "Billing means" }
+        }, "doc": "Billing means" },
+        { "name": "ADDRESS", "type": {
+            "type": "record", "name": "ADDRESS_RECORD", "fields": [
+                { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Street" },
+                { "name": "ZIP_CODE", "type": "string", "doc": "Zip code" },
+                { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2" }, "doc": "Country" },
+                { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "Geographic area" }
+            ]
+        }, "doc": "User address" }
     ]
 }
