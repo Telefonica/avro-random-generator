@@ -13,7 +13,7 @@
     { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Personal user identifier", "arg.properties": {
       "length": 8
     }},
-    { "name": "NAME", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "User name", "arg.properties": {
+    { "name": "NAME", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "User name", "arg.properties": {
       "length": 16
     }},
     { "name": "AGE", "type": "int", "doc": "User age", "arg.properties": {
