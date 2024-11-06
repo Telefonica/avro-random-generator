@@ -48,7 +48,7 @@
         { "name": "BILLING_MEANS", "type": {
             "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
                 "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-                    { "name": "BILLING_TYPE", "type": "string"", "doc": "Billing type" },
+                    { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type" },
                     { "name": "BILLING_VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
                 ]
             }
