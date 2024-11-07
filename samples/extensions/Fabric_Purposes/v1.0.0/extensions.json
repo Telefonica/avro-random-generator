@@ -7,7 +7,7 @@
   "doc": "Purposes",
   "fields": [
     { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier", "arg.properties": {
-      "options": [ "LI", "C" ]
+      "options": [ "FraudPrevention", "Advertising" ]
     }},
     { "name": "LAWFUL_BASIS", "type": { "type": "enum", "name": "STATUS", "symbols": [ "LegitimateInterest", "Consent" ] }, "doc": "Lawful basis", "arg.properties": {
       "options": [ "LegitimateInterest", "Consent" ]

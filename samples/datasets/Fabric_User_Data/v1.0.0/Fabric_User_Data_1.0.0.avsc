@@ -38,9 +38,9 @@
             {
                 "type": "array", "items": {
                     "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
-                        { "name": "TV_SERVICE_TYPE", "type": "string", "doc": "Service type" },
-                        { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" },
-                        { "name": "TV_SERVICE_PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
+                        { "name": "TYPE", "type": "string", "doc": "Service type" },
+                        { "name": "STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": ["Activated", "Deactivated"] }, "doc": "Service name" },
+                        { "name": "PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
                     ]
                 }
             }
@@ -48,8 +48,8 @@
         { "name": "BILLING_MEANS", "type": {
             "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
                 "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-                    { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type" },
-                    { "name": "BILLING_VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
+                    { "name": "TYPE", "type": "string", "doc": "Billing type" },
+                    { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
                 ]
             }
         }, "doc": "Billing means" },

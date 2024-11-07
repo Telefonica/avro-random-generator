@@ -6,7 +6,7 @@
     "type": "record",
     "doc": "Segments",
     "fields": [
-        { "name": "SEGMENT_ID", "type": "string", "doc": "Segment identifier" },
+        { "name": "SEGMENT_ID", "type": "int", "doc": "Segment identifier" },
         { "name": "SEGMENT_NAME", "type": "string", "doc": "Segment name" }
     ]
 }

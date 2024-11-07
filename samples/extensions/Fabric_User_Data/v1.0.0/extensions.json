@@ -29,7 +29,7 @@
       }
     }},
     { "name": "SEGMENT_ID", "type": "int", "doc": "Segment the user belongs to", "arg.properties": {
-      "options": [ "R", "E" ]
+      "options": [ 0, 1 ]
     }},
     { "name": "MOBILE_LINE", "type": {
       "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
@@ -65,13 +65,13 @@
       {
         "type": "array", "items": {
           "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
-            { "name": "TV_SERVICE_TYPE", "type": "string", "doc": "Service type", "arg.properties": {
+            { "name": "TYPE", "type": "string", "doc": "Service type", "arg.properties": {
               "options": [ "Movistar+", "Netflix", "Disney+", "DAZN" ]
             }},
-            { "name": "TV_SERVICE_STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
+            { "name": "STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
               "options": [ "Activated", "Deactivated" ]
             }},
-            { "name": "TV_SERVICE_PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
+            { "name": "PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
         ]
         }
       }
@@ -79,10 +79,10 @@
     { "name": "BILLING_MEANS", "type": {
       "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
         "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-          { "name": "BILLING_TYPE", "type": "string", "doc": "Billing type", "arg.properties": {
+          { "name": "TYPE", "type": "string", "doc": "Billing type", "arg.properties": {
             "options": [ "CreditCard", "IBAN" ]
           }},
-          { "name": "BILLING_VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value", "arg.properties": {
+          { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value", "arg.properties": {
             "regex": "^[0-9]{16}$"
           }}
         ]

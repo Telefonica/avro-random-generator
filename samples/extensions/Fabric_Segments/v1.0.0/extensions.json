@@ -6,8 +6,8 @@
   "type": "record",
   "doc": "Segments",
   "fields": [
-    { "name": "SEGMENT_ID", "type": "string", "doc": "Segment identifier", "arg.properties": {
-      "options": [ "R", "E" ]
+    { "name": "SEGMENT_ID", "type": "int", "doc": "Segment identifier", "arg.properties": {
+      "options": [ 0, 1 ]
     }},
     { "name": "SEGMENT_NAME", "type": "string", "doc": "Segment name", "arg.properties": {
       "options": [ "Residential", "Enterprise" ]
