@@ -19,7 +19,7 @@
             "null",
             { "name": "IDENTIFIER", "type": "record", "fields": [
                 { "name": "TYPE", "type": "string", "doc": "Identifier type" },
-                { "name": "ID", "type": { "type": string", "x-fp-data-protection": "pseudonymize" }, "doc": "Identifier" }
+                { "name": "ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Identifier" }
             ]}
         ], "doc": "User identifier" }
     ]
