@@ -18,14 +18,14 @@
     }}, "doc": "User name" },
     { "name": "AGE", "type": { "type": "int", "arg.properties": {
       "range": {
-        "start": 18,
-        "end": 99
+        "min": 18,
+        "max": 99
       }
     }}, "doc": "User age"},
     { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date", "arg.properties": {
       "range": {
-        "start": "${DATE_RANGE_START}",
-        "end": "${DATE_RANGE_END}"
+        "start": "2021-01-01",
+        "end": "2026-01-01"
       }
     }}, "doc": "Activation date" },
     { "name": "SEGMENT_ID", "type": { "type": "int", "arg.properties": {
