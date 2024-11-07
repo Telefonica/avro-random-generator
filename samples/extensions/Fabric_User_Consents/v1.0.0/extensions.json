@@ -12,7 +12,8 @@
       "num_repetitions": 50
     }}, "doc": "Internal user identifier" },
     { "name": "PURPOSE_ID", "type": { "type": "string", "arg.properties": {
-      "options": [ "FraudPrevention", "Advertising" ]
+      "iteration": { "start": "0", "restart": "49" },
+      "prefix": "purpose_"
     }}, "doc": "Purpose identifier" },
     { "name": "APP_ID", "type": { "type": "string", "arg.properties": {
       "options": [ "baikal", "novum", "aura", "nba" ]
@@ -26,10 +27,7 @@
     { "name": "EXPIRATION_DATE", "type": [
       "null",
       { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime", "arg.properties": {
-        "range": {
-          "start": "2021-01-01T00:00:00.000Z",
-          "end": "2026-01-01T00:00:00.000Z"
-        }
+        "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
       }}
     ], "doc": "Consent expiration date" },
     { "name": "IDENTIFIER", "type": [
