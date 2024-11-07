@@ -11,12 +11,15 @@
         { "name": "APP_ID", "type": "string", "doc": "Application identifier" },
         { "name": "APP_LEGAL_ENTITY_ID", "type": "string", "doc": "Application legal entity identifier" },
         { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"] }, "doc": "Consent status" },
-        { "name": "EXPIRATION_DATE", "type": [ "null", { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime" }], "doc": "Consent expiration date" },
+        { "name": "EXPIRATION_DATE", "type": [
+            "null",
+            { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime" }
+        ], "doc": "Consent expiration date" },
         { "name": "IDENTIFIER", "type": [
             "null",
             { "name": "IDENTIFIER", "type": "record", "fields": [
-                { "name": "TYPE", "type": "string" },
-                { "name": "ID", "type": "string", "x-fp-data-protection": "pseudonymize" }
+                { "name": "TYPE", "type": "string", "doc": "Identifier type" },
+                { "name": "ID", "type": { "type": string", "x-fp-data-protection": "pseudonymize" }, "doc": "Identifier" }
             ]}
         ], "doc": "User identifier" }
     ]

@@ -6,38 +6,38 @@
   "type": "record",
   "doc": "User data",
   "fields": [
-    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier", "arg.properties": {
+    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "iteration": { "start": "0" },
       "hashed": true
-    }},
-    { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Personal user identifier", "arg.properties": {
+    }}, "doc": "Internal user identifier" },
+    { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "length": 8
-    }},
-    { "name": "NAME", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "User name", "arg.properties": {
+    }}, "doc": "Personal user identifier" },
+    { "name": "NAME", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "length": 16
-    }},
-    { "name": "AGE", "type": "int", "doc": "User age", "arg.properties": {
+    }}, "doc": "User name" },
+    { "name": "AGE", "type": { "type": "int", "arg.properties": {
       "range": {
         "start": 18,
         "end": 99
       }
-    }},
-    { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date" }, "doc": "Activation date", "arg.properties": {
+    }}, "doc": "User age"},
+    { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date", "arg.properties": {
       "range": {
         "start": "${DATE_RANGE_START}",
         "end": "${DATE_RANGE_END}"
       }
-    }},
-    { "name": "SEGMENT_ID", "type": "int", "doc": "Segment the user belongs to", "arg.properties": {
+    }}, "doc": "Activation date" },
+    { "name": "SEGMENT_ID", "type": { "type": "int", "arg.properties": {
       "options": [ 0, 1 ]
-    }},
+    }}, "doc": "Segment the user belongs to" },
     { "name": "MOBILE_LINE", "type": {
       "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
-        { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number", "arg.properties": {
+        { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
           "unique": true,
           "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
           "prefix": "+34"
-        }},
+        }}, "doc": "Phone number" },
         { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
         { "name": "IMSI", "type": { "type": "string", "logicalType": "imsi", "x-fp-data-protection": "pseudonymize" }, "doc": "IMSI" }
       ]
@@ -46,11 +46,11 @@
       "null",
       {
         "type": "record", "name": "LAND_LINE_RECORD", "fields": [
-        { "name": "PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize" }, "doc": "Phone number", "arg.properties": {
+        { "name": "PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
           "unique": true,
           "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
           "prefix": "+34"
-        }},
+        }}, "doc": "Phone number" },
         { "name": "IP_ADDRESSES", "type": {
             "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
               { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
@@ -65,12 +65,12 @@
       {
         "type": "array", "items": {
           "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
-            { "name": "TYPE", "type": "string", "doc": "Service type", "arg.properties": {
+            { "name": "TYPE", "type": { "type": "string", "arg.properties": {
               "options": [ "Movistar+", "Netflix", "Disney+", "DAZN" ]
-            }},
-            { "name": "STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ] }, "doc": "Service name", "arg.properties": {
+            }}, "doc": "Phone number" },
+            { "name": "STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ], "arg.properties": {
               "options": [ "Activated", "Deactivated" ]
-            }},
+            }}, "doc": "Service name" },
             { "name": "PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
         ]
         }
@@ -79,27 +79,27 @@
     { "name": "BILLING_MEANS", "type": {
       "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
         "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-          { "name": "TYPE", "type": "string", "doc": "Billing type", "arg.properties": {
+          { "name": "TYPE", "type": { "type": "string", "arg.properties": {
             "options": [ "CreditCard", "IBAN" ]
-          }},
-          { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value", "arg.properties": {
+          }}, "doc": "Billing type" },
+          { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
             "regex": "^[0-9]{16}$"
-          }}
+          }}, "doc": "Billing value" }
         ]
       }
     }, "doc": "Billing means" },
     { "name": "ADDRESS", "type": {
       "type": "record", "name": "ADDRESS_RECORD", "fields": [
-        { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Street", "arg.properties": {
+        { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
           "length": 20
-        }},
-        { "name": "ZIP_CODE", "type": "string", "doc": "Zip code", "arg.properties": {
+        }}, "doc": "Street" },
+        { "name": "ZIP_CODE", "type": { "type": "string", "arg.properties": {
           "length": 5
-        }},
-        { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2" }, "doc": "Country", "arg.properties": {
+        }}, "doc": "Zip code" },
+        { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2", "arg.properties": {
           "options": [ "ES" ]
-        }},
-        { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature" }, "doc": "GeoJson-like geographic area", "arg.properties": {
+        }}, "doc": "Country" },
+        { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature", "arg.properties": {
           "options": [
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [40.4165, -3.70256]}, \"properties\": {\"name\": \"Madrid\"}",
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [41.3851, 2.1734]}, \"properties\": {\"name\": \"Barcelona\"}",
@@ -108,7 +108,7 @@
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [37.3828, -5.9731]}, \"properties\": {\"name\": \"Sevilla\"}",
             "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.3623, -8.4115]}, \"properties\": {\"name\": \"A Coruña\"}"
           ]
-        }}
+        }}, "doc": "GeoJson-like geographic area" }
       ]
     }, "doc": "User address" }
   ]

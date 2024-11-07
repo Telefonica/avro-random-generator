@@ -6,11 +6,11 @@
   "type": "record",
   "doc": "Purposes",
   "fields": [
-    { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier", "arg.properties": {
+    { "name": "PURPOSE_ID", "type": { "type": "string", "arg.properties": {
       "options": [ "FraudPrevention", "Advertising" ]
-    }},
-    { "name": "LAWFUL_BASIS", "type": { "type": "enum", "name": "STATUS", "symbols": [ "LegitimateInterest", "Consent" ] }, "doc": "Lawful basis", "arg.properties": {
+    }}, "doc": "Purpose identifier" },
+    { "name": "LAWFUL_BASIS", "type": { "type": "enum", "name": "STATUS", "symbols": [ "LegitimateInterest", "Consent" ], "arg.properties": {
       "options": [ "LegitimateInterest", "Consent" ]
-    }}
+    }}, "doc": "Lawful basis" }
   ]
 }

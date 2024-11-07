@@ -6,11 +6,11 @@
   "type": "record",
   "doc": "Segments",
   "fields": [
-    { "name": "SEGMENT_ID", "type": "int", "doc": "Segment identifier", "arg.properties": {
+    { "name": "SEGMENT_ID", "type": { "type": "int", "arg.properties": {
       "options": [ 0, 1 ]
-    }},
-    { "name": "SEGMENT_NAME", "type": "string", "doc": "Segment name", "arg.properties": {
+    }}, "doc": "Segment identifier" },
+    { "name": "SEGMENT_NAME", "type": { "type": "string", "arg.properties": {
       "options": [ "Residential", "Enterprise" ]
-    }}
+    }}, "doc": "Segment name" }
   ]
 }

@@ -6,40 +6,43 @@
   "type": "record",
   "doc": "User consents",
   "fields": [
-    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize" }, "doc": "Internal user identifier", "arg.properties": {
+    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "iteration": { "start": "0" },
       "hashed": true,
       "num_repetitions": 50
-    }},
-    { "name": "PURPOSE_ID", "type": "string", "doc": "Purpose identifier", "arg.properties": {
-      "options": [ "LI", "C" ]
-    }},
-    { "name": "APP_ID", "type": "string", "doc": "Application identifier", "arg.properties": {
+    }}, "doc": "Internal user identifier" },
+    { "name": "PURPOSE_ID", "type": { "type": "string", "arg.properties": {
+      "options": [ "FraudPrevention", "Advertising" ]
+    }}, "doc": "Purpose identifier" },
+    { "name": "APP_ID", "type": { "type": "string", "arg.properties": {
       "options": [ "baikal", "novum", "aura", "nba" ]
-    }},
-    { "name": "APP_LEGAL_ENTITY_ID", "type": "string", "doc": "Application legal entity identifier", "arg.properties": {
+    }}, "doc": "Application identifier" },
+    { "name": "APP_LEGAL_ENTITY_ID", "type": { "type": "string", "arg.properties": {
       "options": [ "telefonica", "movistar", "o2" ]
-    }},
-    { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"] }, "doc": "Consent status", "arg.properties": {
+    }}, "doc": "Application legal entity identifier" },
+    { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"], "arg.properties": {
       "options": [ "Active", "Revoked" ]
-    }},
-    { "name": "EXPIRATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime" }, "doc": "Consent expiration date", "arg.properties": {
-      "range": {
-        "start": "${DATE_RANGE_START}",
-        "end": "${DATE_RANGE_END}"
-      }
-    }},
+    }}, "doc": "Consent status" },
+    { "name": "EXPIRATION_DATE", "type": [
+      "null",
+      { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "datetime", "arg.properties": {
+        "range": {
+          "start": "2021-01-01T00:00:00.000Z",
+          "end": "2026-01-01T00:00:00.000Z"
+        }
+      }}
+    ], "doc": "Consent expiration date" },
     { "name": "IDENTIFIER", "type": [
       "null",
       { "name": "IDENTIFIER", "type": "record", "fields": [
-        { "name": "TYPE", "type": "string", "arg.properties": {
+        { "name": "TYPE", "type": { "type": "string", "arg.properties": {
           "options": [ "phone-number" ]
-        }},
-        { "name": "ID", "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+        }}, "doc":  "Identifier type" },
+        { "name": "ID", "type": { "type":  "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
           "unique": true,
           "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
           "prefix": "+34"
-        }}
+        }}, "doc": "Identifier" }
       ]}
     ], "doc": "User identifier" }
   ]
