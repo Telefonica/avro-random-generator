@@ -83,9 +83,13 @@
             "options": [ "CreditCard", "IBAN" ]
           }}, "doc": "Billing type" },
           { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
-            "regex": "^[0-9]{16}$"
+            "regex": "[0-9]{16}"
           }}, "doc": "Billing value" }
         ]
+      }, "arg.properties": {
+        "length": 2,
+        "unique": true,
+        "keys": { "options": [ "main", "other" ] }
       }
     }, "doc": "Billing means" },
     { "name": "ADDRESS", "type": {
@@ -94,7 +98,7 @@
           "length": 20
         }}, "doc": "Street" },
         { "name": "ZIP_CODE", "type": { "type": "string", "arg.properties": {
-          "length": 5
+          "regex": "[0-9]{5}"
         }}, "doc": "Zip code" },
         { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2", "arg.properties": {
           "options": [ "ES" ]
