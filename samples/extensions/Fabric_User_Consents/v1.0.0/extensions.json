@@ -20,7 +20,7 @@
     { "name": "APP_LEGAL_ENTITY_ID", "type": { "type": "string", "arg.properties": {
       "options": [ "telefonica", "movistar", "o2" ]
     }}, "doc": "Application legal entity identifier" },
-    { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Revoked"], "arg.properties": {
+    { "name": "STATUS", "type": { "type": "enum", "name": "STATUS", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"], "arg.properties": {
       "options": [ "Active", "Revoked" ]
     }}, "doc": "Consent status" },
     { "name": "EXPIRATION_DATE", "type": [
