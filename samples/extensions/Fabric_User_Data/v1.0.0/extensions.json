@@ -103,12 +103,12 @@
         }}, "doc": "Country" },
         { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature", "arg.properties": {
           "options": [
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [40.4165, -3.70256]}, \"properties\": {\"name\": \"Madrid\"}",
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [41.3851, 2.1734]}, \"properties\": {\"name\": \"Barcelona\"}",
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [39.4699, -0.3763]}, \"properties\": {\"name\": \"Valencia\"}",
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.263, -2.935]}, \"properties\": {\"name\": \"Bilbao\"}",
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [37.3828, -5.9731]}, \"properties\": {\"name\": \"Sevilla\"}",
-            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.3623, -8.4115]}, \"properties\": {\"name\": \"A Coruña\"}"
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [40.4165, -3.70256]}, \"properties\": {\"name\": \"Madrid\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [41.3851, 2.1734]}, \"properties\": {\"name\": \"Barcelona\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [39.4699, -0.3763]}, \"properties\": {\"name\": \"Valencia\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.263, -2.935]}, \"properties\": {\"name\": \"Bilbao\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [37.3828, -5.9731]}, \"properties\": {\"name\": \"Sevilla\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.3623, -8.4115]}, \"properties\": {\"name\": \"A Coruña\"}}"
           ]
         }}, "doc": "GeoJson-like geographic area" }
       ]
