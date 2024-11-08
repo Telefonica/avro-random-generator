@@ -67,26 +67,29 @@
               "options": [ "Activated", "Deactivated" ]
             }}, "doc": "Service name" },
             { "name": "PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
-        ]
+          ]
         }
       }
     ], "doc": "Optional Services" },
-    { "name": "BILLING_MEANS", "type": {
-      "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
-        "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-          { "name": "TYPE", "type": { "type": "string", "arg.properties": {
-            "options": [ "CreditCard", "IBAN" ]
-          }}, "doc": "Billing type" },
-          { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
-            "regex": "[0-9]{16}"
-          }}, "doc": "Billing value" }
-        ]
-      }, "arg.properties": {
-        "length": 2,
-        "unique": true,
-        "keys": { "options": [ "main", "other" ] }
+    { "name": "BILLING_MEANS", "type": [
+      "null",
+      {
+        "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
+          "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
+            { "name": "TYPE", "type": { "type": "string", "arg.properties": {
+              "options": [ "CreditCard", "IBAN" ]
+            }}, "doc": "Billing type" },
+            { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+              "regex": "[0-9]{16}"
+            }}, "doc": "Billing value" }
+          ]
+        }, "arg.properties": {
+          "length": 2,
+          "unique": true,
+          "keys": { "options": [ "main", "other" ] }
+        }
       }
-    }, "doc": "Billing means" },
+    ], "doc": "Billing means" },
     { "name": "ADDRESS", "type": {
       "type": "record", "name": "ADDRESS_RECORD", "fields": [
         { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {

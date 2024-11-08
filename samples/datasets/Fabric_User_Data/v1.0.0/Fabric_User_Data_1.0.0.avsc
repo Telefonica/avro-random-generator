@@ -45,14 +45,17 @@
                 }
             }
         ], "doc": "Optional Services" },
-        { "name": "BILLING_MEANS", "type": {
-            "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
-                "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
-                    { "name": "TYPE", "type": "string", "doc": "Billing type" },
-                    { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
-                ]
+        { "name": "BILLING_MEANS", "type": [
+            "null",
+            {
+                "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
+                    "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
+                        { "name": "TYPE", "type": "string", "doc": "Billing type" },
+                        { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Billing value" }
+                    ]
+                }
             }
-        }, "doc": "Billing means" },
+        ], "doc": "Billing means" },
         { "name": "ADDRESS", "type": {
             "type": "record", "name": "ADDRESS_RECORD", "fields": [
                 { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Street" },
