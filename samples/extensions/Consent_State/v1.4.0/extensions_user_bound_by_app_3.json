@@ -4,9 +4,6 @@
   "x-fp-avro4p-version": "1.4",
   "type": "record",
   "doc": "The states for each consent at the most recently available point in time",
-  "x-fp-join-definitions": {
-    "join00001": {"dataset_id": "D_Gbl_Brand", "dataset_version": 6, "fields": ["GBL_BRAND_ID"]}
-  },
   "fields": [
     { "name": "id", "type": { "type": "string", "arg.properties": {
       "kind": "uuid"
@@ -25,8 +22,7 @@
       "null"
     ], "doc": "The scope of a consent can be restricted to a specific identifier that the user has (e.g. just on of his cell phone numbers). If this field is null then the consent applies to all possible identifiers" },
     { "name": "status", "type": { "name": "ConsentStatus", "type": "enum", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"], "arg.properties": {
-      "options": [ "Active", "Revoked" ],
-      "distribution": { "Active": 0.9, "Revoked": 0.1 }
+      "options": [ "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Revoked" ]
     }}, "doc": "The status of the consent. The only status that allows accessing the user's information is \"Active\"" },
     { "name": "creation_date", "type": { "type": "string", "logicalType": "datetime", "arg.properties": {
       "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
@@ -58,10 +54,9 @@
     { "name": "TRIGGERED_BY_DES", "aliases": ["triggered_by"], "type": [ "null", "string" ], "default": null, "doc": "Name of the process that launched the creation of a consent" },
     { "name": "DELEGATED_IND", "aliases": ["delegated"], "type": [ "null", "boolean" ], "default": null, "doc": "Flag indicator to mark if the consent has been delegated to a third party" },
     { "name": "KERNEL_APP_ID", "aliases": ["kernel_app_id"], "type": [
-      "null",
       { "type": "string", "arg.properties": {
         "options": [ "app_3" ]
       }}
-    ], "default": null, "doc": "App ID identifier, refering to the client id used when performing an OAuth flow" }
+    ], "default": "app_3", "doc": "App ID identifier, refering to the client id used when performing an OAuth flow" }
   ]
 }
