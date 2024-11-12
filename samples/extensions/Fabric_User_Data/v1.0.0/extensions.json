@@ -8,7 +8,8 @@
   "fields": [
     { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "iteration": { "start": "0" },
-      "hashed": true
+      "hashed": true,
+      "num_repetitions": 10
     }}, "doc": "Internal user identifier" },
     { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "regex": "[0-9]{8}[A-Z]{1}",
@@ -29,8 +30,7 @@
     { "name": "MOBILE_LINE", "type": {
       "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
         { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
-          "unique": true,
-          "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
+          "iteration": { "start": "600000000" },
           "prefix": "+34"
         }}, "doc": "Phone number" },
         { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
@@ -38,22 +38,7 @@
       ]
     }, "doc": "User main mobile line" },
     { "name": "LAND_LINE", "type": [
-      "null",
-      {
-        "type": "record", "name": "LAND_LINE_RECORD", "fields": [
-        { "name": "PHONE_NUMBER", "type": { "type": "string", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
-          "unique": true,
-          "regex": "(6[0-9]{8})|(7[1-4][0-9]{7})",
-          "prefix": "+34"
-        }}, "doc": "Phone number" },
-        { "name": "IP_ADDRESSES", "type": {
-            "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
-              { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
-              { "name": "IPV6", "type": { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv6 address" }
-            ]
-          }, "doc": "User IP addresses" }
-        ]
-      }
+      "null"
     ], "doc": "Optional user line at home" },
     { "name": "TV_SERVICES", "type": [
       "null",

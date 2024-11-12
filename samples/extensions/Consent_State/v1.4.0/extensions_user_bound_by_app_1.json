@@ -1,0 +1,67 @@
+{
+  "name": "Consent_State",
+  "x-fp-version": "1.4.0",
+  "x-fp-avro4p-version": "1.4",
+  "type": "record",
+  "doc": "The states for each consent at the most recently available point in time",
+  "x-fp-join-definitions": {
+    "join00001": {"dataset_id": "D_Gbl_Brand", "dataset_version": 6, "fields": ["GBL_BRAND_ID"]}
+  },
+  "fields": [
+    { "name": "id", "type": { "type": "string", "arg.properties": {
+      "kind": "uuid"
+    }},"doc": "Identifier for a consent", "x-fp-unique-constraints": [1] },
+    { "name": "user_id", "type": { "type": "string", "x-fp-user-id": true, "arg.properties": {
+      "iteration": { "start": "0" },
+      "hashed": true
+    }}, "doc": "The user_id to which the consent applies" },
+    { "name": "legal_entity_id", "type": { "type": "string", "arg.properties": {
+      "options": [ "telefonica" ]
+    }}, "doc": "The legal entity for which the user gave consent to" },
+    { "name": "purpose_id", "type": { "type": "string", "arg.properties": {
+      "options": [ "user_bound_by_app_0" ]
+    }}, "doc": "A purpose_id identifies a legal basis for the consent, and restricts the usage of the requested information to the user only for those scenarios covered under the purpose definition" },
+    { "name": "identifier", "type": [
+      "null"
+    ], "doc": "The scope of a consent can be restricted to a specific identifier that the user has (e.g. just on of his cell phone numbers). If this field is null then the consent applies to all possible identifiers" },
+    { "name": "status", "type": { "name": "ConsentStatus", "type": "enum", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"], "arg.properties": {
+      "options": [ "Active", "Revoked" ],
+      "distribution": { "Active": 0.9, "Revoked": 0.1 }
+    }}, "doc": "The status of the consent. The only status that allows accessing the user's information is \"Active\"" },
+    { "name": "creation_date", "type": { "type": "string", "logicalType": "datetime", "arg.properties": {
+      "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
+    }}, "doc": "The creation date of the consent" },
+    { "name": "expiration_date", "type": [
+      "null",
+      { "type": "string", "logicalType": "datetime", "arg.properties": {
+        "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
+      }}
+    ], "doc": "The expiration date of the consent. Consents that do not expire will have a null value in this field" },
+    { "name": "user_prompted", "type": [
+      "null",
+      { "type": "string", "logicalType": "datetime", "arg.properties": {
+        "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
+      }}
+    ], "doc": "The date of the consent last time that the consent request was shown to the user. If the consent request has never been shown to the user, then null" },
+    { "name": "channel", "type": [ "null", "string" ]},
+    { "name": "reason", "type": [ "null", "string" ]},
+    { "name": "BRAND_ID", "aliases": ["brand_id"], "type": [ "null", "string" ], "default": null, "x-fp-join": [{"join_id": "join00001", "field": "GBL_BRAND_ID"}], "doc": "Commercial brand identifier. In order to differentiate among different brands in the same OB (e.g. Movistar, O2, Tuenti...)"},
+    { "name": "TAGS_ARRAY", "aliases": ["tags"], "type": [
+      "null",
+      { "type": "array", "items": {
+        "name": "TAGS_ARRAY_ITEM", "type": "record", "fields": [
+          { "name": "KEY_DES", "aliases": ["key"], "type": "string", "doc": "The key tag" },
+          { "name": "VALUE_DES", "aliases": ["value"], "type": ["null", "string"], "doc": "The value tag" }
+        ]
+      }}
+    ], "default": null, "doc": "Tags"},
+    { "name": "TRIGGERED_BY_DES", "aliases": ["triggered_by"], "type": [ "null", "string" ], "default": null, "doc": "Name of the process that launched the creation of a consent" },
+    { "name": "DELEGATED_IND", "aliases": ["delegated"], "type": [ "null", "boolean" ], "default": null, "doc": "Flag indicator to mark if the consent has been delegated to a third party" },
+    { "name": "KERNEL_APP_ID", "aliases": ["kernel_app_id"], "type": [
+      "null",
+      { "type": "string", "arg.properties": {
+        "options": [ "app_1" ]
+      }}
+    ], "default": null, "doc": "App ID identifier, refering to the client id used when performing an OAuth flow" }
+  ]
+}
