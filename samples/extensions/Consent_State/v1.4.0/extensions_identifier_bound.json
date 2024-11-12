@@ -14,7 +14,7 @@
     { "name": "user_id", "type": { "type": "string", "x-fp-user-id": true, "arg.properties": {
       "iteration": { "start": "0" },
       "hashed": true,
-      "num_repetitions": 10
+      "num_repetitions": 5
     }}, "doc": "The user_id to which the consent applies" },
     { "name": "legal_entity_id", "type": { "type": "string", "arg.properties": {
       "options": [ "telefonica" ]

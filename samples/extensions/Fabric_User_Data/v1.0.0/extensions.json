@@ -9,7 +9,7 @@
     { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "iteration": { "start": "0" },
       "hashed": true,
-      "num_repetitions": 10
+      "num_repetitions": 5
     }}, "doc": "Internal user identifier" },
     { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
       "regex": "[0-9]{8}[A-Z]{1}",
