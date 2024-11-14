@@ -35,7 +35,7 @@
       "options": [ "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Revoked" ]
     }}, "doc": "The status of the consent. The only status that allows accessing the user's information is \"Active\"" },
     { "name": "creation_date", "type": { "type": "string", "logicalType": "datetime", "arg.properties": {
-      "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
+      "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2024-11-01T00:00:00.000Z" }
     }}, "doc": "The creation date of the consent" },
     { "name": "expiration_date", "type": [
       "null",
@@ -46,7 +46,7 @@
     { "name": "user_prompted", "type": [
       "null",
       { "type": "string", "logicalType": "datetime", "arg.properties": {
-        "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
+        "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2024-11-01T00:00:00.000Z" }
       }}
     ], "doc": "The date of the consent last time that the consent request was shown to the user. If the consent request has never been shown to the user, then null" },
     { "name": "channel", "type": [ "null", "string" ]},

@@ -16,13 +16,13 @@
       "options": [ "telefonica" ]
     }}, "doc": "The legal entity for which the user gave consent to" },
     { "name": "purpose_id", "type": { "type": "string", "arg.properties": {
-      "options": [ "user_bound_0" ]
+      "options": [ "user_bound_leg_int_0" ]
     }}, "doc": "A purpose_id identifies a legal basis for the consent, and restricts the usage of the requested information to the user only for those scenarios covered under the purpose definition" },
     { "name": "identifier", "type": [
       "null"
     ], "doc": "The scope of a consent can be restricted to a specific identifier that the user has (e.g. just on of his cell phone numbers). If this field is null then the consent applies to all possible identifiers" },
     { "name": "status", "type": { "name": "ConsentStatus", "type": "enum", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted", "Removed"], "arg.properties": {
-      "options": [ "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Active", "Revoked" ]
+      "options": [ "Active", "Revoked", "Revoked", "Revoked", "Revoked", "Revoked", "Revoked", "Revoked", "Revoked", "Revoked" ]
     }}, "doc": "The status of the consent. The only status that allows accessing the user's information is \"Active\"" },
     { "name": "creation_date", "type": { "type": "string", "logicalType": "datetime", "arg.properties": {
       "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2024-11-01T00:00:00.000Z" }
@@ -32,7 +32,13 @@
       { "type": "string", "logicalType": "datetime", "arg.properties": {
         "range": { "start": "2021-01-01T00:00:00.000Z", "end": "2026-01-01T00:00:00.000Z" }
       }}
-    ], "doc": "The expiration date of the consent. Consents that do not expire will have a null value in this field" },
+    ],
+      "arg.properties": {
+        "distribution": {
+          "0": 0.9,
+          "1": 0.1
+        }
+      }, "doc": "The expiration date of the consent. Consents that do not expire will have a null value in this field" },
     { "name": "user_prompted", "type": [
       "null",
       { "type": "string", "logicalType": "datetime", "arg.properties": {
