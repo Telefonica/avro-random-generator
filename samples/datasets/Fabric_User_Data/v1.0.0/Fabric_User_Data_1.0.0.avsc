@@ -27,7 +27,11 @@
                     { "name": "IP_ADDRESSES", "type": {
                         "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
                             { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
-                            { "name": "IPV6", "type": { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv6 address" }
+                            { "name": "IPV6", "type": [
+                                "null",
+                                { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }
+                            ]
+                            , "doc": "IPv6 address" }
                         ]
                     }, "doc": "User IP addresses" }
                 ]
