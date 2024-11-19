@@ -65,6 +65,7 @@ function run() {
   python3 lib/merge-schemas.py -s "$schema_orig" -e "$schema_extension" --out "${merged_schema_path}"
 
   export DATE_RANGE_START="${START_DATE}"
+  local uuid=$(uuidgen)
   while [ "${DATE_RANGE_START}" != "${END_DATE}" ]; do
     export DATE_RANGE_END=$(date -I -d "${DATE_RANGE_START} + 1 day")
 
@@ -75,7 +76,7 @@ function run() {
       if [ "${SHOW}" = "true" ]; then
         ARGS="-j -p"
       else
-        out="${out_dir}/${DATASET_ID}.${FILE_PREFIX}.${counter}_${DATE_RANGE_START}.avro"
+        out="${out_dir}/${DATASET_ID}.${FILE_PREFIX}.${counter}_${uuid}_${DATE_RANGE_START}.avro"
         touch $out
         ARGS="-b -o ${out}"
       fi

@@ -1,7 +1,7 @@
 FROM gradle:8.1-jdk11
 
 RUN apt-get update && \
-  apt-get install -y python3.6 python3-pip jq gettext-base
+  apt-get install -y python3.6 python3-pip jq gettext-base uuid-runtime
 
 RUN python3 -m pip install deepmerge
 
