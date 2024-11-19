@@ -105,7 +105,7 @@
           "regex": "[0-9]{5}"
         }}, "doc": "Zip code" },
         { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2", "arg.properties": {
-          "options": [ "ES" ]
+          "options": [ "ES", "DE", "BR", "GB" ]
         }}, "doc": "Country" },
         { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature", "arg.properties": {
           "options": [
