@@ -1,0 +1,35 @@
+{
+	"namespace": "com.plainAVRO",
+	"name": "Consent_Event",
+	"type": "record",
+	"doc": "User Consents Events",
+	"x-fp-version": "5.14.0",
+	"x-fp-avro4p-version": "1.4",
+	"x-fp-join-definitions": {
+		"join00001": {"dataset_id": "D_Gbl_Brand", "dataset_version": 6, "fields": ["GBL_BRAND_ID"]}
+	},
+	"fields": [
+		{"name": "CONSENT_EVENT_ID", "aliases": ["consent_event_id"], "type": "string", "doc": "Consent Identifier"},
+		{"name": "USER_4P_ID", "aliases": ["user_id"], "type": {"type": "string", "x-fp-user-id": true}, "doc": "Identifier of the user in 4th Platform (as returned by the OB in the 4th Platform APIs)"},
+		{"name": "EVENT_TM", "aliases": ["event_time"], "type": {"type": "string", "logicalType": "datetime"}, "doc": "Date-time of consent event"},
+		{"name": "EVENT_DT", "aliases": ["event_date"], "type": {"type": "string", "logicalType": "iso-date"}, "doc": "Year, month and day of the data"},
+		{"name": "EVENT_HOUR_NUM", "aliases": ["event_hour"], "type": "int", "doc": "Hour of the day (0 to 23) of the event (for partitioning purposes)"},
+		{"name": "OPERATION_CD", "aliases": ["operation_cd"], "type": {"name": "OPERATION_CD_ENUM", "type": "enum", "symbols": ["Upsert", "Delete"]}, "doc": "Event type (upsert, delete...)"},
+		{"name": "LEGAL_ENTITY_ID", "aliases": ["legal_entity_id"], "type": ["null", "string"], "doc": "Identifier/name of the legal entity associated to the consent"},
+		{"name": "REASON_DES", "aliases": ["reason"], "type": ["null", "string"], "doc": "Reason description"},
+		{"name": "PURPOSE_ID", "aliases": ["purpose_id"], "type": ["null", "string"], "doc": "ID/Code of the purpose associated to the consent"},
+		{"name": "IDENTIFIER_TYPE_CD", "aliases": ["identifier_type_cd"], "type": ["null", "string"], "doc": "When describing an identifier-bound consent, the identifier type to which it is bound, as returned by the UserProfile"},
+		{"name": "IDENTIFIER_ID", "aliases": ["identifier_id"], "type": ["null", "string"], "doc": "Value of the identifier as returned by the UserProfile"},
+		{"name": "CONSENT_STATUS_CD", "aliases": ["consent_status"], "type": ["null", {"name": "CONSENT_STATUS_CD_ENUM", "type": "enum", "symbols": ["Active", "Latched", "Expired", "Revoked", "Prompted"]}], "doc": "Indicates the content status"},
+		{"name": "CREATION_TM", "aliases": ["creation_time"], "type": ["null", {"type": "string", "logicalType": "datetime"}], "doc": "Date-time of consent initial creation"},
+		{"name": "EXPIRATION_TM", "aliases": ["expiration_time"], "type": ["null", {"type": "string", "logicalType": "datetime"}], "doc": "Date-time of consent expiration (if known)"},
+		{"name": "USER_PROMPTED_TM", "aliases": ["user_prompted_time"], "type": ["null", {"type": "string", "logicalType": "datetime"}], "doc": "Date-time when user was prompted for consent"},
+		{"name": "CHANNEL_ID", "aliases": ["channel"], "type": ["null", "string"], "doc": "Channel ID"},
+		{"name": "NOTIFY_CHANGES", "aliases": ["notify_changes"], "type": "boolean", "default": true, "doc": "Flag indicating if this event will trigger a notification"},
+		{"name": "BRAND_ID", "aliases": ["brand_id"], "type": ["null", "string"], "default": null, "x-fp-join": [{"join_id": "join00001", "field": "GBL_BRAND_ID"}], "doc": "Commercial brand identifier. In order to differentiate among different brands in the same OB (e.g. Movistar, O2, Tuenti...)"},
+		{"name": "TAGS_ARRAY", "aliases": ["tags"], "type": ["null", {"type": "array", "items": {"name": "TAGS_ARRAY_ITEM", "type": "record", "fields": [{"name": "KEY_DES", "aliases": ["key"], "type": "string", "doc": "The key tag"}, {"name": "VALUE_DES", "aliases": ["value"], "type": ["null", "string"], "doc": "The value tag"}]}}], "default": null, "doc": "Tags"},
+    	{"name": "TRIGGERED_BY_DES", "aliases": ["triggered_by"], "type": ["null", "string"], "default": null, "doc": "Name of the process that launched the creation of a consent"},
+		{"name": "KERNEL_APP_ID", "aliases": ["kernel_app_id"], "type": ["null", "string"], "default": null, "doc": "App ID identifier, refering to the client id used when performing an OAuth flow"},
+    	{"name": "DELEGATED_IND", "aliases": ["delegated"], "type": ["null", "boolean"], "default": null, "doc": "Flag indicator to mark if the consent has been delegated to a third party"}
+	]
+}

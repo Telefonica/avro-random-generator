@@ -1,0 +1,529 @@
+{
+  "namespace": "com.plainAVRO",
+  "name": "Consent_Event",
+  "type": "record",
+  "doc": "User Consents Events",
+  "x-fp-version": "5.14.0",
+  "fields": [
+    {
+      "name": "CONSENT_EVENT_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "[a-zA-Z0-9]*",
+          "length": 20
+        }
+      }
+    },
+    {
+      "name": "USER_4P_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "[a-zA-Z0-9]*",
+          "length": 20
+        },
+        "x-fp-user-id": true
+      }
+    },
+    {
+      "name": "EVENT_TM",
+      "type": {
+        "type": "string",
+        "logicalType": "datetime",
+        "arg.properties": {
+          "options": [
+            "2019-01-15T15:53:00",
+            "2019-02-15T15:53:00",
+            "2019-03-15T15:53:00",
+            "2019-04-15T15:53:00",
+            "2019-05-15T15:53:00",
+            "2019-06-15T15:53:00",
+            "2019-07-15T15:53:00",
+            "2019-08-15T15:53:00",
+            "2019-09-15T15:53:00",
+            "2019-10-15T15:53:00",
+            "2019-11-15T15:53:00",
+            "2019-12-15T15:53:00",
+            "2019-01-14T15:53:00",
+            "2019-02-14T15:53:00",
+            "2019-03-14T15:53:00",
+            "2019-04-11T15:53:00",
+            "2019-05-17T15:53:00",
+            "2019-06-18T15:53:00",
+            "2019-07-10T15:53:00",
+            "2019-08-10T15:53:00",
+            "2019-09-11T15:53:00",
+            "2019-10-10T15:53:00",
+            "2019-11-18T15:53:00",
+            "2019-12-17T15:53:00",
+            "2019-01-14T15:53:01",
+            "2019-02-14T15:53:02",
+            "2019-03-14T15:53:03",
+            "2019-04-11T15:53:04",
+            "2019-05-17T15:53:05",
+            "2019-06-18T15:53:06",
+            "2019-07-10T15:53:07",
+            "2019-08-10T15:53:08",
+            "2019-09-11T15:53:09",
+            "2019-10-10T15:53:10",
+            "2019-11-18T15:53:11",
+            "2019-12-17T15:53:08"
+          ]
+        }
+      }
+    },
+    {
+      "name": "EVENT_DT",
+      "type": {
+        "type": "string",
+        "logicalType": "iso-date",
+        "arg.properties": {
+          "options": [
+            "2019-01-15",
+            "2019-02-15",
+            "2019-03-15",
+            "2019-04-15",
+            "2019-05-15",
+            "2019-05-15",
+            "2019-05-15",
+            "2019-06-15",
+            "2019-07-15",
+            "2019-08-15",
+            "2019-09-15",
+            "2019-10-15",
+            "2019-11-15",
+            "2019-12-15",
+            "2019-01-10",
+            "2019-02-10",
+            "2019-03-10",
+            "2019-04-10",
+            "2019-05-10",
+            "2019-05-10",
+            "2019-05-10",
+            "2019-06-10",
+            "2019-07-10",
+            "2019-08-10",
+            "2019-09-10",
+            "2019-10-10",
+            "2019-11-10",
+            "2019-12-10",
+            "2019-01-02",
+            "2019-02-02",
+            "2019-03-02",
+            "2019-04-02",
+            "2019-05-02",
+            "2019-05-02",
+            "2019-05-02",
+            "2019-06-02",
+            "2019-07-02",
+            "2019-08-02",
+            "2019-09-02",
+            "2019-10-02",
+            "2019-11-02",
+            "2019-12-02"
+          ]
+        }
+      }
+    },
+    {
+      "name": "EVENT_HOUR_NUM",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 23
+          }
+        }
+      },
+      "doc": "Hour of the day (0 to 23) of the event (for partitioning purposes). For example, if event_time is 20193006T090243Z, then event_hour must be 9."
+    },
+    {
+      "name": "OPERATION_CD",
+      "type": {
+        "name": "OPERATION_CD_ENUM",
+        "type": "enum",
+        "symbols": [
+          "Upsert",
+          "Delete"
+        ],
+        "arg.properties": {
+          "options": [
+            "Upsert"
+          ]
+        }
+      }
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [
+              "telefonica"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "PURPOSE_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [
+              "consent-purpose-1",
+              "consent-purpose-2",
+              "consent-purpose-3",
+              "consent-purpose-4",
+              "consent-purpose-5",
+              "legitimate-interest-purpose-1",
+              "legitimate-interest-purpose-2",
+              "legitimate-interest-purpose-3",
+              "legitimate-interest-purpose-4",
+              "legitimate-interest-purpose-5",
+              "terms-and-conditions-1",
+              "terms-and-conditions-2",
+              "terms-and-conditions-3",
+              "terms-and-conditions-4",
+              "terms-and-conditions-5",
+              "purpose-invent",
+              ""
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "REASON_DES",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "regex": "[a-zA-Z0-9]*",
+            "length": 20
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "IDENTIFIER_TYPE_CD",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "regex": "[a-zA-Z0-9]*",
+            "length": 20
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "IDENTIFIER_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "regex": "[a-zA-Z0-9]*",
+            "length": 20
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "CONSENT_STATUS_CD",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "CONSENT_STATUS_CD_ENUM",
+          "symbols": [
+            "Active",
+            "Latched",
+            "Expired",
+            "Revoked",
+            "Prompted"
+          ]
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "CREATION_TM",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "datetime",
+          "arg.properties": {
+            "options": [
+              "2019-01-15T15:53:00",
+              "2019-02-15T15:53:00",
+              "2019-03-15T15:53:00",
+              "2019-04-15T15:53:00",
+              "2019-05-15T15:53:00",
+              "2019-06-15T15:53:00",
+              "2019-07-15T15:53:00",
+              "2019-08-15T15:53:00",
+              "2019-09-15T15:53:00",
+              "2019-10-15T15:53:00",
+              "2019-11-15T15:53:00",
+              "2019-12-15T15:53:00",
+              "2019-01-14T15:53:00",
+              "2019-02-14T15:53:00",
+              "2019-03-14T15:53:00",
+              "2019-04-11T15:53:00",
+              "2019-05-17T15:53:00",
+              "2019-06-18T15:53:00",
+              "2019-07-10T15:53:00",
+              "2019-08-10T15:53:00",
+              "2019-09-11T15:53:00",
+              "2019-10-10T15:53:00",
+              "2019-11-18T15:53:00",
+              "2019-12-17T15:53:00",
+              "2019-01-14T15:53:01",
+              "2019-02-14T15:53:02",
+              "2019-03-14T15:53:03",
+              "2019-04-11T15:53:04",
+              "2019-05-17T15:53:05",
+              "2019-06-18T15:53:06",
+              "2019-07-10T15:53:07",
+              "2019-08-10T15:53:08",
+              "2019-09-11T15:53:09",
+              "2019-10-10T15:53:10",
+              "2019-11-18T15:53:11",
+              "2019-12-17T15:53:08"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "EXPIRATION_TM",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "datetime",
+          "arg.properties": {
+            "options": [
+              "2019-01-15T15:53:00",
+              "2019-02-15T15:53:00",
+              "2019-03-15T15:53:00",
+              "2019-04-15T15:53:00",
+              "2019-05-15T15:53:00",
+              "2019-06-15T15:53:00",
+              "2019-07-15T15:53:00",
+              "2019-08-15T15:53:00",
+              "2019-09-15T15:53:00",
+              "2019-10-15T15:53:00",
+              "2019-11-15T15:53:00",
+              "2019-12-15T15:53:00",
+              "2019-01-14T15:53:00",
+              "2019-02-14T15:53:00",
+              "2019-03-14T15:53:00",
+              "2019-04-11T15:53:00",
+              "2019-05-17T15:53:00",
+              "2019-06-18T15:53:00",
+              "2019-07-10T15:53:00",
+              "2019-08-10T15:53:00",
+              "2019-09-11T15:53:00",
+              "2019-10-10T15:53:00",
+              "2019-11-18T15:53:00",
+              "2019-12-17T15:53:00",
+              "2019-01-14T15:53:01",
+              "2019-02-14T15:53:02",
+              "2019-03-14T15:53:03",
+              "2019-04-11T15:53:04",
+              "2019-05-17T15:53:05",
+              "2019-06-18T15:53:06",
+              "2019-07-10T15:53:07",
+              "2019-08-10T15:53:08",
+              "2019-09-11T15:53:09",
+              "2019-10-10T15:53:10",
+              "2019-11-18T15:53:11",
+              "2019-12-17T15:53:08"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "USER_PROMPTED_TM",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "datetime",
+          "arg.properties": {
+            "options": [
+              "2019-01-15T15:53:00",
+              "2019-02-15T15:53:00",
+              "2019-03-15T15:53:00",
+              "2019-04-15T15:53:00",
+              "2019-05-15T15:53:00",
+              "2019-06-15T15:53:00",
+              "2019-07-15T15:53:00",
+              "2019-08-15T15:53:00",
+              "2019-09-15T15:53:00",
+              "2019-10-15T15:53:00",
+              "2019-11-15T15:53:00",
+              "2019-12-15T15:53:00",
+              "2019-01-14T15:53:00",
+              "2019-02-14T15:53:00",
+              "2019-03-14T15:53:00",
+              "2019-04-11T15:53:00",
+              "2019-05-17T15:53:00",
+              "2019-06-18T15:53:00",
+              "2019-07-10T15:53:00",
+              "2019-08-10T15:53:00",
+              "2019-09-11T15:53:00",
+              "2019-10-10T15:53:00",
+              "2019-11-18T15:53:00",
+              "2019-12-17T15:53:00",
+              "2019-01-14T15:53:01",
+              "2019-02-14T15:53:02",
+              "2019-03-14T15:53:03",
+              "2019-04-11T15:53:04",
+              "2019-05-17T15:53:05",
+              "2019-06-18T15:53:06",
+              "2019-07-10T15:53:07",
+              "2019-08-10T15:53:08",
+              "2019-09-11T15:53:09",
+              "2019-10-10T15:53:10",
+              "2019-11-18T15:53:11",
+              "2019-12-17T15:53:08"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "CHANNEL_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "regex": "[a-zA-Z0-9]*",
+            "length": 20
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "NOTIFY_CHANGES",
+      "type": "boolean",
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "BRAND_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [
+              "Movistar",
+              "O2"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    { "name": "TAGS_ARRAY", "aliases": ["tags"], "type": [
+      "null",
+      { "type": "array", "items": {
+        "name": "TAGS_ARRAY_ITEM", "type": "record", "fields": [
+          { "name": "KEY_DES", "aliases": ["key"], "type": "string", "doc": "The key tag" },
+          { "name": "VALUE_DES", "aliases": ["value"], "type": ["null", "string"], "doc": "The value tag" }
+        ]
+      }}
+    ], "default": null, "doc": "Tags"},
+    {
+      "name": "TRIGGERED_BY_DES",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [
+              "trigger"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "KERNEL_APP_ID",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "arg.properties": {
+            "options": [
+              "app-id-1",
+              "app-id-2",
+              "app-id-3"
+            ]
+          }
+        }
+      ],
+      "arg.properties": {
+        "position": 1
+      }
+    },
+    {
+      "name": "DELEGATED_IND",
+      "type": ["null", "boolean"],
+      "arg.properties": {
+        "position": 1
+      }
+    }
+  ]
+}
