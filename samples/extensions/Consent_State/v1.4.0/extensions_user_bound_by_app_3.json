@@ -16,7 +16,7 @@
       "options": [ "telefonica" ]
     }}, "doc": "The legal entity for which the user gave consent to" },
     { "name": "purpose_id", "type": { "type": "string", "arg.properties": {
-      "options": [ "user_bound_by_app_0" ]
+      "options": [ "user_bound_by_app_3" ]
     }}, "doc": "A purpose_id identifies a legal basis for the consent, and restricts the usage of the requested information to the user only for those scenarios covered under the purpose definition" },
     { "name": "identifier", "type": [
       "null"
