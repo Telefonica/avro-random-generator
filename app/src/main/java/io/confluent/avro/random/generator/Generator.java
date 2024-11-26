@@ -1171,10 +1171,10 @@ public class Generator {
     };
   }
 
-  private String hashNumber(BigInteger number) {
+  private String hashNumber(String number) {
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-256");
-      byte[] hash = md.digest(number.toByteArray());
+      byte[] hash = md.digest(number.getBytes());
       StringBuilder hexString = new StringBuilder();
       for (byte b : hash) {
         String hex = Integer.toHexString(0xff & b);
@@ -1206,10 +1206,10 @@ public class Generator {
       @Override
       public Object next() {
         if (numRepeat == 1) {
-          return hashNumber(BigInteger.valueOf((Integer) inner.next()));
+          return hashNumber(inner.next().toString());
         }
         if (count % numRepeat == 0) {
-          currentValue = hashNumber(BigInteger.valueOf((Integer) inner.next()));
+          currentValue = hashNumber(inner.next().toString());
           count = 0;
         }
         count++;
