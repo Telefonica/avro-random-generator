@@ -9,7 +9,7 @@
       "kind": "uuid"
     }},"doc": "Identifier for a consent", "x-fp-unique-constraints": [1] },
     { "name": "user_id", "type": { "type": "string", "x-fp-user-id": true, "arg.properties": {
-      "iteration": { "start": "999999" },
+      "iteration": { "start": "4000000" },
       "hashed": true
     }}, "doc": "The user_id to which the consent applies" },
     { "name": "legal_entity_id", "type": { "type": "string", "arg.properties": {
