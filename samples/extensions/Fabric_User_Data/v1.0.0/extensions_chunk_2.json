@@ -1,0 +1,123 @@
+{
+  "name": "Fabric_User_Data",
+  "x-fp-version": "1.0.0",
+  "namespace": "com.telefonica.baikal.fabric",
+  "x-fp-avro4p-version": "1.5",
+  "type": "record",
+  "doc": "User data",
+  "fields": [
+    { "name": "USER_ID", "type": { "type": "string", "x-fp-user-id": true, "x-fp-data-protection": "pseudonymize", "arg.properties": {
+      "iteration": { "start": "6000000" },
+      "hashed": true,
+      "num_repetitions": 5
+    }}, "doc": "Internal user identifier" },
+    { "name": "PERSONAL_DOC_ID", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+      "regex": "[0-9]{8}[A-Z]{1}",
+      "unique": true
+    }}, "doc": "Personal user identifier" },
+    { "name": "NAME", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+      "length": 16
+    }}, "doc": "User name" },
+    { "name": "AGE", "type": { "type": "int", "arg.properties": {
+      "range": { "min": 18, "max": 99 }
+    }}, "doc": "User age"},
+    { "name": "ACTIVATION_DATE", "type": { "x-fp-time-dimension": "logicalType", "type": "string", "logicalType": "iso-date", "arg.properties": {
+      "range": { "start": "2021-01-01", "end": "2026-01-01" }
+    }}, "doc": "Activation date" },
+    { "name": "SEGMENT_ID", "type": { "type": "int", "arg.properties": {
+      "options": [ 0, 1 ]
+    }}, "doc": "Segment the user belongs to" },
+    { "name": "MOBILE_LINE", "type": {
+      "type": "record", "name": "MOBILE_LINE_RECORD", "fields": [
+        { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+          "iteration": { "start": "630000000" },
+          "prefix": "+34"
+        }}, "doc": "Phone number" },
+        { "name": "IMEI", "type": { "type": "string", "logicalType": "imei", "x-fp-data-protection": "pseudonymize" }, "doc": "IMEI" },
+        { "name": "IMSI", "type": { "type": "string", "logicalType": "imsi", "x-fp-data-protection": "pseudonymize" }, "doc": "IMSI" }
+      ]
+    }, "doc": "User main mobile line" },
+    { "name": "LAND_LINE", "type": {
+      "type": "record", "name": "LAND_LINE_RECORD", "fields": [
+        { "name": "PHONE_NUMBER", "type": { "type": "string", "x-fp-identifier": "phone-number", "logicalType": "phone-number", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+          "iteration": { "start": "830000000" },
+          "prefix": "+34"
+        }}, "doc": "Phone number" },
+        { "name": "IP_ADDRESSES", "type": {
+          "type": "record", "name": "IP_ADDRESSES_RECORD", "fields": [
+            { "name": "IPV4", "type": { "type": "string", "logicalType": "ipv4", "x-fp-data-protection": "pseudonymize" }, "doc": "IPv4 address" },
+            { "name": "IPV6", "type": [
+                "null",
+                { "type": "string", "logicalType": "ipv6", "x-fp-data-protection": "pseudonymize" }
+              ],
+              "arg.properties": {
+                "distribution": {
+                  "0": 0.2,
+                  "1": 0.8
+                }
+              }
+            , "doc": "IPv6 address" }
+          ]
+        }, "doc": "User IP addresses" }
+      ]
+    }, "doc": "Optional user line at home" },
+    { "name": "TV_SERVICES", "type": [
+      "null",
+      {
+        "type": "array", "items": {
+          "type": "record", "name": "TV_SERVICE_RECORD", "fields": [
+            { "name": "TYPE", "type": { "type": "string", "arg.properties": {
+              "options": [ "Movistar+", "Netflix", "Disney+", "DAZN" ]
+            }}, "doc": "Phone number" },
+            { "name": "STATUS", "type": { "type": "enum", "name": "SERVICE_STATUS", "symbols": [ "Activated", "Deactivated" ], "arg.properties": {
+              "options": [ "Activated", "Deactivated" ]
+            }}, "doc": "Service name" },
+            { "name": "PARENTAL_PIN", "type": { "type": "string", "x-fp-data-protection": "pseudonymize" }, "doc": "Service parental control" }
+          ]
+        }
+      }
+    ], "doc": "Optional Services" },
+    { "name": "BILLING_MEANS", "type": [
+      "null",
+      {
+        "type": "map", "x-fp-data-protection": "pseudonymize", "values": {
+          "type": "record", "name": "BILLING_MEAN_RECORD", "fields": [
+            { "name": "TYPE", "type": { "type": "string", "arg.properties": {
+              "options": [ "CreditCard", "IBAN" ]
+            }}, "doc": "Billing type" },
+            { "name": "VALUE", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+              "regex": "[0-9]{16}"
+            }}, "doc": "Billing value" }
+          ]
+        }, "arg.properties": {
+          "length": 2,
+          "unique": true,
+          "keys": { "options": [ "main", "other" ] }
+        }
+      }
+    ], "doc": "Billing means" },
+    { "name": "ADDRESS", "type": {
+      "type": "record", "name": "ADDRESS_RECORD", "fields": [
+        { "name": "STREET", "type": { "type": "string", "x-fp-data-protection": "pseudonymize", "arg.properties": {
+          "length": 20
+        }}, "doc": "Street" },
+        { "name": "ZIP_CODE", "type": { "type": "string", "arg.properties": {
+          "regex": "[0-9]{5}"
+        }}, "doc": "Zip code" },
+        { "name": "COUNTRY", "type": { "type": "string", "logicalType": "country-code-alpha-2", "arg.properties": {
+          "options": [ "ES", "DE", "BR", "GB" ]
+        }}, "doc": "Country" },
+        { "name": "GEO_AREA", "type": { "type": "string", "logicalType": "feature", "arg.properties": {
+          "options": [
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [40.4165, -3.70256]}, \"properties\": {\"name\": \"Madrid\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [41.3851, 2.1734]}, \"properties\": {\"name\": \"Barcelona\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [39.4699, -0.3763]}, \"properties\": {\"name\": \"Valencia\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.263, -2.935]}, \"properties\": {\"name\": \"Bilbao\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [37.3828, -5.9731]}, \"properties\": {\"name\": \"Sevilla\"}}",
+            "{\"type\": \"Feature\", \"geometry\": {\"type\": \"Point\", \"coordinates\": [43.3623, -8.4115]}, \"properties\": {\"name\": \"A Coruña\"}}"
+          ]
+        }}, "doc": "GeoJson-like geographic area" }
+      ]
+    }, "doc": "User address" }
+  ]
+}
