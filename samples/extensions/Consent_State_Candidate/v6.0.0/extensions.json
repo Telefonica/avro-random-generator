@@ -1,0 +1,142 @@
+{
+  "name": "Consent_State",
+  "x-fp-version": "6.0.0",
+  "type": "record",
+  "fields": [
+    {
+      "name": "CONSENT_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "kind": "uuid"
+        }
+      }
+    },
+    {
+      "name": "USER_4P_ID",
+      "type": {
+        "type": "string",
+        "x-fp-user-id": true,
+        "arg.properties": {
+          "iteration": {
+            "start": "${ITERATION_STEP}"
+          }
+        }
+      }
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "qa-gdpr-filter-legal-entity"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PURPOSE_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "qa_purpose_gdpr_filter"
+          ]
+        }
+      }
+    },
+    {
+      "name": "IDENTIFIER_REC",
+      "type": "null"
+    },
+    {
+      "name": "CONSENT_STATUS_CD",
+      "type": {
+        "name": "ConsentStatus",
+        "type": "enum",
+        "arg.properties": {
+          "options": [
+            "Active",
+            "Revoked"
+          ]
+        },
+        "symbols": [
+          "Active",
+          "Latched",
+          "Expired",
+          "Revoked",
+          "Prompted",
+          "Removed"
+        ]
+      }
+    },
+    {
+      "name": "EXPIRATION_TM",
+      "arg.properties": {
+        "position": 0
+      }
+    },
+    {
+      "name": "USER_PROMPTED_TM",
+      "arg.properties": {
+        "position": 0
+      }
+    },
+    {
+      "name": "CHANNEL_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "channel"
+          ]
+        }
+      }
+    },
+    {
+      "name": "BRAND_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "brand"
+          ]
+        }
+      }
+    },
+    {
+      "name": "TRIGGERED_BY_DES",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "trigger"
+          ]
+        }
+      }
+    },
+    {
+      "name": "DELEGATED_IND",
+      "type": {
+        "type": "boolean",
+        "arg.properties": {
+          "options": [
+            false
+          ]
+        }
+      }
+    },
+    {
+      "name": "KERNEL_APP_ID",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "my-app"
+          ]
+        }
+      }
+    }
+  ]
+}
