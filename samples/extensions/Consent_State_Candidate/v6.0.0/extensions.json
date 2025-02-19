@@ -48,7 +48,33 @@
     },
     {
       "name": "IDENTIFIER_REC",
-      "type": "null"
+      "type": ["null", {
+        "type": "record",
+        "name": "IDENTIFIER_REC_RECORD",
+        "fields": [
+          {
+            "name": "IDENTIFIER_TYPE_CD",
+            "type": {
+              "name": "IDENTIFIER_TYPE_CD_ENUM",
+              "type": "enum",
+              "arg.properties": {
+                "options": [
+                  "phone_number"
+                ]
+              },
+              "symbols": [
+                "phone_number", "email", "uid"
+              ]
+            }
+          },
+          {
+            "name": "IDENTIFIER_ID",
+            "type": "string"
+          }
+
+        ]
+
+      }]
     },
     {
       "name": "CONSENT_STATUS_CD",
