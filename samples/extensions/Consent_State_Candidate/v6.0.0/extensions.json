@@ -1,5 +1,6 @@
 {
-  "name": "Consent_State",
+  "name": "Consent_State_Candidate",
+  "namespace": "com.telefonica.urm.Customer.General",
   "x-fp-version": "6.0.0",
   "type": "record",
   "fields": [
@@ -41,7 +42,23 @@
         "type": "string",
         "arg.properties": {
           "options": [
-            "qa_purpose_gdpr_filter"
+            "consent-purpose-1",
+            "consent-purpose-2",
+            "consent-purpose-3",
+            "consent-purpose-4",
+            "consent-purpose-5",
+            "legitimate-interest-purpose-1",
+            "legitimate-interest-purpose-2",
+            "legitimate-interest-purpose-3",
+            "legitimate-interest-purpose-4",
+            "legitimate-interest-purpose-5",
+            "terms-and-conditions-1",
+            "terms-and-conditions-2",
+            "terms-and-conditions-3",
+            "terms-and-conditions-4",
+            "terms-and-conditions-5",
+            "purpose-invent",
+            ""
           ]
         }
       }
@@ -51,11 +68,13 @@
       "type": ["null", {
         "type": "record",
         "name": "IDENTIFIER_REC_RECORD",
+        "namespace": "com.telefonica.urm.Customer.General.Consent_State_Candidate",
         "fields": [
           {
             "name": "IDENTIFIER_TYPE_CD",
             "type": {
               "name": "IDENTIFIER_TYPE_CD_ENUM",
+              "namespace": "com.telefonica.urm.Customer.General.Consent_State_Candidate.IDENTIFIER_REC",
               "type": "enum",
               "arg.properties": {
                 "options": [
@@ -79,7 +98,8 @@
     {
       "name": "CONSENT_STATUS_CD",
       "type": {
-        "name": "ConsentStatus",
+        "name": "CONSENT_STATUS_CD_ENUM",
+        "namespace": "com.telefonica.urm.Customer.General.Consent_State_Candidate",
         "type": "enum",
         "arg.properties": {
           "options": [
@@ -89,12 +109,24 @@
         },
         "symbols": [
           "Active",
-          "Latched",
           "Expired",
           "Revoked",
           "Prompted",
           "Removed"
         ]
+      }
+    },
+    {
+      "name": "CREATION_TM",
+      "type": {
+        "type": "string",
+        "logicalType": "datetime",
+        "arg.properties": {
+          "range": {
+            "start": "2025-01-15T00:00:00Z",
+            "end": "2025-01-31T00:00:00Z"
+          }
+        }
       }
     },
     {
@@ -111,14 +143,14 @@
     },
     {
       "name": "CHANNEL_ID",
-      "type": {
+      "type": ["null", {
         "type": "string",
         "arg.properties": {
           "options": [
             "channel"
           ]
         }
-      }
+      }]
     },
     {
       "name": "BRAND_ID",
@@ -133,14 +165,14 @@
     },
     {
       "name": "TRIGGERED_BY_DES",
-      "type": {
+      "type": ["null", {
         "type": "string",
         "arg.properties": {
           "options": [
             "trigger"
           ]
         }
-      }
+      }]
     },
     {
       "name": "DELEGATED_IND",
@@ -155,14 +187,14 @@
     },
     {
       "name": "KERNEL_APP_ID",
-      "type": {
+      "type": ["null", {
         "type": "string",
         "arg.properties": {
           "options": [
             "my-app"
           ]
         }
-      }
+      }]
     }
   ]
 }

@@ -22,11 +22,11 @@
 		{"name": "CREATION_TM", "aliases": ["creation_date"], "type": {"type": "string", "logicalType": "datetime", "x-fp-time-dimension": "logicalType"}, "doc": "The creation date-time of the consent"},
 		{"name": "EXPIRATION_TM", "aliases": ["expiration_date"], "type": ["null", {"type": "string", "logicalType": "datetime"}], "doc": "The expiration date-time of the consent. Consents that do not expire will have a null value in this field.\n\nA consent with \"Active\" value, even if it is not overwritten, will be considered as \"Expired\" if the expiration date is exceeded."},
 		{"name": "USER_PROMPTED_TM", "aliases": ["user_prompted"], "type": ["null", {"type": "string", "logicalType": "datetime"}], "default": null, "doc": "The date-time of the consent last time that the consent request was shown to the user. If the consent request has never been shown to the user, then null"},
-		{"name": "CHANNEL_ID", "aliases": ["channel"], "type": ["null", "string"], "doc": "Channel identifier. It indicates the channel through which the consent has been captured."},
+		{"name": "CHANNEL_ID", "aliases": ["channel"], "type": ["null", "string"], "default": null, "doc": "Channel identifier. It indicates the channel through which the consent has been captured."},
 		{"name": "REASON_DES", "aliases": ["reason"], "type": ["null", "string"], "default": null, "doc": "Reason description. Free field to convey the reason why the end user granted this consent."},
 		{"name": "BRAND_ID", "aliases": ["brand_id"], "type": "string", "x-fp-join": [{"join_id": "join00002", "field": "GBL_BRAND_ID"}], "doc": "Commercial brand global identifier (codified according to D_Gbl_Brand); in order to differentiate among different brands in the same OB"},
-		{"name": "TRIGGERED_BY_DES", "aliases": ["triggered_by_des"], "type": "string", "doc": "Name of the process that launched the creation of a consent"},
+		{"name": "TRIGGERED_BY_DES", "aliases": ["triggered_by_des"], "type": ["null", "string"], "default": null, "doc": "Name of the process that launched the creation of a consent"},
 		{"name": "DELEGATED_IND", "aliases": ["delegated_ind"], "type": "boolean", "default": false, "doc": "Flag indicator to mark if the consent has been delegated to a third party"},
-		{"name": "KERNEL_APP_ID", "aliases": ["kernel_app_id"], "type": ["null", "string"], "doc": "Identifier (ID) of the Kernel App to whitch the consent is granted. If null, the consent applies to all the legal entity."}
+		{"name": "KERNEL_APP_ID", "aliases": ["kernel_app_id"], "type": ["null", "string"], "default": null, "doc": "Identifier (ID) of the Kernel App to whitch the consent is granted. If null, the consent applies to all the legal entity."}
 	]
 }
